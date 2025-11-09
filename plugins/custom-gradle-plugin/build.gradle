@@ -1,0 +1,56 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'groovy'
+    id 'maven-publish'
+}
+
+group = 'ma.errabi'
+version = '1.0.0'
+
+gradlePlugin {
+    plugins {
+        bootAndDepManagement {
+            id = 'custom.boot-plugin'
+            displayName = 'Small store Boot and Dependency Management Plugin'
+            description = 'A Gradle plugin for managing Spring Boot and dependency management in Small store projects.'
+            implementationClass = 'ma.errabi.plugin.BootAndDependencyManagementPlugin'
+        }
+    }
+}
+ext {
+    springBootPluginVersion = '3.5.7'
+    dependencyManagementPluginVersion = '1.1.7'
+}
+tasks.named('processResources') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = 'ma.errabi.store'
+            artifactId = 'custom-gradle-plugin'
+            version = '1.0.0'
+        }
+    }
+    repositories {
+        maven {
+            name = "GitLabPackages"
+            url = uri("https://gitlab.com/api/v4/projects/75932669/packages/maven")
+            credentials(HttpHeaderCredentials) {
+                name = "Deploy-Token"
+                value = System.getenv('GITLAB_TOKEN')
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
+}

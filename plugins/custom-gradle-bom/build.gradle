@@ -1,0 +1,41 @@
+plugins {
+    id 'java-platform'
+    id 'maven-publish'
+}
+
+javaPlatform {
+    allowDependencies()
+}
+
+dependencies {
+    constraints {
+        api 'org.springframework.boot:spring-boot-starter-webflux:3.5.7'
+        api 'org.springframework.boot:spring-boot-starter-test:3.5.7'
+        api 'org.projectlombok:lombok:1.18.42'
+        api 'org.springframework.boot:spring-boot-devtools:3.5.7'
+    }
+}
+
+publishing {
+    publications {
+        mavenBom(MavenPublication) {
+            from components.javaPlatform
+            groupId = 'ma.errabi.store'
+            artifactId = 'custom-gradle-bom'
+            version = '1.0.0'
+        }
+    }
+    repositories {
+        maven {
+            name = "GitLabPackages"
+            url = uri("https://gitlab.com/api/v4/projects/75932669/packages/maven")
+            credentials(HttpHeaderCredentials) {
+                name = "Deploy-Token"
+                value = System.getenv('GITLAB_TOKEN')
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
+}
