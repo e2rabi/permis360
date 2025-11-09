@@ -1,1 +1,5 @@
 rootProject.name = 'simple-store'
+
+include "plugins:custom-gradle-bom"
+include "plugins:custom-gradle-plugin"
+include "modules:customer-core"
