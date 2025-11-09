@@ -22,7 +22,7 @@ test:
   stage: test
   script:
     - ./gradlew check
-publish:
-  stage: publish
+deploy:
+  stage: deploy
   script:
     - ./gradlew publish
