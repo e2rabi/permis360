@@ -12,6 +12,7 @@ allprojects {
 	}
 
 }
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
