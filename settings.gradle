@@ -1,5 +1,26 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        maven {
+            name = "GitLabPackages"
+            url = uri("https://gitlab.com/api/v4/projects/75932669/packages/maven")
+            credentials(HttpHeaderCredentials) {
+                name = "Deploy-Token"
+                value = System.getenv('GITLAB_TOKEN')
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
+}
 rootProject.name = 'simple-store'
+
 
 include "plugins:custom-gradle-bom"
 include "plugins:custom-gradle-plugin"
 include "modules:customer-core"
+//includeBuild('plugins/custom-gradle-plugin')
+
+
