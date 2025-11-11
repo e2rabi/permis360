@@ -15,12 +15,11 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'simple-store'
-
-
+rootProject.name = 'siyaka-pro'
 include "plugins:custom-gradle-bom"
 include "plugins:custom-gradle-plugin"
 include "modules:customer-core"
+include "modules:appointment-core"
 //includeBuild('plugins/custom-gradle-plugin')
 
 
