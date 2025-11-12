@@ -5,7 +5,7 @@
    /\ \L\ \ \_\ \__`\ \ \   \ \ \/\ \ \ \\`\ \ \ \/\ \/\______\\ \ \/  \ \ \\ \\ \ \_\ \
    \ `\____\/\_____\ \ \_\   \ \_\ \_\ \_\ \_\\ \_\ \_\/______/ \ \_\   \ \_\ \_\ \_____\
     \/_____/\/_____/  \/_/    \/_/\/_/\/_/\/_/ \/_/\/_/          \/_/    \/_/\/ /\/_____/
-                                                                            Customer Core
+                                                                            School Service
 Spring Boot version: ${spring-boot.version}
 Spring Boot version formatted: ${spring-boot.formatted-version}
 

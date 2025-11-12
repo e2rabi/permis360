@@ -6,6 +6,7 @@ plugins {
 dependencies {
 	implementation platform(project(':plugins:custom-gradle-bom'))
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
