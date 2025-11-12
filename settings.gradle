@@ -18,8 +18,12 @@ pluginManagement {
 rootProject.name = 'siyaka-pro'
 include "plugins:custom-gradle-bom"
 include "plugins:custom-gradle-plugin"
-include "modules:customer-core"
-include "modules:appointment-core"
+include "modules:customer-service"
+include "modules:appointment-service"
+include "modules:school-service"
+include "modules:learning-service"
+include "modules:payment-service"
+include "modules:notification-service"
 //includeBuild('plugins/custom-gradle-plugin')
 
 
