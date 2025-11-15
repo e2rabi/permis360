@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-service-deployment
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer-service
+  template:
+    metadata:
+      labels:
+        type: backend
+        app: customer-service
+    spec:
+      containers:
+        - image: e2rabi11/customer-service:latest
+          name: customer-service
+          ports:
+            - containerPort: 8081
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "500m"
+            limits:
+              memory: "250Mi"
+              cpu: "1"
