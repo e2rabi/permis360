@@ -12,9 +12,9 @@ spec:
         cpu: 500m
         memory: 250Mi
       max:
-        cpu: 500m
-        memory: 250Mi
+        cpu: 1000m
+        memory: 500Mi
       min:
-        cpu: 250m
-        memory: 250Mi
+        cpu: 500m
+        memory: 200Mi
       type: Container
