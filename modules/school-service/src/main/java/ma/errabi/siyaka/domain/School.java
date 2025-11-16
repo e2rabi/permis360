@@ -2,6 +2,8 @@ package ma.errabi.siyaka.domain;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import ma.errabi.siyaka.type.SchoolStatus;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -10,6 +12,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
+@Getter
+@Setter
 @DynamicUpdate
 public class School {
     @Id
