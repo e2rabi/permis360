@@ -4,7 +4,7 @@ metadata:
   name: customer-service-deployment
   namespace: dev
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: customer-service
