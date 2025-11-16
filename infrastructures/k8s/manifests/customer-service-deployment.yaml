@@ -15,7 +15,7 @@ spec:
         app: customer-service
     spec:
       containers:
-        - image: e2rabi11/customer-service:latest
+        - image: e2rabi11/customer-service:0.1.0-SNAPSHOT
           name: customer-service
           ports:
             - containerPort: 8081
