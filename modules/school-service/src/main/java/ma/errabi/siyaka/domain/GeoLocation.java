@@ -2,9 +2,15 @@ package ma.errabi.siyaka.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
-public class GeoLocation {
+@Getter
+@Setter
+@DynamicUpdate
+public class GeoLocation extends BaseEntity{
     @Id
     private Long id;
     private double latitude;

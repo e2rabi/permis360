@@ -2,20 +2,20 @@ package ma.errabi.siyaka.domain;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ma.errabi.siyaka.type.SchoolStatus;
-import org.hibernate.annotations.CreationTimestamp;
+import ma.errabi.types.SchoolStatus;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.sql.Timestamp;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @DynamicUpdate
-public class School {
+public class School extends BaseEntity {
     @Id
     private Long id;
     private String name;
@@ -32,13 +32,4 @@ public class School {
     private GeoLocation geoLocation ;
     private String phoneNumber1;
     private String phoneNumber2;
-
-    @CreationTimestamp
-    @Column(updatable = false)
-    protected Timestamp createdDate;
-
-    @UpdateTimestamp
-    protected Timestamp lastModifiedDate;
-    @Column(columnDefinition = "integer DEFAULT 0", nullable = false)
-    private long version ;
 }
