@@ -26,5 +26,8 @@ spec:
             limits:
               memory: "250Mi"
               cpu: "1"
+          securityContext:
+             seccompProfile:
+               type: RuntimeDefault
       imagePullSecrets:
         - name: dockerhub-secret
