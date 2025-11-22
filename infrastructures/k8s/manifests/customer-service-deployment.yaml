@@ -26,5 +26,7 @@ spec:
             limits:
               memory: "250Mi"
               cpu: "1"
+          securityContext:
+            privileged: true
       imagePullSecrets:
         - name: dockerhub-secret
