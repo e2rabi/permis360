@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: school-service-deployment
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: school-service
+  template:
+    metadata:
+      labels:
+        type: backend
+        app: school-service
+    spec:
+      containers:
+        - image: e2rabi11/school-service:0.1.0-SNAPSHOT
+          name: school-service
+          ports:
+            - containerPort: 8081
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "500m"
+            limits:
+              memory: "250Mi"
+              cpu: "1"
+      imagePullSecrets:
+        - name: dockerhub-secret

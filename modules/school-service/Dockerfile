@@ -5,7 +5,7 @@ FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
 # Copy the built jar file from the host to the container
-COPY build/libs/customer-core-0.1.0-SNAPSHOT.jar app.jar
+COPY build/libs/school-service-0.1.0-SNAPSHOT.jar app.jar
 
 # Expose the port the application will run on
 EXPOSE 8080
