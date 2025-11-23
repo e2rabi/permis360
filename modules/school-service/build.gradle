@@ -8,6 +8,7 @@ dependencies {
 	implementation platform(project(':plugins:custom-gradle-bom'))
 
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -21,4 +22,9 @@ dependencies {
 	annotationProcessor 'org.mapstruct:mapstruct-processor'
 	// Lombok + MapStruct binding (required)
 	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding'
+	// H2 Database (for tests)
+	runtimeOnly("com.h2database:h2")
+
+	implementation 'org.flywaydb:flyway-core'
+
 }
