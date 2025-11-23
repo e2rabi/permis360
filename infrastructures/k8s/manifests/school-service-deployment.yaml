@@ -4,7 +4,7 @@ metadata:
   name: school-service-deployment
   namespace: dev
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: school-service
