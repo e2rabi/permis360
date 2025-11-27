@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: customer-service-deployment
   namespace: dev
+  annotations:
+    argo-cd.argoproj.io/sync-wave: "3"
 spec:
   replicas: 1
   selector:
