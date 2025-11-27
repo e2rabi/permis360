@@ -21,5 +21,18 @@ spec:
           name: school-service
           ports:
             - containerPort: 8081
+          imagePullPolicy: Always
+          securityContext:
+              runAsNonRoot: true
+              readOnlyRootFilesystem: true
+              seccompProfile:
+                type: RuntimeDefault
+          resources:
+             requests:
+                memory: "500Mi"
+                cpu: "500m"
+             limits:
+                memory: "500Mi"
+                cpu: "1000m"
       imagePullSecrets:
         - name: dockerhub-secret
