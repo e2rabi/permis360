@@ -21,12 +21,5 @@ spec:
           name: school-service
           ports:
             - containerPort: 8081
-          resources:
-            requests:
-              memory: "200Mi"
-              cpu: "500m"
-            limits:
-              memory: "250Mi"
-              cpu: "1"
       imagePullSecrets:
         - name: dockerhub-secret
