@@ -23,6 +23,7 @@ spec:
             - containerPort: 8081
           imagePullPolicy: Always
           securityContext:
+              runAsUser: 1001
               runAsNonRoot: true
               readOnlyRootFilesystem: true
               seccompProfile:
