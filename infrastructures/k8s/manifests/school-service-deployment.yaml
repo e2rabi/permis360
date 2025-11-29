@@ -17,7 +17,7 @@ spec:
         app: school-service
     spec:
       containers:
-        - image: e2rabi11/school-service:0.1.0-SNAPSHOT
+        - image: e2rabi11/school-service:0.1.1-SNAPSHOT
           name: school-service
           ports:
             - containerPort: 8080
