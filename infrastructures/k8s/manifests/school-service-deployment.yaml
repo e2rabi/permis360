@@ -20,7 +20,7 @@ spec:
         - image: e2rabi11/school-service:0.1.0-SNAPSHOT
           name: school-service
           ports:
-            - containerPort: 8081
+            - containerPort: 8080
           imagePullPolicy: Always
           securityContext:
               runAsUser: 1001
