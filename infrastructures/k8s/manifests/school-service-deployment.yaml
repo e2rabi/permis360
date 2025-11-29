@@ -35,5 +35,12 @@ spec:
              limits:
                 memory: "500Mi"
                 cpu: "1000m"
+          volumeMounts:
+            - name: tmp-volume
+              mountPath: /tmp
+              readOnly: false
+      volumes:
+        - name: tmp-volume
+          emptyDir: { }
       imagePullSecrets:
         - name: dockerhub-secret
