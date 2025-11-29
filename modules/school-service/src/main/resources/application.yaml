@@ -25,3 +25,8 @@ spring:
     console:
       enabled: true
       path: /h2-console
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
