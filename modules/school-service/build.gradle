@@ -1,7 +1,8 @@
 plugins {
 	id 'ma.errabi.build-plugin' version '1.0.0'
-}
+	id 'com.google.cloud.tools.jib' version '3.4.0'
 
+}
 dependencies {
 	annotationProcessor platform(project(':plugins:custom-gradle-bom'))
 	implementation project(":sdk:sdk-common")

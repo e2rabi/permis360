@@ -18,7 +18,7 @@ dependencies {
         api 'org.projectlombok:lombok:1.18.32'
         api 'org.mapstruct:mapstruct:1.5.5.Final'
         api 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
-        api 'com.h2database:h2:2.1.214'
+        api 'com.h2database:h2:2.2.220'
         api 'org.flywaydb:flyway-core:9.22.0'
         api 'jakarta.validation:jakarta.validation-api:3.0.2'
         api 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
