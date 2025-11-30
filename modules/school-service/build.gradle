@@ -3,6 +3,14 @@ plugins {
 	id 'com.google.cloud.tools.jib' version '3.4.0'
 
 }
+jib {
+	from {
+		image = 'eclipse-temurin:21-jre-alpine'
+	}
+	  to {
+		image = 'index.docker.io/e2rabi11/school-service:0.1.1-SNAPSHOT'
+	}
+}
 dependencies {
 	annotationProcessor platform(project(':plugins:custom-gradle-bom'))
 	implementation project(":sdk:sdk-common")

@@ -1,79 +1,80 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: build-image-gitlab
+spec:
+  entrypoint: build-image
+  serviceAccountName: argo-workflow
 
-  apiVersion: argoproj.io/v1alpha1
-  kind: Workflow
-  metadata:
-    name: build-image-gitlab
-  spec:
-    entrypoint: build-image
-    serviceAccountName: argo-workflow
+  templates:
+    - name: build-image
+      steps:
+        - - name: clone
+            template: git-clone
+        - - name: jib-build
+            template: jib
+            arguments:
+              artifacts:
+                - name: repo
+                  from: "{{steps.clone.outputs.artifacts.repo}}"
 
-    templates:
-      - name: build-image
-        steps:
-          - - name: clone
-              template: git-clone
-          - - name: jib-build
-              template: jib
-              arguments:
-                artifacts:
-                  - name: repo
-                    from: "{{steps.clone.outputs.artifacts.repo}}"
+    - name: git-clone
+      inputs:
+        artifacts:
+          - name: repo
+            path: /src
+            git:
+              repo: "https://gitlab.com/e2rabi1/siyaka-pro.git"
+              revision: dev
+              usernameSecret:
+                name: gitlab-credentials
+                key: username
+              passwordSecret:
+                name: gitlab-credentials
+                key: password
+      container:
+        image: alpine/git
+        command: [sh, "-c"]
+        args:
+          - echo "Repository cloned by Argo Git Artifact"
+      outputs:
+        artifacts:
+          - name: repo
+            path: /src
 
-      - name: git-clone
-        inputs:
-          artifacts:
-            - name: repo
-              path: /src
-              git:
-                repo: "https://gitlab.com/e2rabi1/siyaka-pro.git"
-                revision: dev
-                usernameSecret:
-                  name: gitlab-credentials
-                  key: username
-                passwordSecret:
-                  name: gitlab-credentials
-                  key: password
-        container:
-          image: alpine/git
-          command: [sh, "-c"]
-          args:
-            - echo "Repository cloned by Argo Git Artifact"
-        outputs:
-          artifacts:
-            - name: repo
-              path: /src
+    - name: jib
+      inputs:
+        artifacts:
+          - name: repo
+            path: /workspace
+      container:
+        image: gradle:8.6-jdk21
+        command: [sh, "-c"]
+        args:
+          - |
+            set -e
+            cd /workspace || exit 1
+            # Prefer the wrapper and run the project-scoped task so Gradle knows which subproject to execute
+            if [ -f ./gradlew ]; then
+              chmod +x ./gradlew || true
+              ./gradlew :modules:school-service:jib --image=index.docker.io/e2rabi11/school-service:0.1.1-SNAPSHOT --no-daemon
+            else
+              # fallback to the container's gradle binary
+              gradle :modules:school-service:jib --image=index.docker.io/e2rabi11/school-service:0.1.1-SNAPSHOT --no-daemon
+            fi
+        env:
+          - name: DOCKER_CONFIG
+            value: /home/gradle/.docker
+        volumeMounts:
+          - name: docker-config
+            mountPath: /home/gradle/.docker/config.json
+            subPath: config.json
+            readOnly: true
 
-      - name: jib
-        inputs:
-          artifacts:
-            - name: repo
-              path: /workspace
-        container:
-          image: gradle:8.6-jdk21
-          command: [sh, "-c"]
-          args:
-            - |
-              set -e
-              cd /workspace/modules/school-service || exit 1
-              if [ -f ./gradlew ]; then
-                chmod +x ./gradlew || true
-                ./gradlew jib --image=index.docker.io/e2rabi11/school-service:0.1.1-SNAPSHOT --no-daemon
-              else
-                gradle jib --image=index.docker.io/e2rabi11/school-service:0.1.1-SNAPSHOT --no-daemon
-              fi
-          env:
-            - name: DOCKER_CONFIG
-              value: /home/gradle/.docker
-          volumeMounts:
-            - name: docker-config
-              mountPath: /home/gradle/.docker/config.json
-              subPath: config.json
-              readOnly: true
-
-    volumes:
-      - name: docker-config
-        secret:
-          secretName: registry-secret
-          items:
-            - key: .dockerconfigjson
-              path: config.json
+  volumes:
+    - name: docker-config
+      secret:
+        secretName: registry-secret
+        items:
+          - key: .dockerconfigjson
+            path: config.json
