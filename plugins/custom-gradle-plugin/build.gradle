@@ -4,13 +4,9 @@ plugins {
     id 'maven-publish'
     id 'com.google.cloud.tools.jib' version '3.4.0'
 }
-jib {
-    from {
-        image = 'eclipse-temurin:21-jre'
-    }
-}
+
 group = 'ma.errabi'
-version = '1.0.4'
+version = '1.0.5'
 repositories {
     gradlePluginPortal()
     mavenCentral()

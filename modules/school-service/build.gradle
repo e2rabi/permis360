@@ -1,14 +1,7 @@
 plugins {
-	id 'ma.errabi.build-plugin' version '1.0.4'
+	id 'ma.errabi.build-plugin' version '1.0.5'
 }
-jib {
-	from {
-		image = 'eclipse-temurin:21-jre-alpine'
-	}
-	to {
-		image = "index.docker.io/e2rabi11/school-service:${project.version}"
-	}
-}
+
 dependencies {
 	annotationProcessor platform(project(':plugins:custom-gradle-bom'))
 	implementation project(":sdk:sdk-common")
