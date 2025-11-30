@@ -57,7 +57,7 @@ spec:
             # Prefer the wrapper and run the project-scoped task so Gradle knows which subproject to execute
             if [ -f ./gradlew ]; then
               chmod +x ./gradlew || true
-              ./gradlew :modules:school-service:jib --image=index.docker.io/e2rabi11/school-service:0.1.1-SNAPSHOT --no-daemon
+              ./gradlew jib --no-daemon
             else
               # fallback to the container's gradle binary
               gradle :modules:school-service:jib --image=index.docker.io/e2rabi11/school-service:0.1.1-SNAPSHOT --no-daemon
