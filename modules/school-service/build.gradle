@@ -1,5 +1,5 @@
 plugins {
-	id 'ma.errabi.build-plugin' version '1.0.3'
+	id 'ma.errabi.build-plugin' version '1.0.4'
 }
 dependencies {
 	annotationProcessor platform(project(':plugins:custom-gradle-bom'))
