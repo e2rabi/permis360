@@ -1,15 +1,5 @@
 plugins {
-	id 'ma.errabi.build-plugin' version '1.0.0'
-	id 'com.google.cloud.tools.jib' version '3.4.0'
-
-}
-jib {
-	from {
-		image = 'eclipse-temurin:21-jre-alpine'
-	}
-	  to {
-		image = 'index.docker.io/e2rabi11/school-service:0.1.1-SNAPSHOT'
-	}
+	id 'ma.errabi.build-plugin' version '1.0.3'
 }
 dependencies {
 	annotationProcessor platform(project(':plugins:custom-gradle-bom'))

@@ -2,10 +2,11 @@ plugins {
     id 'java'
     id 'java-gradle-plugin'
     id 'maven-publish'
+    id 'com.google.cloud.tools.jib' version '3.4.0'
 }
 
 group = 'ma.errabi'
-version = '1.0.0'
+version = '1.0.3'
 repositories {
     gradlePluginPortal()
     mavenCentral()
@@ -13,6 +14,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-gradle-plugin:3.5.7")
+    implementation("com.google.cloud.tools:jib-gradle-plugin:3.4.0")
 }
 gradlePlugin {
     plugins {
