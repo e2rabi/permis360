@@ -2,6 +2,7 @@ package ma.errabi.siyaka.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ma.errabi.types.LessonStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

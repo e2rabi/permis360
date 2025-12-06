@@ -1,4 +1,4 @@
-package ma.errabi.siyaka.domain;
+package ma.errabi.types;
 
 public enum LessonStatus {
     AVAILABLE,

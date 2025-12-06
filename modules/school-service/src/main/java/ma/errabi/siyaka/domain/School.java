@@ -1,7 +1,7 @@
 package ma.errabi.siyaka.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +11,7 @@ import ma.errabi.types.SchoolStatus;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -20,8 +21,9 @@ import java.util.List;
 @DynamicUpdate
 public class School extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private UUID id;
     private String name;
     private String address;
     private String email;
@@ -32,12 +34,12 @@ public class School extends BaseEntity {
     private String instagram;
     @Enumerated(EnumType.STRING)
     private SchoolStatus status;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private GeoLocation geoLocation ;
     @Column(unique = true)
-    private String phoneNumber1;
+    private String primaryPhoneNumber;
     @Column(unique = true)
-    private String phoneNumber2;
+    private String secondaryPhoneNumber;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)

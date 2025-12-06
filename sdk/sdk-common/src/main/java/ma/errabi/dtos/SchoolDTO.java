@@ -9,9 +9,12 @@ import jakarta.validation.constraints.Size;
 import ma.errabi.types.SchoolStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.List;
+import java.util.UUID;
+
 public record SchoolDTO(
         @JsonIgnore
-        Long id,
+        UUID id,
         @Schema(description = "Name of the school", example = "Demo school")
         @NotBlank String name,
         @Schema(description = "Address of the school", example = "Sidi maarouf , Casablanca Morocco")
@@ -36,6 +39,11 @@ public record SchoolDTO(
         @Schema(description = "Primary phone number of the school", example = "+212600000000")
         String primaryPhoneNumber,
         @Schema(description = "Secondary phone number of the school", example = "+212600000001")
-        String secondaryPhoneNumber
+        String secondaryPhoneNumber,
+        @Schema(description = "List of students of the school")
+        List<StudentDTO> students,
+        @Schema(description = "List of instructors of the school")
+        List<InstructorDTO> instructors
+
 ) {
 }
