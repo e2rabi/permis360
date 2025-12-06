@@ -15,5 +15,4 @@ public class GeoLocation extends BaseEntity{
     private Long id;
     private double latitude;
     private double longitude;
-
 }
