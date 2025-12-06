@@ -16,9 +16,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
-@DynamicUpdate
+@Table(name = "schools")
 public class School extends BaseEntity {
     @Id
     @GeneratedValue
@@ -26,6 +27,7 @@ public class School extends BaseEntity {
     private UUID id;
     private String name;
     private String address;
+    @Column(unique = true)
     private String email;
     private String website;
     private String logo;

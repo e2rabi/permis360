@@ -8,6 +8,8 @@ import ma.errabi.siyaka.repository.SchoolRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static java.util.Objects.requireNonNull;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -25,5 +27,15 @@ public class SchoolService {
         return savedDto;
     }
 
+    @Transactional(readOnly = true)
+    public SchoolDTO getSchoolByEmail(String email) {
+        requireNonNull(email, "email must not be null");
+        log.info("Fetching School by email: {}", email);
+        var schoolEntity = schoolRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("School not found with email: " + email));
+        var schoolDTO = schoolMapper.toDto(schoolEntity);
+        log.debug("Fetched School: {}", schoolDTO);
+        return schoolDTO;
+    }
 
 }

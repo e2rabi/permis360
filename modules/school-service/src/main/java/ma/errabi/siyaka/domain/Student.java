@@ -2,6 +2,7 @@ package ma.errabi.siyaka.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import ma.errabi.types.StudentStatus;
@@ -13,16 +14,17 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "students")
 @Getter
 @Setter
 @Builder
 @DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "students")
 public class Student extends BaseEntity{
     @Id
     @GeneratedValue
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID id;
 
     private String firstName;
