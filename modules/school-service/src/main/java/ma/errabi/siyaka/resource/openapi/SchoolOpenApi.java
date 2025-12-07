@@ -5,9 +5,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import ma.errabi.dtos.SchoolDTO;
+import ma.errabi.dtos.StudentDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.UUID;
 
 public interface SchoolOpenApi {
 
@@ -26,4 +31,13 @@ public interface SchoolOpenApi {
             @ApiResponse(responseCode = "400", description = "Bad request")
     })
     ResponseEntity<SchoolDTO> getSchoolByEmail(@PathVariable String email) ;
+
+    @Operation(summary = "Create a student", description = "Creates a new student and returns the created student")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Student created",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = StudentDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad request")
+    })
+    ResponseEntity<StudentDTO> createStudent(@RequestBody @Valid StudentDTO request, @PathVariable UUID schoolId);
+
 }
