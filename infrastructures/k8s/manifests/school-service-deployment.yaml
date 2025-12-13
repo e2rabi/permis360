@@ -27,6 +27,7 @@ spec:
               runAsUser: 1001
               runAsNonRoot: true
               readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
               seccompProfile:
                 type: RuntimeDefault
           resources:
