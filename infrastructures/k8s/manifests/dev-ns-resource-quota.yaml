@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-ns-resource-quota
+  namespace: dev
+spec:
+  hard:
+    requests.cpu: "1"
+    requests.memory: "1Gi"
+    limits.cpu: "2"
+    limits.memory: "2Gi"
+    configmaps: "4"
+    persistentvolumeclaims: "4"
+    pods: "4"
+    secrets: "4"
+    services: "4"
