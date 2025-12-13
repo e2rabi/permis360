@@ -16,6 +16,7 @@ spec:
         type: backend
         app: school-service
     spec:
+      automountServiceAccountToken: false
       containers:
         - image: e2rabi11/school-service:0.1.2-SNAPSHOT
           name: school-service
