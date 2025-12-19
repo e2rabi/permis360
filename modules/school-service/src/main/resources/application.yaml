@@ -30,3 +30,9 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui/index.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
