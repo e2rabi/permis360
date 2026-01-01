@@ -19,6 +19,7 @@ rootProject.name = 'siyaka-pro'
 include "plugins:custom-gradle-bom"
 include "plugins:custom-gradle-plugin"
 include "modules:school-service"
+include "modules:appointment-service"
 include "sdk:sdk-common"
 //includeBuild('plugins/custom-gradle-plugin')
 
