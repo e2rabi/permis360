@@ -18,7 +18,7 @@ spec:
     spec:
       automountServiceAccountToken: false
       containers:
-        - image: e2rabi11/school-service:0.1.2-SNAPSHOT
+        - image: e2rabi11/school-service:0.1.4-SNAPSHOT
           name: school-service
           ports:
             - containerPort: 8080
