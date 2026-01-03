@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
-  labels:
-    app: postgres
   namespace: dev
+  annotations:
+    pod-security.kubernetes.io/enforce: baseline
 spec:
   replicas: 1
   selector:
@@ -15,32 +15,27 @@ spec:
       labels:
         app: postgres
     spec:
+      securityContext:
+        fsGroup: 1001
       containers:
         - name: postgres
-          image: mirror.gcr.io/postgres:17
+          image: bitnami/postgresql:latest
           securityContext:
-            runAsUser: 1003
             runAsNonRoot: true
-            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
-            seccompProfile:
-              type: RuntimeDefault
           env:
-            - name: POSTGRES_USER
-              value: "keycloak"
-            - name: POSTGRES_PASSWORD
-              value: "keycloak"
-            - name: POSTGRES_DB
-              value: "keycloak"
-            - name: POSTGRES_LOG_STATEMENT
-              value: "all"
+            - name: POSTGRESQL_USERNAME
+              value: keycloak
+            - name: POSTGRESQL_PASSWORD
+              value: keycloak
+            - name: POSTGRESQL_DATABASE
+              value: keycloak
           ports:
-            - name: postgres
-              containerPort: 5432
+            - containerPort: 5432
           volumeMounts:
-            # Using volume mount for PostgreSQL's data folder as it is otherwise not writable
             - name: postgres-data
-              mountPath: /var/lib/postgresql/data
+              mountPath: /bitnami/postgresql
       volumes:
         - name: postgres-data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: db-pvc-volume

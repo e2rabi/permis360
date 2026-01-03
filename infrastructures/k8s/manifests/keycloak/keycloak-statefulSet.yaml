@@ -98,9 +98,9 @@ spec:
             periodSeconds: 10
             failureThreshold: 3
           resources:
-            limits:
-              cpu: 2000m
-              memory: 2000Mi
             requests:
               cpu: 500m
-              memory: 1700Mi
+              memory: 256Mi
+            limits:
+              cpu: 1
+              memory: 500Mi
