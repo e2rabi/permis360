@@ -1,7 +1,22 @@
+
 spring:
   application:
     name: school-service
-
+  security:
+    oauth2:
+      resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
+        jwt:
+          issuer-uri: http://localhost:8080/realms/api-core
+      client: # OAuth2 Client Configuration used for outgoing requests
+        registration:
+          keycloak:
+            client-id: siyaka-client
+            scope: openid,profile,email
+            client-secret: RgxUa9qvjDXXbs5MsnH7vUqnszoye0bI
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/api-core
   # H2 Database Configuration
   datasource:
     driverClassName: org.h2.Driver
@@ -36,3 +51,5 @@ management:
     web:
       exposure:
         include: "*"
+server:
+  port: 8081
