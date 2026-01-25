@@ -19,7 +19,7 @@ public record SchoolDTO(
         @NotBlank String name,
         @Schema(description = "Address of the school", example = "Sidi maarouf , Casablanca Morocco")
         @NotBlank String address,
-        @Schema(description = "Email of the school", example = "<EMAIL>")
+        @Schema(description = "Email of the school", example = "errabi.ayoub@gmail.com")
         @Email @NotBlank String email,
         @Schema(description = "Website of the school", example = "https://www.demo.ma")
         @Size(max = 255) String website,

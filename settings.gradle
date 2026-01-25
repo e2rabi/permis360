@@ -15,7 +15,7 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'siyaka-pro'
+rootProject.name = 'AutoEcoleDigitale'
 include "plugins:custom-gradle-bom"
 include "plugins:custom-gradle-plugin"
 include "modules:school-service"

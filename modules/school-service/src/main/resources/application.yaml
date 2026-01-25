@@ -45,6 +45,9 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui/index.html
+    oauth:
+      client-id: siyaka-client
+      client-secret: RgxUa9qvjDXXbs5MsnH7vUqnszoye0bI
 
 management:
   endpoints:
