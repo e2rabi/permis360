@@ -15,7 +15,7 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'AutoEcoleDigitale'
+rootProject.name = 'autoecole-platform'
 include "plugins:custom-gradle-bom"
 include "plugins:custom-gradle-plugin"
 include "modules:school-service"
