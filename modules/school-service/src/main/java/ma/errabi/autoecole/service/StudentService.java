@@ -3,7 +3,7 @@ package ma.errabi.autoecole.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.errabi.dtos.StudentDTO;
+import ma.errabi.sdk.dto.StudentDTO;
 import ma.errabi.autoecole.mapper.StudentMapper;
 import ma.errabi.autoecole.repository.SchoolRepository;
 import ma.errabi.autoecole.repository.StudentRepository;

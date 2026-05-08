@@ -1,12 +1,10 @@
-package ma.errabi.dtos;
+package ma.errabi.sdk.dto;
 
-import ma.errabi.types.StudentStatus;
+import ma.errabi.sdk.types.StudentStatus;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public record StudentDTO(
-    UUID id,
     String firstName,
     String lastName,
     String phone,
@@ -15,4 +13,8 @@ public record StudentDTO(
     Double totalAmount,
     Double paidAmount,
     StudentStatus status
-) {}
+) {
+    public String fullName(){
+        return firstName + " " + lastName;
+    }
+}

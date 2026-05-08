@@ -3,7 +3,7 @@ package ma.errabi.autoecole.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import ma.errabi.types.PaymentMethod;
+import ma.errabi.sdk.types.PaymentMethod;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;

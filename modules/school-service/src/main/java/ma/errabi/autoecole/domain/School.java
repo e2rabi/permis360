@@ -7,10 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ma.errabi.types.SchoolStatus;
+import ma.errabi.sdk.types.SchoolStatus;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -45,9 +46,9 @@ public class School extends BaseEntity {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Student> students;
+    private Set<Student> students;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Instructor> instructors;
+    private Set<Instructor> instructors;
 }

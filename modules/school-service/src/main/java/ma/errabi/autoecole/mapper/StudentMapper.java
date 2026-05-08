@@ -1,6 +1,6 @@
 package ma.errabi.autoecole.mapper;
 
-import ma.errabi.dtos.StudentDTO;
+import ma.errabi.sdk.dto.StudentDTO;
 import ma.errabi.autoecole.domain.Student;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

@@ -2,13 +2,14 @@ package ma.errabi.autoecole.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.errabi.dtos.SchoolDTO;
+import ma.errabi.sdk.dto.SchoolDTO;
 import ma.errabi.autoecole.mapper.SchoolMapper;
 import ma.errabi.autoecole.repository.SchoolRepository;
+import ma.errabi.sdk.exception.BusinessException;
+import ma.errabi.sdk.exception.ResourceNotFoundException;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static java.util.Objects.requireNonNull;
 
 @Slf4j
 @Service
@@ -16,21 +17,24 @@ import static java.util.Objects.requireNonNull;
 public class SchoolService {
 
     private final SchoolRepository schoolRepository;
-    private final SchoolMapper schoolMapper;
+    private final SchoolMapper mapper;
 
     /**
      * Saves a School.
      *
-     * @param schoolDTO the School data to save
-     * @return the saved School data
+     * @param request the School request to create
+     * @return the created School object
      */
     @Transactional
-    public SchoolDTO saveSchool(SchoolDTO schoolDTO) {
-        log.info("Saving School: {}", schoolDTO);
-        var savedEntity = schoolRepository.save(schoolMapper.toEntity(schoolDTO));
-        var savedDto = schoolMapper.toDto(savedEntity);
-        log.debug("Saved School with id={}", savedDto.id());
-        return savedDto;
+    public SchoolDTO saveSchool(SchoolDTO request) {
+        log.info("Start creating new School: {}", request);
+        if (schoolRepository.findByEmail(request.email()).isPresent()) {
+            log.error("School already exists with email: {}", request.email());
+            throw new BusinessException("School already exists with email: " + request.email());
+        }
+        var response = mapper.toDto(schoolRepository.save(mapper.toEntity(request)));
+        log.debug("Created School with id={}", response.id());
+        return response;
     }
 
     /**
@@ -41,14 +45,12 @@ public class SchoolService {
      * @throws RuntimeException if no School is found with the given email
      */
     @Transactional(readOnly = true)
-    public SchoolDTO getSchoolByEmail(String email) {
-        requireNonNull(email, "email must not be null");
-        log.info("Fetching School by email: {}", email);
+    public SchoolDTO getSchoolByEmail(@NonNull String email) {
+        log.info("Getting School by email: {}", email);
         var schoolEntity = schoolRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("School not found with email: " + email));
-        var schoolDTO = schoolMapper.toDto(schoolEntity);
-        log.debug("Fetched School: {}", schoolDTO);
+                .orElseThrow(() -> new ResourceNotFoundException("School not found with email: " + email));
+        var schoolDTO = mapper.toDto(schoolEntity);
+        log.debug("Found School: {}", schoolDTO);
         return schoolDTO;
     }
-
 }

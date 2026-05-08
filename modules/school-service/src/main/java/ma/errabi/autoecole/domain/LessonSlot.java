@@ -2,7 +2,7 @@ package ma.errabi.autoecole.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ma.errabi.types.LessonStatus;
+import ma.errabi.sdk.types.LessonStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

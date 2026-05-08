@@ -5,15 +5,17 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import ma.errabi.dtos.SchoolDTO;
-import ma.errabi.dtos.StudentDTO;
+import ma.errabi.sdk.dto.SchoolDTO;
+import ma.errabi.sdk.dto.StudentDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.UUID;
 
+@Tag(name = "Schools", description = "APIs for managing schools")
 public interface SchoolOpenApi {
 
     @Operation(summary = "Create a School", description = "Creates a new school and returns the created SchoolDTO")

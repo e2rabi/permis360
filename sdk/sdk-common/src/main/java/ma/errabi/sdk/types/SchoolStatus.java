@@ -1,4 +1,4 @@
-package ma.errabi.types;
+package ma.errabi.sdk.types;
 
 public enum SchoolStatus {
     OPEN,

@@ -1,4 +1,4 @@
-package ma.errabi.dtos;
+package ma.errabi.sdk.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
