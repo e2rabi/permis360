@@ -1,5 +1,5 @@
 plugins {
-	id 'ma.errabi.build-plugin' version '1.0.5'
+	id 'custom-gradle-plugin' version '2.0.1'
 }
 
 dependencies {

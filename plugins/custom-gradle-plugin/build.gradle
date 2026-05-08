@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'ma.errabi'
-version = '1.0.5'
+version = '2.0.1'
 repositories {
     gradlePluginPortal()
     mavenCentral()
@@ -19,7 +19,7 @@ dependencies {
 gradlePlugin {
     plugins {
         bootAndDependencyManagement {
-            id = 'ma.errabi.build-plugin'
+            id = 'custom-gradle-plugin'
             implementationClass = 'ma.errabi.BootAndDependencyManagementPlugin'
             displayName = 'Errabi build Plugin'
             description = 'A simple custom Gradle plugin that build project.'
@@ -35,14 +35,11 @@ publishing {
     }
     repositories {
         maven {
-            name = "GitLabPackages"
-            url = uri("https://gitlab.com/api/v4/projects/75932669/packages/maven")
-            credentials(HttpHeaderCredentials) {
-                name = "Deploy-Token"
-                value = System.getenv('GITLAB_TOKEN')
-            }
-            authentication {
-                header(HttpHeaderAuthentication)
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/e2rabi/autoecole-platform")
+            credentials {
+                username = System.getenv("AUTO_ECOLE_USERNAME")
+                password = System.getenv("AUTO_ECOLE_TOKEN")
             }
         }
     }
