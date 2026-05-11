@@ -12,6 +12,6 @@ import java.util.UUID;
 @Repository
 public interface SchoolRepository  extends JpaRepository<School, UUID> {
 
-    @EntityGraph(attributePaths = {"students", "instructors"})
+    @EntityGraph(attributePaths = {"students", "instructors","geoLocation"})
     Optional<School> findByEmail(String email);
 }

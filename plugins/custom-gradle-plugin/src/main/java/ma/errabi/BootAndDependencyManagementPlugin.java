@@ -13,7 +13,7 @@ public class BootAndDependencyManagementPlugin implements Plugin<Project> {
         project.getPluginManager().apply("org.springframework.boot");
         project.getPluginManager().apply("com.google.cloud.tools.jib");
 
-        System.out.println("✅ Custom Boot plugin applied!");
+        System.out.println("✅Auto ecole custom Boot plugin applied!");
 
         // ensure a sensible default version
         Object v = project.getVersion();

@@ -26,7 +26,7 @@ public class SchoolService {
      * @return the created School object
      */
     @Transactional
-    public SchoolDTO saveSchool(SchoolDTO request) {
+    public SchoolDTO createNewSchool(SchoolDTO request) {
         log.info("Start creating new School: {}", request);
         if (schoolRepository.findByEmail(request.email()).isPresent()) {
             log.error("School already exists with email: {}", request.email());

@@ -26,11 +26,11 @@ public class SchoolResource implements SchoolOpenApi {
 
     @Override
     @PostMapping
-    public ResponseEntity<SchoolDTO> createSchool(@RequestBody @Valid SchoolDTO schoolDTO) {
-        log.info("Received request to create School: {}", schoolDTO);
-        SchoolDTO savedSchool = schoolService.saveSchool(schoolDTO);
-        log.debug("Created School with id={}", savedSchool.id());
-        return ResponseEntity.status(HttpStatus.CREATED).body(schoolDTO);
+    public ResponseEntity<SchoolDTO> createSchool(@RequestBody @Valid SchoolDTO request) {
+        log.info("Received request to create new School: {}", request);
+        SchoolDTO newSchool = schoolService.createNewSchool(request);
+        log.debug("Created School with id={}", newSchool.id());
+        return ResponseEntity.status(HttpStatus.CREATED).body(newSchool);
     }
     @Override
     @GetMapping("/{email}")
