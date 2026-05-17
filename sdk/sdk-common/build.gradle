@@ -8,4 +8,6 @@ dependencies {
     implementation 'jakarta.validation:jakarta.validation-api'
     implementation 'org.springdoc:springdoc-openapi-ui'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'software.amazon.awssdk:s3'
+
 }

@@ -15,6 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Tag(name = "Document", description = "Upload document")
 public interface DocumentOpenApi {
 
+    @Operation(summary = "Get a document", description = "Get a document by filename")
+    @ApiResponse(responseCode = "200", description = "File found")
+    @ApiResponse(responseCode = "404", description = "File not found")
+    ResponseEntity<byte[]> getDocument(@RequestParam("filename") String filename);
+
     @Operation(summary = "Upload a file", description = "Upload a file to MinIO S3 storage")
     @ApiResponse(responseCode = "200", description = "File uploaded successfully")
     @ApiResponse(responseCode = "400", description = "Invalid file")
@@ -24,5 +29,5 @@ public interface DocumentOpenApi {
                     content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE,
                             schema = @Schema(type = "string", format = "binary")))
     })
-    ResponseEntity<String> uploadSchoolDocument(@RequestParam("file") MultipartFile file) ;
+    ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file) ;
 }

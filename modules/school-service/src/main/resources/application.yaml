@@ -2,6 +2,11 @@
 spring:
   application:
     name: school-service
+  cloud:
+    openfeign:
+      oauth2:
+        enabled : true
+        clientRegistrationId: keycloak
   security:
     oauth2:
       resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
@@ -56,3 +61,7 @@ management:
         include: "*"
 server:
   port: 8081
+
+api-core:
+  document-service:
+      url : http://localhost:8079

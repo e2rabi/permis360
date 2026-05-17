@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -19,13 +21,22 @@ import java.util.UUID;
 @NullMarked
 @RequiredArgsConstructor
 public class DocumentService {
+
     private final S3Client s3Client;
     private final MeterRegistry meterRegistry;
+
     @Value("${minio.bucket}")
     private String bucket;
 
-
-    public String uploadFile(MultipartFile file){
+    public byte[] getDocument(String filename){
+        log.info("Getting file: {}", filename);
+        GetObjectRequest request = GetObjectRequest.builder()
+                .bucket(bucket)
+                .key(filename)
+                .build();
+        return s3Client.getObjectAsBytes(request).asByteArray();
+    }
+    public String uploadDocument(MultipartFile file){
         log.info("Uploading file: {}", file.getOriginalFilename());
         String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
@@ -39,7 +50,7 @@ public class DocumentService {
             s3Client.putObject(request, RequestBody.fromBytes(file.getBytes()));
 
             meterRegistry.counter("file.uploads.success",
-                    "file_type", file.getContentType()).increment();
+                    "file_type", Objects.requireNonNull(file.getContentType())).increment();
 
             return filename ;
         }catch (Exception e){
