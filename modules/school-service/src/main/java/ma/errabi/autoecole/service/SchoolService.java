@@ -8,11 +8,13 @@ import ma.errabi.autoecole.repository.SchoolRepository;
 import ma.errabi.sdk.exception.BusinessException;
 import ma.errabi.sdk.exception.ResourceNotFoundException;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@NullMarked
 @RequiredArgsConstructor
 public class SchoolService {
 

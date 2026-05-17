@@ -10,7 +10,6 @@ import lombok.Setter;
 import ma.errabi.sdk.types.SchoolStatus;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 

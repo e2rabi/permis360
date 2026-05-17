@@ -1,5 +1,5 @@
 plugins {
-	id 'custom-gradle-plugin' version '2.0.1'
+	id 'custom-gradle-plugin' version '2.2.0'
 }
 
 dependencies {
@@ -13,7 +13,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui'
 	implementation 'io.micrometer:micrometer-registry-prometheus'
-
+	implementation 'software.amazon.awssdk:s3'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springframework.security:spring-security-oauth2-jose'
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

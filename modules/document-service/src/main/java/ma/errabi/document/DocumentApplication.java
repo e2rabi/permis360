@@ -1,13 +1,13 @@
-package ma.errabi.autoecole;
+package ma.errabi.document;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AppointmentApplication {
+public class DocumentApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppointmentApplication.class, args);
+		SpringApplication.run(DocumentApplication.class, args);
 	}
 
 }
