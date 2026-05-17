@@ -1,0 +1,37 @@
+services:
+  keycloak-service:
+    image: keycloak/keycloak:25.0.1
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+    ports:
+      - "8080:8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    healthcheck:
+      test: ["CMD-SHELL", "echo > /dev/tcp/localhost/8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 40s
+    restart: unless-stopped
+
+  document-service:
+    build: ./modules/document-service
+    mem_limit: 512m
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      OTEL_SDK_DISABLED: true
+    ports:
+      - "8009:8080"
+    depends_on:
+      keycloak-service:
+        condition: service_healthy
+
+volumes:
+  keycloak_data:

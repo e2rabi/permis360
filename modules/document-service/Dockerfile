@@ -11,7 +11,7 @@ RUN addgroup -g 1001 app && adduser -u 1001 -G app -D app
 ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar /app/opentelemetry-javaagent.jar
 
 # Copy application jar
-COPY build/libs/document-service-0.1.4-SNAPSHOT.jar app.jar
+COPY build/libs/document-service-0.1.5-SNAPSHOT.jar app.jar
 
 # Set ownership
 RUN chown -R app:app /app
