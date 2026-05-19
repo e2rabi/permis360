@@ -19,6 +19,7 @@ dependencies {
         api 'io.micrometer:micrometer-registry-prometheus:1.16.0'
         api 'software.amazon.awssdk:s3:2.20.0'
         api 'org.springframework.cloud:spring-cloud-starter-openfeign:5.0.1'
+        api 'org.springframework.boot:spring-boot-docker-compose:4.0.5'
 
 
 

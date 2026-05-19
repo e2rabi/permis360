@@ -1,4 +1,4 @@
-package ma.errabi.autoecole.service.client;
+package ma.errabi.autoecole.service.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

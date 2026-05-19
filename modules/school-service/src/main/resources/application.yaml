@@ -65,3 +65,10 @@ server:
 api-core:
   document-service:
       url : http://localhost:8079
+
+keycloak:
+  server-url: http://localhost:8080
+  realm: master
+  client-id: siyaka-client
+  secret: RgxUa9qvjDXXbs5MsnH7vUqnszoye0bI
+  target-realm: api-core

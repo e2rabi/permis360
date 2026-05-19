@@ -17,7 +17,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.security:spring-security-oauth2-jose'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-
+	implementation 'org.keycloak:keycloak-admin-client:26.0.7'
 
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

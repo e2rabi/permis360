@@ -9,5 +9,6 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-ui'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     implementation 'software.amazon.awssdk:s3'
+    implementation("org.jspecify:jspecify:1.0.0")
 
 }
