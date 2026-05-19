@@ -29,5 +29,5 @@ public interface DocumentOpenApi {
                     content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE,
                             schema = @Schema(type = "string", format = "binary")))
     })
-    ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file) ;
+    ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file,@RequestParam String objectId) ;
 }

@@ -24,9 +24,9 @@ public class DocumentController implements DocumentOpenApi {
    }
     @Override
     @PostMapping
-    public ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file)  {
+    public ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file,@RequestParam String objectId)  {
       log.info("Received file upload request: {}", file.getOriginalFilename());
-      String filename = documentService.uploadDocument(file);
+      String filename = documentService.uploadDocument(file,objectId);
       return ResponseEntity.ok("File uploaded successfully: " + filename);
     }
 }

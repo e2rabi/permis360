@@ -60,7 +60,7 @@ minio :
   bucket: my-bucket
   accessKey: YoL35CgANLy9NuVugf3X
   secretKey: WXeRcImvS4GQ56O2F0Bkhk4K4VQJ8YIWLozyB1Mv
-  endpoint: http://minio:9000
+  endpoint: http://localhost:9000
 server:
   port: 8099
 logging:

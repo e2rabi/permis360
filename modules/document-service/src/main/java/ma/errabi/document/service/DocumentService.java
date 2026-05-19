@@ -1,20 +1,14 @@
 package ma.errabi.document.service;
 
-import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.sdk.exception.TechnicalException;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-import java.util.Objects;
-import java.util.UUID;
+import static ma.errabi.sdk.util.Constant.*;
 
 @Slf4j
 @Service
@@ -22,41 +16,28 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class DocumentService {
 
-    private final S3Client s3Client;
-    private final MeterRegistry meterRegistry;
+    private final StorageService storageService;
+    private final MetricsService metricsService;
+    private final DocumentValidationService validationService;
 
-    @Value("${minio.bucket}")
-    private String bucket;
-
-    public byte[] getDocument(String filename){
-        log.info("Getting file: {}", filename);
-        GetObjectRequest request = GetObjectRequest.builder()
-                .bucket(bucket)
-                .key(filename)
-                .build();
-        return s3Client.getObjectAsBytes(request).asByteArray();
+    public byte[] getDocument(@NonNull String filename){
+        log.info("Start get document by filename: {}", filename);
+        return storageService.getDocument(filename);
     }
-    public String uploadDocument(MultipartFile file){
-        log.info("Uploading file: {}", file.getOriginalFilename());
-        String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
-        try{
-            PutObjectRequest request = PutObjectRequest.builder()
-                    .bucket(bucket)
-                    .key(filename)
-                    .contentType(file.getContentType())
-                    .build();
+    public String uploadDocument(MultipartFile file, String objectId) {
+        try {
+            validationService.validateDocument(objectId);
+            log.info("Uploading document: {}", file.getOriginalFilename());
 
-            s3Client.putObject(request, RequestBody.fromBytes(file.getBytes()));
+            String filename = storageService.uploadDocument(file);
+            metricsService.log(METRIC_UPLOAD_DOCUMENT_SUCCESS, METRIC_TAG_FILE_TYPE, file.getContentType());
+            validationService.saveDocumentHistory(objectId, filename);
 
-            meterRegistry.counter("file.uploads.success",
-                    "file_type", Objects.requireNonNull(file.getContentType())).increment();
-
-            return filename ;
-        }catch (Exception e){
-            log.error("Failed to upload file", e);
-            meterRegistry.counter("file.uploads.failed").increment();
-            throw new TechnicalException("Failed to upload file");
+            return filename;
+        } catch (Exception ex) {
+            metricsService.log(METRIC_UPLOAD_DOCUMENT_FAILED, null, null);
+            throw new TechnicalException("Error uploading document"+ ex.getMessage());
         }
     }
 }
