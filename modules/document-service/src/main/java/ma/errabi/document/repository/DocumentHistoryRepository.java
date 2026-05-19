@@ -1,4 +1,4 @@
-package repository;
+package ma.errabi.document.repository;
 
 import ma.errabi.document.domain.DocumentHistory;
 import org.springframework.data.jpa.repository.JpaRepository;

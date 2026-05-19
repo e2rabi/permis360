@@ -31,7 +31,7 @@ public class AutoEcoleExceptionHandler {
     @ExceptionHandler(TechnicalException.class)
     public ResponseEntity<ResponseInfo> HandleTechnicalException (TechnicalException ex) {
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .status(HttpStatus.BAD_REQUEST.value())
                 .body(new ResponseInfo(ex.getMessage(), "99999"));
     }
 }

@@ -7,7 +7,7 @@ import ma.errabi.sdk.exception.TechnicalException;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import repository.DocumentHistoryRepository;
+import ma.errabi.document.repository.DocumentHistoryRepository;
 
 @Slf4j
 @Service
