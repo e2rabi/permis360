@@ -29,6 +29,7 @@ public class SecurityConfig {
                                 "/webjars/**",
                                 "/favicon.ico",
                                 "/actuator/**"
+
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

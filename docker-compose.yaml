@@ -21,17 +21,17 @@ services:
       start_period: 40s
     restart: unless-stopped
 
-  document-service:
-    build: ./modules/document-service
-    mem_limit: 512m
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      OTEL_SDK_DISABLED: true
-    ports:
-      - "8009:8080"
-    depends_on:
-      keycloak-service:
-        condition: service_healthy
+#  document-service:
+#    build: ./modules/document-service
+#    mem_limit: 512m
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#      OTEL_SDK_DISABLED: true
+#    ports:
+#      - "8009:8080"
+#    depends_on:
+#      keycloak-service:
+#        condition: service_healthy
 
 volumes:
   keycloak_data:

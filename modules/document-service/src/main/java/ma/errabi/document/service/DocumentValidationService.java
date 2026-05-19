@@ -18,7 +18,7 @@ public class DocumentValidationService {
     private final DocumentHistoryRepository documentHistoryRepository;
 
     @Transactional(readOnly = true)
-    public void validateDocument( String objectId) {
+    public void validateDocument(String objectId) {
         documentHistoryRepository.findByObjectId(objectId).ifPresent(history -> {
             log.error("Document already exists for objectId: {}", objectId);
             throw new TechnicalException("Document already exists for objectId: " + objectId);

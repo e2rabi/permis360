@@ -1,5 +1,9 @@
 
 spring:
+  docker:
+      compose:
+        enabled: true
+        file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose.yaml
   application:
     name: document-service
   security:
@@ -62,7 +66,7 @@ minio :
   secretKey: WXeRcImvS4GQ56O2F0Bkhk4K4VQJ8YIWLozyB1Mv
   endpoint: http://minio:9000
 server:
-  port: 8080
+  port: 8009
 logging:
   level:
     root: info

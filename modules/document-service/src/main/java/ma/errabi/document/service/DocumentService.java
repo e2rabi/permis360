@@ -20,7 +20,7 @@ public class DocumentService {
     private final MetricsService metricsService;
     private final DocumentValidationService validationService;
 
-    public byte[] getDocument(@NonNull String filename){
+    public byte[] getDocument(String filename){
         log.info("Start get document by filename: {}", filename);
         return storageService.getDocument(filename);
     }
