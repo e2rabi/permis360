@@ -2,6 +2,8 @@ package ma.errabi.document.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ma.errabi.document.repository.DocumentHistoryRepository;
+import ma.errabi.sdk.exception.ResourceNotFoundException;
 import ma.errabi.sdk.exception.TechnicalException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,12 +22,18 @@ import java.util.UUID;
 public class S3StorageService implements StorageService {
 
     private final S3Client s3Client;
+    private final DocumentHistoryRepository documentHistoryRepository;
 
     @Value("${minio.bucket}")
     private String bucket;
 
     @Override
-    public byte[] getDocument(@NonNull String filename){
+    public byte[] getDocument(@NonNull String objectId){
+        log.info("Getting document for objectId: {}", objectId);
+        String filename = documentHistoryRepository.findByObjectId(objectId)
+                .orElseThrow(()-> new ResourceNotFoundException("Document not found for objectId"))
+                .getDocumentName();
+
         GetObjectRequest request = GetObjectRequest.builder()
                 .bucket(bucket)
                 .key(filename)

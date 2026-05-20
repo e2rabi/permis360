@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface DocumentFeignClient {
 
     @GetMapping("/document")
-    ResponseEntity<byte[]> getDocument(@RequestParam("filename") String filename);
+    ResponseEntity<byte[]> getDocument(@RequestParam("objectId") String objectId);
 }

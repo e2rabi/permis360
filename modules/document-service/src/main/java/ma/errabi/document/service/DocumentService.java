@@ -20,9 +20,9 @@ public class DocumentService {
     private final MetricsService metricsService;
     private final DocumentValidationService validationService;
 
-    public byte[] getDocument(String filename){
-        log.info("Start get document by filename: {}", filename);
-        return storageService.getDocument(filename);
+    public byte[] getDocument(String objectId){
+        log.info("Start get document by objectId: {}", objectId);
+        return storageService.getDocument(objectId);
     }
 
     public String uploadDocument(MultipartFile file, String objectId) {

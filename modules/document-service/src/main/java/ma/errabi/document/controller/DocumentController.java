@@ -18,9 +18,9 @@ public class DocumentController implements DocumentOpenApi {
 
     @Override
     @GetMapping
-    public ResponseEntity<byte[]> getDocument(@RequestParam("filename") String filename){
-       log.info("Received request to get document by filename: {}", filename);
-       return ResponseEntity.ok(documentService.getDocument(filename));
+    public ResponseEntity<byte[]> getDocument(@RequestParam("objectId") String objectId){
+       log.info("Received request to get document by objectId: {}", objectId);
+       return ResponseEntity.ok(documentService.getDocument(objectId));
     }
     @Override
     @PostMapping

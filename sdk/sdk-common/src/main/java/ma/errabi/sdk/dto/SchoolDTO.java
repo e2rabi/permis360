@@ -42,6 +42,5 @@ public record SchoolDTO(
         List<StudentDTO> students,
         @Schema(description = "List of instructors of the school")
         List<InstructorDTO> instructors
-
 ) {
 }

@@ -2,6 +2,7 @@ package ma.errabi.autoecole.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ma.errabi.autoecole.service.feign.DocumentFeignClient;
 import ma.errabi.sdk.dto.SchoolDTO;
 import ma.errabi.autoecole.mapper.SchoolMapper;
 import ma.errabi.autoecole.repository.SchoolRepository;
@@ -20,6 +21,7 @@ public class SchoolService {
 
     private final SchoolRepository schoolRepository;
     private final SchoolMapper mapper;
+    private final DocumentFeignClient documentFeignClient;
 
     /**
      * Saves a School.
@@ -52,6 +54,9 @@ public class SchoolService {
         var schoolEntity = schoolRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("School not found with email: " + email));
         var schoolDTO = mapper.toDto(schoolEntity);
+        var schoolLogo = documentFeignClient.getDocument(schoolDTO.id().toString());
+        log.info("School logo: {}", schoolLogo);
+
         log.debug("Found School: {}", schoolDTO);
         return schoolDTO;
     }

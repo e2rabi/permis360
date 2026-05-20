@@ -12,13 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-@Tag(name = "Document", description = "Upload document")
+@Tag(name = "Document", description = "Manage document")
 public interface DocumentOpenApi {
 
-    @Operation(summary = "Get a document", description = "Get a document by filename")
+    @Operation(summary = "Get a document", description = "Get a document by objectId")
     @ApiResponse(responseCode = "200", description = "File found")
     @ApiResponse(responseCode = "404", description = "File not found")
-    ResponseEntity<byte[]> getDocument(@RequestParam("filename") String filename);
+    ResponseEntity<byte[]> getDocument(@RequestParam("objectId") String objectId);
 
     @Operation(summary = "Upload a file", description = "Upload a file to MinIO S3 storage")
     @ApiResponse(responseCode = "200", description = "File uploaded successfully")

@@ -21,7 +21,7 @@ spring:
           keycloak:
             client-id: siyaka-client
             scope: openid,profile,email
-            client-secret: RgxUa9qvjDXXbs5MsnH7vUqnszoye0bI
+            client-secret: isCfVzXZDfsNiyo5HiKpfkFlg7bV3cGS
             authorization-grant-type: client_credentials
         provider:
           keycloak:
@@ -68,7 +68,7 @@ server:
 
 api-core:
   document-service:
-      url : http://localhost:8079
+      url : http://localhost:8099
 
 keycloak:
   server-url: http://localhost:8080
