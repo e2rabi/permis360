@@ -14,16 +14,16 @@ public class KeycloakConfig {
     public Keycloak keycloak(
             @Value("${keycloak.server-url}") String serverUrl,
             @Value("${keycloak.realm}") String realm,
-            @Value("${keycloak.client-id}") String clientId
+            @Value("${keycloak.client-id}") String clientId,
+            @Value("${keycloak.client-secret}") String clientSecret
     ) {
 
         return KeycloakBuilder.builder()
                 .serverUrl(serverUrl)
                 .realm(realm)
-                .grantType(OAuth2Constants.PASSWORD)
+                .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .clientId(clientId)
-                .username("admin")
-                .password("admin")
+                .clientSecret(clientSecret)
                 .build();
     }
 }

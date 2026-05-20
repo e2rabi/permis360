@@ -76,3 +76,4 @@ keycloak:
   client-id: admin-cli
   target-realm: api-core
   target-client: siyaka-client
+  client-secret: "Gvl0g8mXguprYFegYONxLaIvvWnGdEaL"

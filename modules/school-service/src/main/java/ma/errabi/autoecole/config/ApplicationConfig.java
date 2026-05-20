@@ -7,6 +7,6 @@ import org.springframework.context.annotation.Import;
  * Main application configuration class that imports other configurations.
  */
 @Configuration
-@Import( {OpenApiConfig.class})
+@Import( {OpenApiConfig.class,KeycloakConfig.class})
 public class ApplicationConfig {
 }

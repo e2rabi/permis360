@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static ma.errabi.sdk.util.Constant.ROLE_API_CORE;
+
 @Slf4j
 @Service
 @NullMarked
@@ -41,7 +43,7 @@ public class KeycloakService {
         }
 
         String userId = extractUserIdFromLocation(response);
-        assignClientRole(userId, "API-CORE");
+        assignClientRole(userId, ROLE_API_CORE);
 
         return userId;
     }
