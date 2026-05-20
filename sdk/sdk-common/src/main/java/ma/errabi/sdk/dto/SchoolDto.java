@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import java.util.UUID;
 
-public record SchoolDTO(
+public record SchoolDto(
         UUID id,
         @Schema(description = "Name of the school", example = "Demo school")
         @NotBlank String name,
@@ -39,8 +39,11 @@ public record SchoolDTO(
         @Schema(description = "Secondary phone number of the school", example = "+212600000001")
         String secondaryPhoneNumber,
         @Schema(description = "List of students of the school")
-        List<StudentDTO> students,
+        List<StudentDto> students,
         @Schema(description = "List of instructors of the school")
         List<InstructorDTO> instructors
 ) {
+        public SchoolDto withLogo(String logo) {
+                return new SchoolDto(id, name, address, email, website, logo, description, facebook, instagram, status, geoLocation, primaryPhoneNumber, secondaryPhoneNumber, students, instructors);
+        }
 }

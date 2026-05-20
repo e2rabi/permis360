@@ -7,8 +7,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import ma.errabi.sdk.dto.SchoolDTO;
-import ma.errabi.sdk.dto.StudentDTO;
+import ma.errabi.sdk.dto.SchoolDto;
+import ma.errabi.sdk.dto.StudentDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,25 +21,25 @@ public interface SchoolOpenApi {
     @Operation(summary = "Create a School", description = "Creates a new school and returns the created SchoolDTO")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "School created",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = SchoolDTO.class))),
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = SchoolDto.class))),
             @ApiResponse(responseCode = "400", description = "Bad request")
     })
-    ResponseEntity<SchoolDTO> createSchool(SchoolDTO schoolDTO);
+    ResponseEntity<SchoolDto> createSchool(SchoolDto schoolDTO);
 
     @Operation(summary = "Retrieves a school by its email address", description = "Retrieves a school by its email address")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "School found",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = SchoolDTO.class))),
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = SchoolDto.class))),
             @ApiResponse(responseCode = "400", description = "Bad request")
     })
-    ResponseEntity<SchoolDTO> getSchoolByEmail(@PathVariable String email) ;
+    ResponseEntity<SchoolDto> getSchoolByEmail(@PathVariable String email) ;
 
     @Operation(summary = "Create a student", description = "Creates a new student and returns the created student")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Student created",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = StudentDTO.class))),
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = StudentDto.class))),
             @ApiResponse(responseCode = "400", description = "Bad request")
     })
-    ResponseEntity<StudentDTO> createStudent(@RequestBody @Valid StudentDTO request, @PathVariable UUID schoolId);
+    ResponseEntity<StudentDto> createStudent(@RequestBody @Valid StudentDto request, @PathVariable UUID schoolId);
 
 }

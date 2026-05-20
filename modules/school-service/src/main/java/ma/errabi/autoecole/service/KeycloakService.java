@@ -4,6 +4,7 @@ import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.sdk.dto.UserDto;
+import ma.errabi.sdk.exception.ResourceNotFoundException;
 import ma.errabi.sdk.exception.TechnicalException;
 import org.jspecify.annotations.NullMarked;
 import org.keycloak.admin.client.Keycloak;
@@ -79,7 +80,7 @@ public class KeycloakService {
                 .findByClientId(clientId)
                 .stream()
                 .findFirst()
-                .orElseThrow(() -> new TechnicalException("Client not found: " + clientId))
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found: " + clientId))
                 .getId();
 
         RoleRepresentation role = realmResource.clients()

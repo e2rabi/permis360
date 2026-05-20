@@ -4,7 +4,7 @@ import ma.errabi.sdk.types.StudentStatus;
 
 import java.time.LocalDate;
 
-public record StudentDTO(
+public record StudentDto(
     String firstName,
     String lastName,
     String phone,

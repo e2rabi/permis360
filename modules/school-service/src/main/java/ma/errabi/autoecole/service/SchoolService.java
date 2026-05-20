@@ -3,15 +3,16 @@ package ma.errabi.autoecole.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.autoecole.service.feign.DocumentFeignClient;
-import ma.errabi.sdk.dto.SchoolDTO;
+import ma.errabi.sdk.dto.SchoolDto;
 import ma.errabi.autoecole.mapper.SchoolMapper;
 import ma.errabi.autoecole.repository.SchoolRepository;
 import ma.errabi.sdk.exception.BusinessException;
 import ma.errabi.sdk.exception.ResourceNotFoundException;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Base64;
 
 @Slf4j
 @Service
@@ -24,40 +25,40 @@ public class SchoolService {
     private final DocumentFeignClient documentFeignClient;
 
     /**
-     * Saves a School.
-     *
-     * @param request the School request to create
-     * @return the created School object
+     * Creates a new School entity
+     * @param request request the {@link SchoolDto} containing the School data to create
+     * @return the created {@link SchoolDto} object
+     * @throws BusinessException if a School with the same email already exists
      */
     @Transactional
-    public SchoolDTO createNewSchool(SchoolDTO request) {
-        log.info("Start creating new School: {}", request);
-        if (schoolRepository.findByEmail(request.email()).isPresent()) {
-            log.error("School already exists with email: {}", request.email());
-            throw new BusinessException("School already exists with email: " + request.email());
-        }
-        var response = mapper.toDto(schoolRepository.save(mapper.toEntity(request)));
-        log.debug("Created School with id={}", response.id());
-        return response;
+    public SchoolDto createNewSchool(SchoolDto request) {
+        log.info("Creating new School: {}", request);
+
+        schoolRepository.findByEmail(request.email())
+                .ifPresent(s -> {
+                    throw new BusinessException("School already exists with email: " + request.email());
+                });
+
+        var savedSchool = schoolRepository.save(mapper.toEntity(request));
+        return mapper.toDto(savedSchool);
     }
 
-    /**
-     * Fetches a School by its email.
-     *
-     * @param email the email of the School to fetch
-     * @return the School data corresponding to the given email
-     * @throws RuntimeException if no School is found with the given email
-     */
     @Transactional(readOnly = true)
-    public SchoolDTO getSchoolByEmail(@NonNull String email) {
-        log.info("Getting School by email: {}", email);
+    public SchoolDto getSchoolByEmail(String email) {
+        log.info("Fetching School by email: {}", email);
+
         var schoolEntity = schoolRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("School not found with email: " + email));
-        var schoolDTO = mapper.toDto(schoolEntity);
-        var schoolLogo = documentFeignClient.getDocument(schoolDTO.id().toString());
-        log.info("School logo: {}", schoolLogo);
 
-        log.debug("Found School: {}", schoolDTO);
-        return schoolDTO;
+        var schoolDto = mapper.toDto(schoolEntity);
+        return setSchoolLogo(schoolDto);
+    }
+
+    private SchoolDto setSchoolLogo(SchoolDto schoolDto) {
+        log.info("Fetching School logo for id: {}", schoolDto.id());
+
+        var schoolLogo = documentFeignClient.getDocument(schoolDto.id().toString());
+        var encodedLogo = Base64.getEncoder().encodeToString(schoolLogo.getBody());
+        return schoolDto.withLogo(encodedLogo);
     }
 }
