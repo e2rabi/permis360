@@ -25,23 +25,23 @@ public class KeycloakService {
 
     @Value("${keycloak.target-realm}")
     private String targetRealm;
-    @Value("${keycloak.client-id}")
+
+    @Value("${keycloak.target-client}")
     private String clientId;
 
     public String createUser(UserDto userDto) {
         log.info("Creating user: {}", userDto);
 
-        CredentialRepresentation credential = createCredential(userDto.password());
-        UserRepresentation user = createUserRepresentation(userDto, credential);
-
+        UserRepresentation user = createUserRepresentation(userDto, createCredential(userDto.password()));
         Response response = keycloak.realm(targetRealm).users().create(user);
 
         if (response.getStatus() != 201) {
-            throw new TechnicalException("Failed to create user: " + response.getStatus());
+            log.error("Failed to create user: {}", response);
+            throw new TechnicalException("Failed to create user: " + response.getStatus() + " " + response.getStatusInfo());
         }
 
-        String userId =  extractUserIdFromLocation(response);
-        assignClientRole(userId,"api-core");
+        String userId = extractUserIdFromLocation(response);
+        assignClientRole(userId, "API-CORE");
 
         return userId;
     }
@@ -54,20 +54,20 @@ public class KeycloakService {
         return credential;
     }
 
-    private UserRepresentation createUserRepresentation(UserDto userDto,CredentialRepresentation credential) {
+    private UserRepresentation createUserRepresentation(UserDto userDto, CredentialRepresentation credential) {
         UserRepresentation user = new UserRepresentation();
         user.setUsername(userDto.username());
         user.setEmail(userDto.email());
         user.setFirstName(userDto.firstName());
         user.setLastName(userDto.lastName());
+        user.setEmailVerified(true);
         user.setEnabled(true);
         user.setCredentials(List.of(credential));
         return user;
     }
 
     private String extractUserIdFromLocation(Response response) {
-        String location = response.getHeaderString("Location");
-        return location.substring(location.lastIndexOf("/") + 1);
+        return response.getHeaderString("Location").substring(response.getHeaderString("Location").lastIndexOf("/") + 1);
     }
 
     public void assignClientRole(String userId, String roleName) {

@@ -1,5 +1,9 @@
 
 spring:
+  docker:
+    compose:
+      enabled: true
+      file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose.yaml
   application:
     name: school-service
   cloud:
@@ -69,6 +73,6 @@ api-core:
 keycloak:
   server-url: http://localhost:8080
   realm: master
-  client-id: siyaka-client
-  secret: RgxUa9qvjDXXbs5MsnH7vUqnszoye0bI
+  client-id: admin-cli
   target-realm: api-core
+  target-client: siyaka-client
