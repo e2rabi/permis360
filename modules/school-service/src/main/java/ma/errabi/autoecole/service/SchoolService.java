@@ -9,6 +9,7 @@ import ma.errabi.autoecole.repository.SchoolRepository;
 import ma.errabi.sdk.exception.BusinessException;
 import ma.errabi.sdk.exception.ResourceNotFoundException;
 import org.jspecify.annotations.NullMarked;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,8 +45,9 @@ public class SchoolService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "school", key = "#email")
     public SchoolDto getSchoolByEmail(String email) {
-        log.info("Fetching School by email: {}", email);
+        log.info("Get School details by email: {}", email);
 
         var schoolEntity = schoolRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("School not found with email: " + email));
@@ -55,10 +57,19 @@ public class SchoolService {
     }
 
     private SchoolDto setSchoolLogo(SchoolDto schoolDto) {
-        log.info("Fetching School logo for id: {}", schoolDto.id());
+        try {
+            log.info("Get School logo for school id: {}", schoolDto.id());
 
-        var schoolLogo = documentFeignClient.getDocument(schoolDto.id().toString());
-        var encodedLogo = Base64.getEncoder().encodeToString(schoolLogo.getBody());
-        return schoolDto.withLogo(encodedLogo);
+            var schoolLogo = documentFeignClient.getDocument(schoolDto.id().toString());
+            var encodedLogo = Base64.getEncoder().encodeToString(schoolLogo.getBody());
+
+            log.info("School logo loaded successfully");
+            return schoolDto.withLogo(encodedLogo);
+
+        }catch (Exception ex){
+             log.error("Failed to fetch school logo", ex);
+             return schoolDto;
+        }
+
     }
 }

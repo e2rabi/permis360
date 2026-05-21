@@ -35,7 +35,7 @@ public class SchoolResource implements SchoolOpenApi {
     @Override
     @GetMapping("/{email}")
     public ResponseEntity<SchoolDto> getSchoolByEmail(@PathVariable String email) {
-        log.info("Received request to fetch School by email: {}", email);
+        log.info("Received request to get School details by email: {}", email);
         SchoolDto schoolDTO = schoolService.getSchoolByEmail(email);
         log.debug("Found School: {}", schoolDTO);
         return ResponseEntity.ok(schoolDTO);

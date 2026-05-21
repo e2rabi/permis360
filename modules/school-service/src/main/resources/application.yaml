@@ -49,6 +49,11 @@ spring:
     console:
       enabled: true
       path: /h2-console
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
 springdoc:
   api-docs:
     path: /v3/api-docs
@@ -77,3 +82,7 @@ keycloak:
   target-realm: api-core
   target-client: siyaka-client
   client-secret: "Gvl0g8mXguprYFegYONxLaIvvWnGdEaL"
+
+app :
+ cache:
+   expiration-time : 10 # 10 Minutes
