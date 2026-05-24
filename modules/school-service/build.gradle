@@ -31,9 +31,9 @@ dependencies {
 	// MapStruct
 	implementation 'org.mapstruct:mapstruct'
 	annotationProcessor 'org.mapstruct:mapstruct-processor'
-	// Lombok + MapStruct binding (required)
+	// Lombok + MapStruct binding
 	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding'
-	// H2 Database (for tests)
+	// H2 Database
 	runtimeOnly("com.h2database:h2")
 	implementation 'org.flywaydb:flyway-core'
 
