@@ -10,6 +10,17 @@
 
 ---
 ## Getting started
+This project uses cutting edge technologies :
+- Development Java 21 and Springboot 4 and gradle for build
+- Spring Framework 7 new features (resilience features,@ConcurrencyLimit,@Retryable...)
+- Spring cloud gateway as an API Gateway
+- Keycloak and OAuth2 for authentication and authorization (istio in the staging env )
+- Eureka as a discovery service ( kubernetes service in the staging env)
+- Spring config server and profile for config management
+- Opentelemetry  with Jaeguer and prometheus for observability
+- Database migration with flyway and Postgres and Redis for cache management
+- Deployment docker and docker-compose and kubernetes with helm charts
+- ArgoCd for deployment as a Gitops operator
 ### System components Structure
 Let's explain first the system structure to understand its components:
 
