@@ -16,7 +16,7 @@ This project uses cutting edge technologies :
 - Spring cloud gateway as an API Gateway
 - Keycloak and OAuth2 for authentication and authorization (istio in the staging env )
 - Eureka as a discovery service ( kubernetes service in the staging env)
-- Spring config server and profile for config management
+- Spring config server and profile for config management (Configmap and secret in the staging env)
 - Opentelemetry  with Jaeguer and prometheus for observability
 - Database migration with flyway and Postgres and Redis for cache management
 - Deployment docker and docker-compose and kubernetes with helm charts
@@ -26,4 +26,4 @@ Let's explain first the system structure to understand its components:
 
 ### System Boundary - μServices Landscape
 
-<img width="1182" height="628" alt="image" src="https://github.com/user-attachments/assets/ad44bbae-0d28-4b7a-86b3-7f5f0f278b6d" />
+<img width="1182" height="628" alt="image" src="https://github.com/user-attachments/assets/5b63aa1d-3208-4d10-9f0b-1e649c96beb4" />
