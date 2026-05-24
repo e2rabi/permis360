@@ -50,6 +50,31 @@ services:
       timeout: 5s
       retries: 3
     restart: unless-stopped
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    environment:
+      REDIS_ADDR: redis://redis-service:6379
+    ports:
+      - "9121:9121"
+    depends_on:
+      - redis-service
+    restart: unless-stopped
+  prometheus-service:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infrastructures/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    depends_on:
+      keycloak-service:
+        condition: service_started
+      minio-service:
+        condition: service_started
+      redis-exporter:
+        condition: service_started
+    restart: unless-stopped
 #  document-service:
 #    build: ./modules/document-service
 #    mem_limit: 512m
@@ -66,3 +91,4 @@ volumes:
   keycloak_data:
   minio_data:
   redis_data:
+  prometheus_data:
