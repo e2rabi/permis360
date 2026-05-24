@@ -28,8 +28,8 @@ dependencies {
 
 
         api 'org.mapstruct:mapstruct-processor:1.5.5.Final'
-        api 'ma.errabi:custom-gradle-plugin:1.0.5'
-        api 'org.projectlombok:lombok:1.18.32'
+        api 'ma.errabi:custom-gradle-plugin:2.3.2'
+        api 'org.projectlombok:lombok:1.18.40'
         api 'org.mapstruct:mapstruct:1.5.5.Final'
         api 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
         api 'com.h2database:h2:2.2.220'
