@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import ma.errabi.sdk.exception.TechnicalException;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
+import org.springframework.resilience.annotation.ConcurrencyLimit;
+import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,11 +22,13 @@ public class DocumentService {
     private final MetricsService metricsService;
     private final DocumentValidationService validationService;
 
+    @ConcurrencyLimit(10)
     public byte[] getDocument(String objectId){
         log.info("Start get document by objectId: {}", objectId);
         return storageService.getDocument(objectId);
     }
 
+    @ConcurrencyLimit(10)
     public String uploadDocument(MultipartFile file, String objectId) {
         try {
             validationService.validateDocument(objectId);
@@ -36,7 +40,7 @@ public class DocumentService {
 
             return filename;
         } catch (Exception ex) {
-            metricsService.log(METRIC_UPLOAD_DOCUMENT_FAILED, null, null);
+            metricsService.log(METRIC_UPLOAD_DOCUMENT_FAILED, METRIC_TAG_FILE_TYPE, file.getContentType());
             throw new TechnicalException("Error uploading document"+ ex.getMessage());
         }
     }

@@ -7,6 +7,7 @@ import ma.errabi.sdk.exception.ResourceNotFoundException;
 import ma.errabi.sdk.exception.TechnicalException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -41,6 +42,7 @@ public class S3StorageService implements StorageService {
         return s3Client.getObjectAsBytes(request).asByteArray();
     }
     @Override
+    @Retryable(value = Exception.class, maxRetries=3, delay = 1000)
     public String uploadDocument(@NonNull MultipartFile file){
         String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
