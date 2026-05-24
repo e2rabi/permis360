@@ -11,7 +11,7 @@
 ---
 ## Getting started
 This project uses cutting edge technologies :
-- Development Java 21 and Springboot 4 and gradle for build
+- Development Java 25 and Springboot 4 and gradle for build
 - Spring Framework 7 new features (resilience features,@ConcurrencyLimit,@Retryable...)
 - Spring cloud gateway as an API Gateway
 - Keycloak and OAuth2 for authentication and authorization (istio in the staging env )
