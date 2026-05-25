@@ -2,7 +2,7 @@
 spring:
   docker:
       compose:
-        enabled: true
+        enabled: false
         file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose.yaml
   application:
     name: document-service
@@ -54,19 +54,19 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,prometheus
+  endpoint:
+    health:
+      show-details: always
   metrics:
     tags:
       application: document-service
-      environment: development
+      environment: staging
 
 minio :
   bucket: my-bucket
-  accessKey: YoL35CgANLy9NuVugf3X
-  secretKey: WXeRcImvS4GQ56O2F0Bkhk4K4VQJ8YIWLozyB1Mv
-  endpoint: http://minio:9000
+  accessKey: ezPgpUTY5QuchUxYojG4
+  secretKey: G2vduEiNB4gdpYQYYjdQwnaZmKWz1BSKO8pcgX08
+  endpoint: http://minio-service:9000
 server:
-  port: 8009
-logging:
-  level:
-    root: info
+  port: 8080

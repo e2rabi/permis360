@@ -2,6 +2,7 @@
 package ma.errabi.autoecole.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,6 +21,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(EndpointRequest.to("prometheus", "health")).permitAll()
                         .requestMatchers(
                                 "/",
                                 "/swagger-ui/**",

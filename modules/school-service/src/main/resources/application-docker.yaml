@@ -2,7 +2,7 @@
 spring:
   docker:
     compose:
-      enabled: true
+      enabled: false
       file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose.yaml
   application:
     name: school-service
@@ -15,7 +15,7 @@ spring:
     oauth2:
       resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
         jwt:
-          issuer-uri: http://localhost:8080/realms/api-core
+          issuer-uri: http://keycloak-service:8080/realms/api-core
       client: # OAuth2 Client Configuration used for outgoing requests
         registration:
           keycloak:
@@ -25,7 +25,7 @@ spring:
             authorization-grant-type: client_credentials
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/api-core
+            issuer-uri: http://keycloak-service:8080/realms/api-core
   # H2 Database Configuration
   datasource:
     driverClassName: org.h2.Driver
@@ -51,7 +51,7 @@ spring:
       path: /h2-console
   data:
     redis:
-      host: localhost
+      host: redis-service
       port: 6379
 
 springdoc:
@@ -67,16 +67,23 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: school-service
+      environment: staging
 server:
-  port: 8081
+  port: 8080
 
 api-core:
   document-service:
-    url : http://localhost:8009
+    url : http://document-service:8080
 
 keycloak:
-  server-url: http://localhost:8080
+  server-url: http://keycloak-service:8080
   realm: master
   client-id: admin-cli
   target-realm: api-core

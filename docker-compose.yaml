@@ -1,7 +1,7 @@
 services:
   keycloak-service:
     image: keycloak/keycloak:25.0.1
-    command: start-dev
+    command: start-dev --metrics-enabled=true
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -9,6 +9,7 @@ services:
       KC_HEALTH_ENABLED: "true"
       KC_HOSTNAME_STRICT: "false"
       KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_METRICS_ENABLED: true
     ports:
       - "8080:8080"
     volumes:
@@ -26,6 +27,8 @@ services:
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_PROMETHEUS_AUTH_TYPE: public
+      MINIO_PROMETHEUS_URL: http://minio-service:9000
     ports:
       - "9000:9000" # MinIO API port
       - "9001:9001" # MinIO Console port
@@ -39,7 +42,6 @@ services:
     restart: unless-stopped
   redis-service:
     image: redis:7.0.5
-    container_name: redis
     ports:
       - "6379:6379"
     volumes:
@@ -75,18 +77,62 @@ services:
       redis-exporter:
         condition: service_started
     restart: unless-stopped
-#  document-service:
-#    build: ./modules/document-service
-#    mem_limit: 512m
-#    environment:
-#      SPRING_PROFILES_ACTIVE: docker
-#      OTEL_SDK_DISABLED: true
-#    ports:
-#      - "8009:8080"
-#    depends_on:
-#      keycloak-service:
-#        condition: service_healthy
-
+  document-service:
+    build: ./modules/document-service
+    mem_limit: 512m
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      OTEL_SDK_DISABLED: false
+      ENV OTEL_SERVICE_NAME : school-service
+      OTEL_EXPORTER_OTLP_ENDPOINT : http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL : grpc
+      OTEL_TRACES_EXPORTER : otlp
+      OTEL_METRICS_EXPORTER : none
+      OTEL_LOGS_EXPORTER : none
+    ports:
+      - "8009:8080"
+    depends_on:
+      keycloak-service:
+        condition: service_healthy
+  school-service:
+    build: ./modules/school-service
+    mem_limit: 512m
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      OTEL_SDK_DISABLED: false
+      ENV OTEL_SERVICE_NAME: school-service
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: none
+    ports:
+      - "8010:8080"
+    depends_on:
+      keycloak-service:
+        condition: service_healthy
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.101.0
+    container_name: otel-collector
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    volumes:
+      - ./infrastructures/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    depends_on:
+      jaeger:
+        condition: service_started
+    restart: unless-stopped
+  jaeger:
+      image: jaegertracing/all-in-one:1.67.0
+      container_name: jaeger
+      ports:
+        - "16686:16686" # UI
+        - "14250:14250"
+      restart: unless-stopped
 volumes:
   keycloak_data:
   minio_data:
