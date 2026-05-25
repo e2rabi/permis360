@@ -1,0 +1,94 @@
+services:
+  keycloak-service:
+    image: keycloak/keycloak:25.0.1
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+    ports:
+      - "8080:8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    healthcheck:
+      test: ["CMD-SHELL", "echo > /dev/tcp/localhost/8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 40s
+    restart: unless-stopped
+  minio-service:
+    image: minio/minio:RELEASE.2025-04-08T15-41-24Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000" # MinIO API port
+      - "9001:9001" # MinIO Console port
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/minio/health/live || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+  redis-service:
+    image: redis:7.0.5
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    environment:
+      REDIS_ADDR: redis://redis-service:6379
+    ports:
+      - "9121:9121"
+    depends_on:
+      - redis-service
+    restart: unless-stopped
+  prometheus-service:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infrastructures/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    depends_on:
+      keycloak-service:
+        condition: service_started
+      minio-service:
+        condition: service_started
+      redis-exporter:
+        condition: service_started
+    restart: unless-stopped
+#  document-service:
+#    build: ./modules/document-service
+#    mem_limit: 512m
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#      OTEL_SDK_DISABLED: true
+#    ports:
+#      - "8009:8080"
+#    depends_on:
+#      keycloak-service:
+#        condition: service_healthy
+
+volumes:
+  keycloak_data:
+  minio_data:
+  redis_data:
+  prometheus_data:

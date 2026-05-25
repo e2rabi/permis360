@@ -1,0 +1,84 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: build-oci-image
+spec:
+  entrypoint: build-oci-images
+  serviceAccountName: argo-workflow
+  activeDeadlineSeconds: 1800 # 30 minutes
+  templates:
+    - name: build-oci-images
+      steps:
+        - - name: code-checkout
+            template: git-clone
+        - - name: image-build
+            template: jib
+            arguments:
+              artifacts:
+                - name: repo
+                  from: "{{steps.clone.outputs.artifacts.repo}}"
+
+    - name: git-clone
+      retryStrategy:
+        limit: 3
+        retryPolicy: "Always"
+        backoff:
+          duration: "10s"
+          factor: 2
+          maxDuration: "1m"
+      inputs:
+        artifacts:
+          - name: repo
+            path: /src
+            git:
+              repo: "https://gitlab.com/e2rabi1/siyaka-pro.git"
+              revision: dev
+              usernameSecret:
+                name: gitlab-credentials
+                key: username
+              passwordSecret:
+                name: gitlab-credentials
+                key: password
+      container:
+        image: alpine/git
+        command: [sh, "-c"]
+        args:
+          - echo "Repository cloned by Argo Git Artifact with revision dev"
+      outputs:
+        artifacts:
+          - name: repo
+            path: /src
+            artifactGC:
+              strategy: OnWorkflowCompletion
+
+    - name: jib
+      inputs:
+        artifacts:
+          - name: repo
+            path: /workspace
+      container:
+        image: gradle:8.6-jdk21
+        command: [sh, "-c"]
+        args:
+          - |
+            set -e
+            cd /workspace || exit 1
+            if [ -f ./gradlew ]; then
+              chmod +x ./gradlew || true
+              ./gradlew jib --no-daemon
+            fi
+        env:
+          - name: DOCKER_CONFIG
+            value: /home/gradle/.docker
+        volumeMounts:
+          - name: docker-config
+            mountPath: /home/gradle/.docker/config.json
+            subPath: config.json
+            readOnly: true
+  volumes:
+    - name: docker-config
+      secret:
+        secretName: registry-secret
+        items:
+          - key: .dockerconfigjson
+            path: config.json

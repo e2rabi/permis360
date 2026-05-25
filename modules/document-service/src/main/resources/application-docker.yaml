@@ -1,0 +1,72 @@
+
+spring:
+  docker:
+      compose:
+        enabled: true
+        file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose.yaml
+  application:
+    name: document-service
+  security:
+    oauth2:
+      resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
+        jwt:
+          issuer-uri: http://keycloak-service:8080/realms/api-core
+      client: # OAuth2 Client Configuration used for outgoing requests
+        registration:
+          keycloak:
+            client-id: siyaka-client
+            scope: openid,profile,email
+            client-secret: isCfVzXZDfsNiyo5HiKpfkFlg7bV3cGS
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak:
+            issuer-uri: http://keycloak-service:8080/realms/api-core
+  # H2 Database Configuration
+  datasource:
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+    url: jdbc:h2:mem:testdb3;DB_CLOSE_DELAY=-1
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  # Enable H2 Console (optional, for development/testing)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: document-service
+      environment: development
+
+minio :
+  bucket: my-bucket
+  accessKey: YoL35CgANLy9NuVugf3X
+  secretKey: WXeRcImvS4GQ56O2F0Bkhk4K4VQJ8YIWLozyB1Mv
+  endpoint: http://minio:9000
+server:
+  port: 8009
+logging:
+  level:
+    root: info

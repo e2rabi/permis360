@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/e2rabi/autoecole-platform")
+            credentials {
+                username = System.getenv("AUTO_ECOLE_USERNAME")
+                password = System.getenv("AUTO_ECOLE_TOKEN")
+            }
+        }
+    }
+}
+rootProject.name = 'autoecole-platform'
+include "plugins:custom-gradle-bom"
+include "plugins:custom-gradle-plugin"
+include "modules:school-service"
+include "modules:document-service"
+include "sdk:sdk-common"
+//includeBuild('plugins/custom-gradle-plugin')
+
+

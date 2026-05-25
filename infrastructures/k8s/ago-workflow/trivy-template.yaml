@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: trivy-scan-
+spec:
+  entrypoint: trivy-scan-workflow
+  arguments:
+    parameters:
+      - name: docker-image
+        value: e2rabi11/school-service:0.1.1-SNAPSHOT
+  templates:
+    - name: trivy-scan-workflow
+      activeDeadlineSeconds: 5
+      retryStrategy:
+        limit: 3
+        retryPolicy: onFailure
+      inputs:
+        parameters:
+          - name: docker-image
+      steps:
+        - - name: scan-image
+            template: trivy-scan
+            arguments:
+              parameters:
+                - name: image
+                  value: "{{inputs.parameters.docker-image}}"
+        - - name: approval
+            suspend: {}
+    - name: trivy-scan
+      inputs:
+        parameters:
+          - name: image
+      container:
+        image: aquasec/trivy:latest
+        command: ["trivy"]
+        args: ["image", "--severity", "HIGH,CRITICAL", "--no-progress", "{{inputs.parameters.image}}"]

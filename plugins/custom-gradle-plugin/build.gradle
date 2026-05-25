@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'com.google.cloud.tools.jib' version '3.4.0'
+}
+
+group = 'ma.errabi'
+version = '2.3.4'
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-gradle-plugin:4.0.0")
+    implementation("com.google.cloud.tools:jib-gradle-plugin:3.4.0")
+}
+gradlePlugin {
+    plugins {
+        bootAndDependencyManagement {
+            id = 'custom-gradle-plugin'
+            implementationClass = 'ma.errabi.BootAndDependencyManagementPlugin'
+            displayName = 'Errabi build Plugin'
+            description = 'A simple custom Gradle plugin that build project.'
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/e2rabi/autoecole-platform")
+            credentials {
+                username = System.getenv("AUTO_ECOLE_USERNAME")
+                password = System.getenv("AUTO_ECOLE_TOKEN")
+            }
+        }
+    }
+}
+

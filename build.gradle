@@ -1,0 +1,25 @@
+
+plugins {
+	id 'java'
+}
+java {
+	sourceCompatibility = JavaVersion.toVersion(findProperty('javaVersion') ?: 21)
+	targetCompatibility = JavaVersion.toVersion(findProperty('javaVersion') ?: 21)
+}
+allprojects {
+	repositories {
+		mavenCentral()
+	}
+
+}
+// disable jib task for plugins:custom-gradle-plugin
+gradle.projectsEvaluated {
+	rootProject.subprojects.find { it.path == ':plugins:custom-gradle-plugin' }?.tasks?.matching { it.name == 'jib' }?.configureEach {
+		enabled = false
+	}
+}
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
