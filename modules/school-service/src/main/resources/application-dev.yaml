@@ -1,2 +1,88 @@
-errabi:
-   key: hello
+
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose.yaml
+  application:
+    name: school-service
+  cloud:
+    openfeign:
+      oauth2:
+        enabled : true
+        clientRegistrationId: keycloak
+  security:
+    oauth2:
+      resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
+        jwt:
+          issuer-uri: http://localhost:8080/realms/api-core
+      client: # OAuth2 Client Configuration used for outgoing requests
+        registration:
+          keycloak:
+            client-id: siyaka-client
+            scope: openid,profile,email
+            client-secret: isCfVzXZDfsNiyo5HiKpfkFlg7bV3cGS
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/api-core
+  # H2 Database Configuration
+  datasource:
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+    url: jdbc:h2:mem:testdb3;DB_CLOSE_DELAY=-1
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  # Enable H2 Console (optional, for development/testing)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+    oauth:
+      client-id: siyaka-client
+      client-secret: RgxUa9qvjDXXbs5MsnH7vUqnszoye0bI
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 8081
+
+api-core:
+  document-service:
+    url : http://localhost:8099
+
+keycloak:
+  server-url: http://localhost:8080
+  realm: master
+  client-id: admin-cli
+  target-realm: api-core
+  target-client: siyaka-client
+  client-secret: "Gvl0g8mXguprYFegYONxLaIvvWnGdEaL"
+
+app :
+  cache:
+    expiration-time : 10 # 10 Minutes

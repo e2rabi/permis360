@@ -1,7 +1,7 @@
 services:
   keycloak-service:
     image: keycloak/keycloak:25.0.1
-    command: start-dev
+    command: start-dev --metrics-enabled=true
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -9,6 +9,7 @@ services:
       KC_HEALTH_ENABLED: "true"
       KC_HOSTNAME_STRICT: "false"
       KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_METRICS_ENABLED: true
     ports:
       - "8080:8080"
     volumes:
@@ -26,6 +27,8 @@ services:
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_PROMETHEUS_AUTH_TYPE: public
+      MINIO_PROMETHEUS_URL: http://minio-service:9000
     ports:
       - "9000:9000" # MinIO API port
       - "9001:9001" # MinIO Console port
@@ -75,18 +78,28 @@ services:
       redis-exporter:
         condition: service_started
     restart: unless-stopped
-#  document-service:
-#    build: ./modules/document-service
-#    mem_limit: 512m
-#    environment:
-#      SPRING_PROFILES_ACTIVE: docker
-#      OTEL_SDK_DISABLED: true
-#    ports:
-#      - "8009:8080"
-#    depends_on:
-#      keycloak-service:
-#        condition: service_healthy
-
+  document-service:
+    build: ./modules/document-service
+    mem_limit: 512m
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      OTEL_SDK_DISABLED: true
+    ports:
+      - "8009:8080"
+    depends_on:
+      keycloak-service:
+        condition: service_healthy
+  school-service:
+    build: ./modules/school-service
+    mem_limit: 512m
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      OTEL_SDK_DISABLED: true
+    ports:
+      - "8010:8080"
+    depends_on:
+      keycloak-service:
+        condition: service_healthy
 volumes:
   keycloak_data:
   minio_data:
