@@ -80,7 +80,7 @@ server:
 
 api-core:
   document-service:
-    url : http://document-service:8009
+    url : http://document-service:8080
 
 keycloak:
   server-url: http://keycloak-service:8080

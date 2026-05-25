@@ -73,7 +73,7 @@ server:
 
 api-core:
   document-service:
-    url : http://localhost:8099
+    url : http://localhost:8009
 
 keycloak:
   server-url: http://localhost:8080
