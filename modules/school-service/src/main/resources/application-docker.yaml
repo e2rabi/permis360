@@ -51,7 +51,7 @@ spring:
       path: /h2-console
   data:
     redis:
-      host: localhost
+      host: redis-service
       port: 6379
 
 springdoc:
