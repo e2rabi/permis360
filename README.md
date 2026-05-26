@@ -1,3 +1,4 @@
+[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml)
 # Auto ecole platform μServices
 ## Important Note: This project's new milestone is to move The whole system to work on Kubernetes, so stay tuned.
 ## Introduction
