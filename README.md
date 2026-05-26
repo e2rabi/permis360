@@ -25,4 +25,4 @@ This project uses cutting edge technologies :
 Let's explain first the system structure to understand its components:
 
 ### System Boundary - μServices Landscape
-<img width="4728" height="2516" alt="image" src="https://github.com/user-attachments/assets/ae33bc5b-ee73-4342-bc3f-ea44060fe7e2" />
+<img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/104d3d2c-835c-4543-ace0-d78b844b1bd0" />
