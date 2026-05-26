@@ -1,4 +1,4 @@
-name: Dev Build
+name: Auto Ecole Build
 env:
     AUTO_ECOLE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     AUTO_ECOLE_USERNAME: ${{ github.actor }}
