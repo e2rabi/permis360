@@ -39,7 +39,7 @@ public class AutoEcoleExceptionHandler {
     public ResponseEntity<ResponseInfo> HandleDataIntegrityViolationException (DataIntegrityViolationException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST.value())
-                .body(new ResponseInfo("Data Integrity Violation :  "+ex.getMostSpecificCause(), "00001"));
+                .body(new ResponseInfo("Invalid Request", "00001"));
     }
 
 }
