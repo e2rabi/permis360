@@ -1,4 +1,5 @@
 [![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v0.1.5-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v0.1.5)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield)
 
 # Auto ecole platform μServices
 ## Important Note: This project's new milestone is to move The whole system to work on Kubernetes, so stay tuned.
@@ -28,3 +29,7 @@ Let's explain first the system structure to understand its components:
 
 ### System Boundary - μServices Landscape
 <img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/104d3d2c-835c-4543-ace0-d78b844b1bd0" />
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_large)
