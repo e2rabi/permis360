@@ -9,11 +9,11 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 public record UserDto(
         @NotBlank
-        @Schema(description = "UserName", example = "UserName")
+        @Schema(description = "userName", example = "UserName")
         String username,
         @Email
         @NotBlank
-        @Schema(description = "Email", example = "email@email.com")
+        @Schema(description = "email", example = "email@email.com")
         String email,
         @NotBlank
         @Schema(description = "firstName", example = "firstName")

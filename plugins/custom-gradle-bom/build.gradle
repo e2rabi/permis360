@@ -23,6 +23,7 @@ dependencies {
         api 'org.springframework.cloud:spring-cloud-starter-openfeign:5.0.1'
         api 'org.springframework.boot:spring-boot-docker-compose:4.0.5'
         api 'org.keycloak:keycloak-admin-client:26.0.9'
+        api 'org.postgresql:postgresql:42.7.11'
 
 
 

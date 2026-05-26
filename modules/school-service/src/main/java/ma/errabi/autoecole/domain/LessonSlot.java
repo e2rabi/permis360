@@ -3,6 +3,7 @@ package ma.errabi.autoecole.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import ma.errabi.sdk.types.LessonStatus;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class LessonSlot extends BaseEntity{
