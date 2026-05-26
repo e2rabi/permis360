@@ -12,6 +12,12 @@ exporters:
     endpoint: jaeger:4317
     tls:
       insecure: true
+  elasticsearch:
+    endpoints:
+      - http://elasticsearch:9200
+    logs_index: otel-logs
+    mapping:
+      mode: none
 
 service:
   pipelines:
@@ -19,3 +25,7 @@ service:
       receivers: [otlp]
       processors: [batch]
       exporters: [otlp]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [elasticsearch]
