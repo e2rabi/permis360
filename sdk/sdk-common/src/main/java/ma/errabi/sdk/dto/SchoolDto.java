@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public record SchoolDto(
-        UUID id,
+        Long id,
         @Schema(description = "Name of the school", example = "Demo school")
         @NotBlank String name,
         @Schema(description = "Address of the school", example = "Sidi maarouf , Casablanca Morocco")

@@ -20,8 +20,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Payment extends BaseEntity{
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_seq")
+    @SequenceGenerator(
+            name = "payment_seq",
+            sequenceName = "payment_sequence",
+            allocationSize = 1
+    )
+    private Long id;
 
     @ManyToOne
     @JsonBackReference

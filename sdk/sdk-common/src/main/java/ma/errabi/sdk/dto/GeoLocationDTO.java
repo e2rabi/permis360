@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public record GeoLocationDTO(
      @JsonIgnore
-     UUID id,
+     Long id,
      @Schema(description = "latitude of the school", example = "Demo school")
      double latitude,
         @Schema(description = "longitude of the school", example = "Demo school")

@@ -1,11 +1,12 @@
-drop table if exists document.document_history cascade ;
+CREATE SEQUENCE IF NOT EXISTS document.document_history_sequence
+    START WITH 1
+    INCREMENT BY 1;
 
-create table document.document_history (
+create table if not exists document.document_history (
+                                           id BIGINT NOT NULL PRIMARY KEY DEFAULT nextval('document_history_sequence'),
                                            created_date timestamp(6),
                                            last_modified_date timestamp(6),
                                            version bigint,
-                                           id uuid not null,
                                            document_name varchar(255),
-                                           object_id varchar(255),
-                                           primary key (id)
+                                           object_id varchar(255)
 );

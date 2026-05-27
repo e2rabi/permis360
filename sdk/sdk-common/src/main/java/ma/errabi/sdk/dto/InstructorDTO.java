@@ -1,9 +1,8 @@
 package ma.errabi.sdk.dto;
 
-import java.util.UUID;
 
 public record InstructorDTO(
-        UUID id,
+        Long id,
         String name,
         String phone
 ) { }

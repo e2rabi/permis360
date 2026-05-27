@@ -17,8 +17,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Instructor extends BaseEntity{
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instructor_seq")
+    @SequenceGenerator(
+            name = "instructor_seq",
+            sequenceName = "instructor_sequence",
+            allocationSize = 1
+    )
+    private Long id;
 
     private String name;
 

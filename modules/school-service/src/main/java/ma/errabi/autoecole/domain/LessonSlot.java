@@ -18,8 +18,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class LessonSlot extends BaseEntity{
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lesson_slot_seq")
+    @SequenceGenerator(
+            name = "lesson_slot_seq",
+            sequenceName = "lesson_slot_sequence",
+            allocationSize = 1
+    )
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "instructor_id")
