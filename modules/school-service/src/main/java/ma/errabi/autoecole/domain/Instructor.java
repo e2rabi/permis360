@@ -3,6 +3,7 @@ package ma.errabi.autoecole.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.UUID;
 
@@ -11,12 +12,18 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class Instructor extends BaseEntity{
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instructor_seq")
+    @SequenceGenerator(
+            name = "instructor_seq",
+            sequenceName = "instructor_sequence",
+            allocationSize = 1
+    )
+    private Long id;
 
     private String name;
 

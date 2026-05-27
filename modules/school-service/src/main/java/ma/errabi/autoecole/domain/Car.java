@@ -2,6 +2,7 @@ package ma.errabi.autoecole.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.UUID;
 
@@ -10,12 +11,18 @@ import java.util.UUID;
 @Setter
 @Getter
 @Builder
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class Car extends BaseEntity{
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "car_seq")
+    @SequenceGenerator(
+            name = "car_seq",
+            sequenceName = "car_sequence",
+            allocationSize = 1
+    )
+    private Long id;
 
     private String model;
 

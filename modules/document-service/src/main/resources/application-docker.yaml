@@ -21,28 +21,30 @@ spring:
         provider:
           keycloak:
             issuer-uri: http://keycloak-service:8080/realms/api-core
-  # H2 Database Configuration
+  # Database Configuration
   datasource:
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
-    url: jdbc:h2:mem:testdb3;DB_CLOSE_DELAY=-1
+    url: jdbc:postgresql://postgres-service:5432/autoecole_db?currentSchema=document
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
+        default_schema: document
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
-    enabled: false
+    enabled: true
+    default-schema: document
+    schemas: document
     locations: classpath:db/migration
-    baseline-on-migrate: true
-  # Enable H2 Console (optional, for development/testing)
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2-console
 springdoc:
   api-docs:

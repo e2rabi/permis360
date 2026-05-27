@@ -1,5 +1,13 @@
 
 spring:
+  mvc:
+    apiversion:
+      use:
+        header: api-version
+      default: v1.0
+      supported:
+        - v1.0
+        - v2.0
   docker:
     compose:
       enabled: false
@@ -28,10 +36,10 @@ spring:
             issuer-uri: http://keycloak-service:8080/realms/api-core
   # H2 Database Configuration
   datasource:
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
-    url: jdbc:h2:mem:testdb3;DB_CLOSE_DELAY=-1
+    url: jdbc:postgresql://localhost:5432/autoecole_db?currentSchema=school
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
   jpa:
     generate-ddl: true
     hibernate:
@@ -39,7 +47,9 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        default_schema: school
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
     enabled: false
     locations: classpath:db/migration

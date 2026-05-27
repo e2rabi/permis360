@@ -1,3 +1,5 @@
+[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v0.1.5-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v0.1.5) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
+
 # Auto ecole platform μServices
 ## Important Note: This project's new milestone is to move The whole system to work on Kubernetes, so stay tuned.
 ## Introduction

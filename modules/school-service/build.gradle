@@ -21,6 +21,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.keycloak:keycloak-admin-client'
 	implementation 'org.springframework.boot:spring-boot-docker-compose'
+	implementation 'org.postgresql:postgresql'
 
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -35,6 +36,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding'
 	// H2 Database
 	runtimeOnly("com.h2database:h2")
-	implementation 'org.flywaydb:flyway-core'
-
+	implementation 'org.springframework.boot:spring-boot-starter-flyway'
+	runtimeOnly  'org.flywaydb:flyway-database-postgresql'
 }

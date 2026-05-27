@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import ma.errabi.sdk.types.PaymentMethod;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,12 +15,18 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class Payment extends BaseEntity{
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_seq")
+    @SequenceGenerator(
+            name = "payment_seq",
+            sequenceName = "payment_sequence",
+            allocationSize = 1
+    )
+    private Long id;
 
     @ManyToOne
     @JsonBackReference

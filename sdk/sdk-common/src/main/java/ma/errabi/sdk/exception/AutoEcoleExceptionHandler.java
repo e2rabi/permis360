@@ -1,6 +1,7 @@
 package ma.errabi.sdk.exception;
 
 import ma.errabi.sdk.dto.ResponseInfo;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,4 +35,11 @@ public class AutoEcoleExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST.value())
                 .body(new ResponseInfo(ex.getMessage(), "99999"));
     }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ResponseInfo> HandleDataIntegrityViolationException (DataIntegrityViolationException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST.value())
+                .body(new ResponseInfo("Invalid Request", "00001"));
+    }
+
 }

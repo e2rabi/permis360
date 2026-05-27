@@ -25,7 +25,7 @@ public class SchoolResource implements SchoolOpenApi {
 
 
     @Override
-    @PostMapping
+    @PostMapping(version = "v1.0")
     public ResponseEntity<SchoolDto> createSchool(@RequestBody @Valid SchoolDto request) {
         log.info("Received request to create new School: {}", request);
         SchoolDto newSchool = schoolService.createNewSchool(request);
@@ -33,7 +33,7 @@ public class SchoolResource implements SchoolOpenApi {
         return ResponseEntity.status(HttpStatus.CREATED).body(newSchool);
     }
     @Override
-    @GetMapping("/{email}")
+    @GetMapping(value = "/{email}",version = "v1.0+")
     public ResponseEntity<SchoolDto> getSchoolByEmail(@PathVariable String email) {
         log.info("Received request to get School details by email: {}", email);
         SchoolDto schoolDTO = schoolService.getSchoolByEmail(email);
@@ -41,7 +41,7 @@ public class SchoolResource implements SchoolOpenApi {
         return ResponseEntity.ok(schoolDTO);
     }
     @Override
-    @PostMapping("/{schoolId}/students")
+    @PostMapping(value = "/{schoolId}/students",version = "v1.0")
     public ResponseEntity<StudentDto> createStudent(@RequestBody @Valid StudentDto request, @PathVariable UUID schoolId) {
         log.info("Received request to create Student: {}", request);
         StudentDto savedStudent = studentService.saveStudent(request, schoolId);

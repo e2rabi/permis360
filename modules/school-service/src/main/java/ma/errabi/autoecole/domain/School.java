@@ -21,10 +21,16 @@ import java.util.UUID;
 @AllArgsConstructor
 @Table(name = "schools")
 public class School extends BaseEntity {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "school_seq")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private UUID id;
+    @SequenceGenerator(
+            name = "school_seq",
+            sequenceName = "school_sequence",
+            allocationSize = 1
+    )
+    private Long id;
     private String name;
     private String address;
     @Column(unique = true)

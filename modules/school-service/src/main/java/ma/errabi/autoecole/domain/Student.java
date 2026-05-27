@@ -23,10 +23,14 @@ import java.util.UUID;
 @Table(name = "students")
 public class Student extends BaseEntity{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private UUID id;
-
+    @SequenceGenerator(
+            name = "student_seq",
+            sequenceName = "student_sequence",
+            allocationSize = 1
+    )
+    private Long id;
     private String firstName;
     private String lastName;
 

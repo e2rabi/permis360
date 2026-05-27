@@ -3,6 +3,7 @@ package ma.errabi.autoecole.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import ma.errabi.sdk.types.LessonStatus;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -12,12 +13,18 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class LessonSlot extends BaseEntity{
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lesson_slot_seq")
+    @SequenceGenerator(
+            name = "lesson_slot_seq",
+            sequenceName = "lesson_slot_sequence",
+            allocationSize = 1
+    )
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "instructor_id")

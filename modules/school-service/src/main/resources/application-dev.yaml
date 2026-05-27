@@ -1,9 +1,18 @@
 
 spring:
+  mvc:
+    apiversion:
+      use:
+        header: api-version
+      default: v1.0
+      supported:
+        - v1.0
+        - v2.0
+
   docker:
     compose:
       enabled: true
-      file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose.yaml
+      file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose-dev.yaml
   application:
     name: school-service
   cloud:
@@ -28,26 +37,28 @@ spring:
             issuer-uri: http://localhost:8080/realms/api-core
   # H2 Database Configuration
   datasource:
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
-    url: jdbc:h2:mem:testdb3;DB_CLOSE_DELAY=-1
+    url: jdbc:postgresql://localhost:5432/autoecole_db?currentSchema=school
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
+        default_schema: school
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
-    enabled: false
+    enabled: true
+    default-schema: school
+    schemas: school
     locations: classpath:db/migration
-    baseline-on-migrate: true
-  # Enable H2 Console (optional, for development/testing)
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2-console
   data:
     redis:

@@ -23,6 +23,7 @@ dependencies {
         api 'org.springframework.cloud:spring-cloud-starter-openfeign:5.0.1'
         api 'org.springframework.boot:spring-boot-docker-compose:4.0.5'
         api 'org.keycloak:keycloak-admin-client:26.0.9'
+        api 'org.postgresql:postgresql:42.7.11'
 
 
 
@@ -33,11 +34,12 @@ dependencies {
         api 'org.mapstruct:mapstruct:1.5.5.Final'
         api 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
         api 'com.h2database:h2:2.2.220'
-        api 'org.flywaydb:flyway-core:9.22.0'
+        api 'org.springframework.boot:spring-boot-starter-flyway:4.0.5'
         api 'jakarta.validation:jakarta.validation-api:3.0.2'
         api 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
         api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
         api 'org.springdoc:springdoc-openapi-ui:1.6.15'
+        api 'org.flywaydb:flyway-database-postgresql:11.14.1'
 
     }
 }
