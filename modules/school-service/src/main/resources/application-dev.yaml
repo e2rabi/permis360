@@ -53,9 +53,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
     enabled: false
+    default-schema: school
+    schemas: school
     locations: classpath:db/migration
-    baseline-on-migrate: false
-  # Enable H2 Console (optional, for development/testing)
   h2:
     console:
       enabled: false
