@@ -81,7 +81,7 @@ services:
     build: ./modules/document-service
     mem_limit: 512m
     environment:
-      SPRING_PROFILES_ACTIVE: docker
+      SPRING_PROFILES_ACTIVE: staging
       OTEL_SDK_DISABLED: false
       ENV OTEL_SERVICE_NAME : school-service
       OTEL_EXPORTER_OTLP_ENDPOINT : http://otel-collector:4317
@@ -98,7 +98,7 @@ services:
     build: ./modules/school-service
     mem_limit: 512m
     environment:
-      SPRING_PROFILES_ACTIVE: docker
+      SPRING_PROFILES_ACTIVE: staging
       OTEL_SDK_DISABLED: false
       ENV OTEL_SERVICE_NAME: school-service
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
