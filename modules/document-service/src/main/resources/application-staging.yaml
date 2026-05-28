@@ -1,5 +1,9 @@
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
   docker:
       compose:
         enabled: false
@@ -72,3 +76,7 @@ minio :
   endpoint: http://minio-service:9000
 server:
   port: 8080
+
+app:
+  upload:
+    max-file-size: 2MB

@@ -1,5 +1,13 @@
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  docker:
+    compose:
+      enabled: true
+      file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose-dev.yaml
   application:
     name: document-service
   security:
@@ -68,4 +76,8 @@ server:
 logging:
   level:
     root: info
+
+app:
+  upload:
+    max-file-size: 2MB
 
