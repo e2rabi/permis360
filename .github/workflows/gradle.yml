@@ -4,9 +4,9 @@ env:
     AUTO_ECOLE_USERNAME: ${{ github.actor }}
 on:
   push:
-    branches: [ "dev"]
+    branches: [ "staging"]
   pull_request:
-    branches: [ "dev"]
+    branches: [ "staging"]
 
 jobs:
   build:
