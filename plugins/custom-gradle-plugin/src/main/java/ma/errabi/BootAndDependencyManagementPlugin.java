@@ -4,16 +4,19 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BootAndDependencyManagementPlugin implements Plugin<Project> {
 
+    private final Logger logger =  Logger.getLogger(BootAndDependencyManagementPlugin.class.getName());
     @Override
     public void apply(Project project) {
         project.getPluginManager().apply("java");
         project.getPluginManager().apply("org.springframework.boot");
         project.getPluginManager().apply("com.google.cloud.tools.jib");
 
-        System.out.println("✅Auto ecole custom Boot plugin applied!");
+        logger.info("✅Auto ecole custom Boot plugin applied!");
 
         // ensure a sensible default version
         Object v = project.getVersion();
@@ -41,7 +44,7 @@ public class BootAndDependencyManagementPlugin implements Plugin<Project> {
 
             } catch (Exception e) {
                 // non-fatal: log and continue so consumer builds aren't broken if Jib internals differ
-                System.err.println("Warning: could not configure jib defaults in ma.errabi.build-plugin: " + e.getMessage());
+                logger.log(Level.WARNING,"Warning: could not configure jib defaults in ma.errabi.build-plugin: {}" , e.getMessage());
             }
         });
     }

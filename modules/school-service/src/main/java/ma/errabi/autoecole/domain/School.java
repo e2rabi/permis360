@@ -11,7 +11,6 @@ import ma.errabi.sdk.types.SchoolStatus;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Getter

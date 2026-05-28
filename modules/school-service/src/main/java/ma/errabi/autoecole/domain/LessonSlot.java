@@ -6,7 +6,6 @@ import ma.errabi.sdk.types.LessonStatus;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "lesson_slots")

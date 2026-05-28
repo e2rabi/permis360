@@ -1,5 +1,6 @@
 package ma.errabi.autoecole.security;
 
+import ma.errabi.sdk.exception.TechnicalException;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,7 +35,7 @@ public class JwtAuthenticationFilter {
             }
 
             if (authorities.isEmpty() || !authorities.contains(new SimpleGrantedAuthority("ROLE_API-CORE"))) {
-                throw new RuntimeException("Invalid role");
+                throw new TechnicalException("Invalid role");
             }
             return authorities;
         });
