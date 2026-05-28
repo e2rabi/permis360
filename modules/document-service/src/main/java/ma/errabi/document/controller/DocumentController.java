@@ -25,6 +25,7 @@ public class DocumentController implements DocumentOpenApi {
        log.info("Received request to get document by objectId: {}", objectId);
        return ResponseEntity.ok(documentService.getDocument(objectId));
     }
+
     @Override
     @PostMapping
     public ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file,@RequestParam("objectId") String objectId)  {
@@ -39,5 +40,18 @@ public class DocumentController implements DocumentOpenApi {
         return ResponseEntity
                 .created(location)
                 .body("File uploaded id : " + fileId);
+    }
+
+    @DeleteMapping(value = "/{objectId}")
+    public ResponseEntity<Void> deleteDocument(@PathVariable("objectId") String objectId){
+        log.info("Request to delete document: {}", objectId);
+        boolean deleted = documentService.deleteDocument(objectId);
+        if (deleted) {
+            log.info("Document {} deleted successfully", objectId);
+            return ResponseEntity.noContent().build();
+        } else {
+            log.warn("Document {} not found for deletion", objectId);
+            return ResponseEntity.notFound().build();
+        }
     }
 }

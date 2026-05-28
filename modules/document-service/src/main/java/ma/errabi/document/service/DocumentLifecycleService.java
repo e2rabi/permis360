@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @NullMarked
 @RequiredArgsConstructor
-public class DocumentValidationService {
+public class DocumentLifecycleService {
 
     private final DocumentHistoryRepository documentHistoryRepository;
 
@@ -33,13 +33,17 @@ public class DocumentValidationService {
     }
 
     @Transactional
-    public void audit(String objectId , String documentName) {
+    public void save(String objectId , String documentName) {
         log.info("Auditing document upload for objectId: {}", objectId);
         DocumentHistory history = DocumentHistory.builder()
                 .objectId(objectId)
                 .documentName(documentName)
                 .build();
         documentHistoryRepository.save(history);
+    }
+    @Transactional
+    public void delete(String objectId) {
+        documentHistoryRepository.deleteByObjectId(objectId);
     }
     private void validateFileSize(MultipartFile file) {
         if (file.getSize() > maxFileSize.toBytes()) {

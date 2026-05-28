@@ -61,4 +61,16 @@ public class S3StorageService implements StorageService {
             throw new TechnicalException("Failed to upload file to S3: " + e.getMessage());
         }
     }
+
+    @Override
+    public boolean deleteDocument(@NonNull String objectId) {
+        try {
+            log.info("Deleting document for objectId: {} from bucket {}", objectId,bucket);
+            s3Client.deleteObject(b -> b.bucket(bucket).key(objectId));
+            return true;
+        }catch (Exception ex){
+            log.error("Failed to delete document", ex);
+            return false;
+        }
+    }
 }
