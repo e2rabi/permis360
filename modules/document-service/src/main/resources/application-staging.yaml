@@ -7,7 +7,6 @@ spring:
   docker:
       compose:
         enabled: false
-        file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose.yaml
   application:
     name: document-service
   security:
