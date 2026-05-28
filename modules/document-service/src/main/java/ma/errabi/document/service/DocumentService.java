@@ -2,15 +2,12 @@ package ma.errabi.document.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.errabi.sdk.exception.TechnicalException;
-import org.jspecify.annotations.NonNull;
+
+import ma.errabi.sdk.aspect.annotation.TrackUploadMetrics;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.resilience.annotation.ConcurrencyLimit;
-import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import static ma.errabi.sdk.util.Constant.*;
 
 @Slf4j
 @Service
@@ -19,8 +16,7 @@ import static ma.errabi.sdk.util.Constant.*;
 public class DocumentService {
 
     private final StorageService storageService;
-    private final MetricsService metricsService;
-    private final DocumentValidationService validationService;
+    private final DocumentValidationService documentValidationService ;
 
     @ConcurrencyLimit(10)
     public byte[] getDocument(String objectId){
@@ -28,20 +24,15 @@ public class DocumentService {
         return storageService.getDocument(objectId);
     }
 
+    @TrackUploadMetrics
     @ConcurrencyLimit(10)
     public String uploadDocument(MultipartFile file, String objectId) {
-        try {
-            validationService.validateDocument(objectId);
-            log.info("Uploading document: {}", file.getOriginalFilename());
+        log.info("Uploading document: {}", file.getOriginalFilename());
+        documentValidationService.validate(objectId,file);
+        String filename = storageService.uploadDocument(file);
+        documentValidationService.audit(objectId, filename);
+        log.info("Upload successful: {}", filename);
+        return filename;
 
-            String filename = storageService.uploadDocument(file);
-            metricsService.log(METRIC_UPLOAD_DOCUMENT_SUCCESS, METRIC_TAG_FILE_TYPE, file.getContentType());
-            validationService.saveDocumentHistory(objectId, filename);
-
-            return filename;
-        } catch (Exception ex) {
-            metricsService.log(METRIC_UPLOAD_DOCUMENT_FAILED, METRIC_TAG_FILE_TYPE, file.getContentType());
-            throw new TechnicalException("Error uploading document"+ ex.getMessage());
-        }
     }
 }

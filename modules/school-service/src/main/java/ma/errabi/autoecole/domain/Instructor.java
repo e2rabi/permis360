@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.UUID;
-
 @Entity
 @Table(name = "instructors")
 @Getter

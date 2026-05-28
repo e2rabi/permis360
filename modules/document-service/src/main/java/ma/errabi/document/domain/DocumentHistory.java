@@ -1,11 +1,9 @@
 package ma.errabi.document.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.UUID;
 
 @Entity
 @Setter
