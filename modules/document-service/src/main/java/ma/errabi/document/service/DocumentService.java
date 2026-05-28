@@ -2,8 +2,8 @@ package ma.errabi.document.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.errabi.document.aspect.TrackUploadMetrics;
 
+import ma.errabi.sdk.aspect.annotation.TrackUploadMetrics;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.resilience.annotation.ConcurrencyLimit;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package ma.errabi.document.aspect;
+package ma.errabi.sdk.aspect.annotation;
 
 import java.lang.annotation.*;
 

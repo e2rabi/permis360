@@ -1,4 +1,4 @@
-package ma.errabi.document.service;
+package ma.errabi.sdk.metric;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;

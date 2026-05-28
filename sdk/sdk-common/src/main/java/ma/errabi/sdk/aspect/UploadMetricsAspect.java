@@ -1,8 +1,9 @@
-package ma.errabi.document.aspect;
+package ma.errabi.sdk.aspect;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.errabi.document.service.MetricsService;
+import ma.errabi.sdk.aspect.annotation.TrackUploadMetrics;
+import ma.errabi.sdk.metric.MetricsService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,13 +21,8 @@ public class UploadMetricsAspect {
     private final MetricsService metricsService;
 
     @Around("@annotation(trackUploadMetrics)")
-    public Object trackUploadMetrics(
-            ProceedingJoinPoint joinPoint,
-            TrackUploadMetrics trackUploadMetrics
-    ) throws Throwable {
-
+    public Object trackUploadMetrics(ProceedingJoinPoint joinPoint, TrackUploadMetrics trackUploadMetrics) throws Throwable {
         MultipartFile file = extractMultipartFile(joinPoint.getArgs());
-
         try {
             Object result = joinPoint.proceed();
 

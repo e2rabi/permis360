@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation platform(project(':plugins:custom-gradle-bom'))
+    implementation platform(project(":plugins:custom-gradle-bom"))
+    annotationProcessor platform(project(":plugins:custom-gradle-bom"))
     implementation 'jakarta.validation:jakarta.validation-api'
     implementation 'org.springdoc:springdoc-openapi-ui'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -12,6 +13,13 @@ dependencies {
     implementation('software.amazon.awssdk:s3') {
         exclude group: 'io.netty'
     }
-    implementation("org.jspecify:jspecify:1.0.0")
-
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'org.jspecify:jspecify'
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // MapStruct
+    implementation 'org.mapstruct:mapstruct'
+    // Lombok + MapStruct binding
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding'
 }
