@@ -7,7 +7,8 @@ spring:
   docker:
     compose:
       enabled: true
-      file: /Users/errabi/Desktop/projects/autoecole-platform/docker-compose-dev.yaml
+      lifecycle-management: start_and_stop
+      file: ./docker-compose-dev.yaml
   application:
     name: document-service
   security:
