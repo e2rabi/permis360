@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +19,7 @@ public interface DocumentOpenApi {
     @Operation(summary = "Get a document", description = "Get a document by objectId")
     @ApiResponse(responseCode = "200", description = "File found")
     @ApiResponse(responseCode = "404", description = "File not found")
-    ResponseEntity<byte[]> getDocument(@RequestParam("objectId") String objectId);
+    ResponseEntity<byte[]> getDocument(@PathVariable("objectId") String objectId);
 
     @Operation(summary = "Upload a file", description = "Upload a file to MinIO S3 storage")
     @ApiResponse(responseCode = "200", description = "File uploaded successfully")

@@ -7,26 +7,37 @@ import ma.errabi.document.service.DocumentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @Slf4j
 @RestController
-@RequestMapping("/document")
+@RequestMapping("/documents")
 @RequiredArgsConstructor
 public class DocumentController implements DocumentOpenApi {
 
    private final DocumentService documentService ;
 
     @Override
-    @GetMapping
-    public ResponseEntity<byte[]> getDocument(@RequestParam("objectId") String objectId){
+    @GetMapping(value = "/{objectId}")
+    public ResponseEntity<byte[]> getDocument(@PathVariable("objectId") String objectId){
        log.info("Received request to get document by objectId: {}", objectId);
        return ResponseEntity.ok(documentService.getDocument(objectId));
     }
     @Override
     @PostMapping
-    public ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file,@RequestParam String objectId)  {
-      log.info("Received file upload request: {}", file.getOriginalFilename());
-      String filename = documentService.uploadDocument(file,objectId);
-      return ResponseEntity.ok("File uploaded successfully: " + filename);
+    public ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file,@RequestParam("objectId") String objectId)  {
+      log.info("Start file upload request: {}", file.getOriginalFilename());
+      String fileId = documentService.uploadDocument(file,objectId);
+      URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(fileId)
+                .toUri();
+        log.info("End file upload request: {}", file.getOriginalFilename());
+
+        return ResponseEntity
+                .created(location)
+                .body("File uploaded id : " + fileId);
     }
 }
