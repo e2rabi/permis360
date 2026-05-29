@@ -38,3 +38,6 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 
 }
+bootJar {
+	archiveFileName = 'app.jar'
+}

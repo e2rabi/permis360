@@ -39,3 +39,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-flyway'
 	runtimeOnly  'org.flywaydb:flyway-database-postgresql'
 }
+bootJar {
+	archiveFileName = 'app.jar'
+}
