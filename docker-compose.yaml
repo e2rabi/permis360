@@ -12,7 +12,6 @@ services:
       KC_METRICS_ENABLED: true
       KC_PROXY: edge
       KC_HOSTNAME: 194.163.129.95
-      KC_HOSTNAME_ADMIN: http://194.163.129.95:8080
       KC_PROXY_HEADERS: "xforwarded"
       KC_LOG_LEVEL: DEBUG
     ports:
