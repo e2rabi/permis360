@@ -95,9 +95,9 @@ keycloak:
   server-url: ${keycloak-url}
   realm: master
   client-id: admin-cli
+  client-secret: ${keycloak-admin-cli-secret}
   target-realm: ${keycloak-realm}
   target-client: ${keycloak-client-id}
-  client-secret: ${keycloak-client-secret}
 
 app :
   cache:
