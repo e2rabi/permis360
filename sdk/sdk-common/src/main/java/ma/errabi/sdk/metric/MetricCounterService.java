@@ -15,10 +15,11 @@ import java.util.Objects;
 @Service
 @NullMarked
 @RequiredArgsConstructor
-public class MetricsService {
+public class MetricCounterService implements MetricService{
 
     private final MeterRegistry meterRegistry;
 
+    @Override
     public void log(String metricName, @Nullable String ... tags){
         try {
             if (tags.length == 0) {
