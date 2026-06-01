@@ -3,7 +3,7 @@ package ma.errabi.document.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import ma.errabi.sdk.aspect.annotation.TrackUploadMetrics;
+import ma.errabi.sdk.aspect.annotation.TrackUploadDocumentMetric;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.resilience.annotation.ConcurrencyLimit;
@@ -26,7 +26,7 @@ public class DocumentService {
         return storageService.getDocument(objectId);
     }
 
-    @TrackUploadMetrics
+    @TrackUploadDocumentMetric
     @ConcurrencyLimit(10)
     public String uploadDocument(MultipartFile file, String objectId) {
         log.info("Uploading document: {}", file.getOriginalFilename());

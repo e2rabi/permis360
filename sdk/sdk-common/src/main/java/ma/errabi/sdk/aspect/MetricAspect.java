@@ -3,7 +3,7 @@ package ma.errabi.sdk.aspect;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.errabi.sdk.aspect.annotation.TrackUploadMetrics;
+import ma.errabi.sdk.aspect.annotation.TrackUploadDocumentMetric;
 import ma.errabi.sdk.metric.MetricProvider;
 import ma.errabi.sdk.metric.MetricService;
 import ma.errabi.sdk.types.MetricType;
@@ -19,7 +19,7 @@ import static ma.errabi.sdk.util.Constant.*;
 @Aspect
 @Component
 @RequiredArgsConstructor
-public class UploadDocumentMetricAspect {
+public class MetricAspect {
 
     private final MetricProvider metricProvider;
     private MetricService metricsCounterService ;
@@ -30,8 +30,8 @@ public class UploadDocumentMetricAspect {
     }
 
 
-    @Around("@annotation(trackUploadMetrics)")
-    public Object trackUploadMetrics(ProceedingJoinPoint joinPoint, TrackUploadMetrics trackUploadMetrics) throws Throwable {
+    @Around("@annotation(trackUploadDocumentMetric)")
+    public Object trackUploadMetrics(ProceedingJoinPoint joinPoint, TrackUploadDocumentMetric trackUploadDocumentMetric) throws Throwable {
         MultipartFile file = extractMultipartFile(joinPoint.getArgs());
         try {
             Object result = joinPoint.proceed();
