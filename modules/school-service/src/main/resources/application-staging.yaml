@@ -84,6 +84,9 @@ management:
     tags:
       application: school-service
       environment: staging
+  health:
+    circuitbreakers:
+      enabled: true
 server:
   port: 8080
 
@@ -102,3 +105,15 @@ keycloak:
 app :
   cache:
     expiration-time : 10 # 10 Minutes
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      documentService:
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10              # Tracks the outcome of the last 10 calls
+        minimumNumberOfCalls: 5            # Minimum calls needed before calculating the failure rate
+        failureRateThreshold: 50           # Opens the circuit if 50% or more of calls fail
+        waitDurationInOpenState: 10s       # Time to wait before testing recovery (Half-Open state)
+        permittedNumberOfCallsInHalfOpenState: 3 # Number of test calls allowed in Half-Open state

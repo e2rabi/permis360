@@ -22,6 +22,7 @@ dependencies {
 	implementation 'org.keycloak:keycloak-admin-client'
 	implementation 'org.springframework.boot:spring-boot-docker-compose'
 	implementation 'org.postgresql:postgresql'
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

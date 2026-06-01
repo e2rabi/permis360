@@ -1,5 +1,6 @@
 package ma.errabi.autoecole.service;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.autoecole.service.feign.DocumentFeignClient;
@@ -56,7 +57,8 @@ public class SchoolService {
         return setSchoolLogo(schoolDto);
     }
 
-    private SchoolDto setSchoolLogo(SchoolDto schoolDto) {
+    @CircuitBreaker(name = "documentService", fallbackMethod = "fallbackResponse")
+    public SchoolDto setSchoolLogo(SchoolDto schoolDto) {
         try {
             log.info("Get School logo for school id: {}", schoolDto.id());
 
