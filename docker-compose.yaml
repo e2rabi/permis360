@@ -88,12 +88,12 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: staging
       OTEL_SDK_DISABLED: false
-      OTEL_SERVICE_NAME : document-service
-      OTEL_EXPORTER_OTLP_ENDPOINT : http://otel-collector:4317
-      OTEL_EXPORTER_OTLP_PROTOCOL : grpc
-      OTEL_TRACES_EXPORTER : otlp
-      OTEL_METRICS_EXPORTER : none
-      OTEL_LOGS_EXPORTER : otlp
+      OTEL_SERVICE_NAME: document-service
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: otlp
       MINIO-ACCESS-KEY: 62C1KWw7NXI7irZl50AN
       MINIO-SECRET-KEY: HOHVs2yqCqdikVOppeOfNK3UgWccSuQ99W4HTB1L
     ports:
