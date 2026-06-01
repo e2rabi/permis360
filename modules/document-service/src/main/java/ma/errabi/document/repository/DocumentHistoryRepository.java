@@ -2,6 +2,7 @@ package ma.errabi.document.repository;
 
 import ma.errabi.document.domain.DocumentHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -11,4 +12,6 @@ import java.util.UUID;
 public interface DocumentHistoryRepository extends JpaRepository<DocumentHistory, UUID> {
 
     Optional<DocumentHistory> findByObjectId(String objectId);
+    @Modifying
+    void deleteByObjectId(String objectId);
 }

@@ -1,7 +1,7 @@
 services:
   keycloak-service:
     image: keycloak/keycloak:25.0.1
-    command: start-dev --metrics-enabled=true
+    command: start-dev --metrics-enabled=true --http-enabled=true
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -10,6 +10,10 @@ services:
       KC_HOSTNAME_STRICT: "false"
       KC_HOSTNAME_STRICT_HTTPS: "false"
       KC_METRICS_ENABLED: true
+      KC_PROXY: edge
+      KC_HOSTNAME: 194.163.129.95
+      KC_PROXY_HEADERS: "xforwarded"
+      KC_LOG_LEVEL: DEBUG
     ports:
       - "8080:8080"
     volumes:
@@ -78,29 +82,33 @@ services:
         condition: service_started
     restart: unless-stopped
   document-service:
-    build: ./modules/document-service
-    mem_limit: 512m
+    #build: ./modules/document-service
+    image: e2rabi11/document-service:latest
+    container_name: document-service
     environment:
       SPRING_PROFILES_ACTIVE: staging
       OTEL_SDK_DISABLED: false
-      ENV OTEL_SERVICE_NAME : school-service
-      OTEL_EXPORTER_OTLP_ENDPOINT : http://otel-collector:4317
-      OTEL_EXPORTER_OTLP_PROTOCOL : grpc
-      OTEL_TRACES_EXPORTER : otlp
-      OTEL_METRICS_EXPORTER : none
-      OTEL_LOGS_EXPORTER : otlp
+      OTEL_SERVICE_NAME: document-service
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: otlp
+      MINIO-ACCESS-KEY: 62C1KWw7NXI7irZl50AN
+      MINIO-SECRET-KEY: HOHVs2yqCqdikVOppeOfNK3UgWccSuQ99W4HTB1L
     ports:
       - "8009:8080"
     depends_on:
       keycloak-service:
         condition: service_healthy
   school-service:
-    build: ./modules/school-service
-    mem_limit: 512m
+    #build: ./modules/school-service
+    image: e2rabi11/school-service:latest
+    container_name: school-service
     environment:
       SPRING_PROFILES_ACTIVE: staging
       OTEL_SDK_DISABLED: false
-      ENV OTEL_SERVICE_NAME: school-service
+      OTEL_SERVICE_NAME: school-service
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
       OTEL_EXPORTER_OTLP_PROTOCOL: grpc
       OTEL_TRACES_EXPORTER: otlp
