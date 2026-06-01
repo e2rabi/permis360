@@ -29,3 +29,14 @@ Let's explain first the system structure to understand its components:
 
 ### System Boundary - μServices Landscape
 <img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/104d3d2c-835c-4543-ace0-d78b844b1bd0" />
+
+## Staging Environment Access
+
+| Service | Description | Staging URL |
+| :--- | :--- | :--- |
+| **Prometheus** | Metrics & Monitoring | [http://194.163.129.95:9090](http://194.163.129.95:9090) |
+| **Jaeger** | Distributed Tracing | [http://194.163.129.95:16686](http://194.163.129.95:16686) |
+| **Kibana (ELK)** | Log Management & Analysis | [http://194.163.129.95:5601](http://194.163.129.95:5601) |
+| **Document Swagger UI** | API Documentation & Testing | [http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
+| **School Swagger UI** | API Documentation & Testing | [http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
+| **Keycloak** | Identity & Access Management | [http://194.163.129.95:8080](http://194.163.129.95:8080) |
