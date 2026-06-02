@@ -2,7 +2,10 @@ package ma.errabi.autoecole.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.support.NoOpCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -22,8 +25,8 @@ public class CacheConfig {
     private int cacheExpirationTime;
 
     @Bean
+    @ConditionalOnProperty(prefix = "app.cache", name = "enabled", havingValue = "true", matchIfMissing = true)
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
-
         ObjectMapper mapper = new ObjectMapper();
         mapper.findAndRegisterModules();
 
@@ -40,5 +43,10 @@ public class CacheConfig {
         return RedisCacheManager.builder(connectionFactory)
                 .cacheDefaults(config)
                 .build();
+    }
+    @Bean
+    @ConditionalOnProperty(prefix = "app.cache", name = "enabled", havingValue = "false")
+    public CacheManager noOpCacheManager() {
+        return new NoOpCacheManager();
     }
 }

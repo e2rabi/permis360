@@ -99,6 +99,7 @@ keycloak:
 
 app :
   cache:
+    enabled: false
     expiration-time : 10 # 10 Minutes
 
 resilience4j:

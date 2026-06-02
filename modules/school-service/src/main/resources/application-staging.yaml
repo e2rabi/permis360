@@ -104,7 +104,8 @@ keycloak:
 
 app :
   cache:
-    expiration-time : 10 # 10 Minutes
+    enabled: ${redis-cache-enabled:true}
+    expiration-time : ${redis-cache-ttl:10} # 10 Minutes
 
 resilience4j:
   circuitbreaker:
