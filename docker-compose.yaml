@@ -114,6 +114,7 @@ services:
       OTEL_TRACES_EXPORTER: otlp
       OTEL_METRICS_EXPORTER: none
       OTEL_LOGS_EXPORTER: otlp
+      SPRING_CACHE_TYPE: none
     ports:
       - "8010:8080"
     depends_on:
