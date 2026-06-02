@@ -18,7 +18,7 @@ spring:
         registration:
           keycloak:
             client-id: ${keycloak-client-id}
-            scope: openid,profile,email
+            scope: openid,profile,email,roles
             client-secret: ${keycloak-client-secret}
             authorization-grant-type: client_credentials
         provider:
