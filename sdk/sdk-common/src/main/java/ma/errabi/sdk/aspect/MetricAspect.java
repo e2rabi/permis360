@@ -1,9 +1,12 @@
 package ma.errabi.sdk.aspect;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.errabi.sdk.aspect.annotation.TrackUploadMetrics;
-import ma.errabi.sdk.metric.MetricsService;
+import ma.errabi.sdk.aspect.annotation.TrackUploadDocumentMetric;
+import ma.errabi.sdk.metric.MetricProvider;
+import ma.errabi.sdk.metric.MetricService;
+import ma.errabi.sdk.types.MetricType;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,18 +19,25 @@ import static ma.errabi.sdk.util.Constant.*;
 @Aspect
 @Component
 @RequiredArgsConstructor
-public class UploadMetricsAspect {
+public class MetricAspect {
 
-    private final MetricsService metricsService;
+    private final MetricProvider metricProvider;
+    private MetricService metricsCounterService ;
 
-    @Around("@annotation(trackUploadMetrics)")
-    public Object trackUploadMetrics(ProceedingJoinPoint joinPoint, TrackUploadMetrics trackUploadMetrics) throws Throwable {
+    @PostConstruct
+    public void init(){
+        metricsCounterService = metricProvider.getMetricService(MetricType.COUNTER);
+    }
+
+
+    @Around("@annotation(trackUploadDocumentMetric)")
+    public Object trackUploadMetrics(ProceedingJoinPoint joinPoint, TrackUploadDocumentMetric trackUploadDocumentMetric) throws Throwable {
         MultipartFile file = extractMultipartFile(joinPoint.getArgs());
         try {
             Object result = joinPoint.proceed();
 
             if (file != null) {
-                metricsService.log(
+                metricsCounterService.log(
                         METRIC_UPLOAD_DOCUMENT_SUCCESS,
                         METRIC_TAG_FILE_TYPE,
                         file.getContentType()
@@ -39,7 +49,7 @@ public class UploadMetricsAspect {
         } catch (Exception ex) {
 
             if (file != null) {
-                metricsService.log(
+                metricsCounterService.log(
                         METRIC_UPLOAD_DOCUMENT_FAILED,
                         METRIC_TAG_FILE_TYPE,
                         file.getContentType()

@@ -1,15 +1,23 @@
-[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v1.0.0-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v1.0.0) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
+[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v1.1.0-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v1.1.0) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
 
 # Auto Ecole Platform μServices
 
 ## Introduction
-- This project is a development of a small set of **Spring Boot** and **Cloud** based Microservices projects that implement cloud-native intuitive, Reactive Programming, Microservices design patterns, and coding best practices.
+A driving school management (Software as a Service) is a web-based platform designed to digitize and streamline all administrative, educational, and financial operations of a driving school.
 
-- The project follows [**CloudNative**](https://www.cncf.io/) recommendations and The [**twelve-factor app**](https://12factor.net/) methodology for building *software-as-a-service apps* to show how μServices should be developed and deployed.
-- This project uses cutting edge technologies like Docker, Kubernetes, Elasticsearch Stack for
- logging ,opentelemetry and prometheus for distributed tracing and monitoring, Java SE 21, POSTGRES, and REDIS databases
- - This project is going to be developed as stages, and all such stage steps are documented under
-  the project : wiki
+It enables administrators, instructors, and students to efficiently manage daily activities through a centralized online system accessible from any device.
+
+### Key Features
+- Student management: registration, file tracking, learning progress, and training history.
+- Lesson scheduling: smart planning of theory and driving lessons using a calendar system.
+- Instructor and vehicle management: assignment of instructors, availability tracking, and vehicle maintenance monitoring.
+- Online booking: students can schedule driving or theory sessions easily.
+- Learning progress tracking: monitoring driving hours, skill evaluation, and exam preparation.
+- Administrative & financial management: payments, invoices, subscriptions, reminders, and reporting tools.
+- Automated notifications: reminders for lessons, payment deadlines, and student communication.
+- Analytics dashboard: insights into performance, pass rates, revenue, and overall driving school activity.
+
+The project follows [**CloudNative**](https://www.cncf.io/) recommendations and The [**twelve-factor app**](https://12factor.net/) methodology for building *software-as-a-service apps* to show how μServices should be developed and deployed.
 
 ---
 ## Getting started

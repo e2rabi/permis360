@@ -150,6 +150,8 @@ services:
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
     ports:
       - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
   kibana:
     image: docker.elastic.co/kibana/kibana:9.1.0
     container_name: kibana
@@ -157,6 +159,8 @@ services:
       - "5601:5601"
     environment:
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    volumes:
+      - kibana_data:/usr/share/kibana/data
     depends_on:
       - elasticsearch
   postgres-service:
@@ -182,3 +186,5 @@ volumes:
   minio_data:
   redis_data:
   prometheus_data:
+  es_data:
+  kibana_data:
