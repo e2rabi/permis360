@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnMissingBean(OpenAPI.class)
 public class OpenApiAutoConfig {
 
-    @Value("${spring.security.oauth2.client.provider.keycloak.issuer-uri}")
+    @Value("${spring.security.oauth2.client.provider.keycloak.issuer-uri:}")
     private String keycloakAuthServerUrl ;
     @Bean
     public OpenAPI customOpenAPI() {

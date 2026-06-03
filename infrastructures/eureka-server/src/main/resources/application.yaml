@@ -1,0 +1,28 @@
+spring:
+   application:
+    name : eureka-server
+  # H2 Database Configuration
+   datasource:
+     driverClassName: org.h2.Driver
+     username: sa
+     password:
+     url: jdbc:h2:mem:testdb3;DB_CLOSE_DELAY=-1
+server:
+  port: 8761
+
+app:
+  eureka:
+    username: admin
+    password: "{noop}admin"
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+        defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+       waitTimeInMsWhenSyncEmpty: 0
+       responseCacheUpdateIntervalMs:  5000

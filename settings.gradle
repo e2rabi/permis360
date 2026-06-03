@@ -18,6 +18,7 @@ include "plugins:custom-gradle-plugin"
 include "modules:school-service"
 include "modules:document-service"
 include "sdk:sdk-common"
+include "infrastructures:eureka-server"
 //includeBuild('plugins/custom-gradle-plugin')
 
 

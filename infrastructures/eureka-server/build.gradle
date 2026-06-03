@@ -1,0 +1,16 @@
+plugins {
+	id 'custom-gradle-plugin' version '2.3.4'
+}
+dependencies {
+	annotationProcessor platform(project(':plugins:custom-gradle-bom'))
+	implementation project(":sdk:sdk-common")
+	implementation platform(project(':plugins:custom-gradle-bom'))
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:5.0.1'
+	implementation("org.springframework.boot:spring-boot-devtools:4.0.6")
+	implementation 'org.springframework.boot:spring-boot-starter-security:4.0.6'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// H2 Database
+	runtimeOnly("com.h2database:h2")
+}
+
