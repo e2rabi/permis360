@@ -42,6 +42,7 @@ dependencies {
         api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
         api 'org.springdoc:springdoc-openapi-ui:1.6.15'
         api 'org.flywaydb:flyway-database-postgresql:11.14.1'
+        api 'com.tngtech.archunit:archunit-junit5:1.4.2'
 
     }
 }

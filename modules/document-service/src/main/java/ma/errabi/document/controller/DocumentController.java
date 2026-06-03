@@ -3,7 +3,7 @@ package ma.errabi.document.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.document.controller.openapi.DocumentOpenApi;
-import ma.errabi.document.service.DocumentService;
+import ma.errabi.document.service.impl.DocumentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

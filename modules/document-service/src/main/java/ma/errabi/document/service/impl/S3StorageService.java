@@ -1,8 +1,9 @@
-package ma.errabi.document.service;
+package ma.errabi.document.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.document.repository.DocumentHistoryRepository;
+import ma.errabi.document.service.StorageService;
 import ma.errabi.sdk.exception.ResourceNotFoundException;
 import ma.errabi.sdk.exception.TechnicalException;
 import org.jspecify.annotations.NonNull;
