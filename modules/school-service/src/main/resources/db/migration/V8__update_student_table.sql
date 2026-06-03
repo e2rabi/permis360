@@ -1,8 +1,8 @@
 
 ALTER TABLE IF EXISTS school.students
-    ADD COLUMN user_id VARCHAR(255) NOT NULL;
+    ADD COLUMN user_id VARCHAR(255) NOT NULL UNIQUE;
 alter table if exists school.students
-    add column email varchar(255);
+    add column email varchar(255) UNIQUE;
 
 ALTER TABLE IF EXISTS school.students ALTER COLUMN status TYPE VARCHAR(255);
 
