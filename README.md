@@ -32,6 +32,7 @@ This project uses the following frameworks and libraries :
 - Database migration with flyway and Postgres and Redis for cache management
 - Deployment docker and docker-compose and kubernetes with helm charts
 - ArgoCd for deployment as a Gitops operator
+- Testing using ArchUnit to verify the respect of architectural rules
 ### System components Structure
 Let's explain first the system structure to understand its components:
 
@@ -42,7 +43,7 @@ Let's explain first the system structure to understand its components:
 
 | Service | Description | Staging URL |
 | :--- | :--- | :--- |
-| **Prometheus** | Metrics & Monitoring | [http://194.163.129.95:9090](http://194.163.129.95:9090) |
+| **Prometheus** | Metrics & Monitoring | [http://194.163.129.95:9090](http://194.163.129.95:9090/targets) |
 | **Jaeger** | Distributed Tracing | [http://194.163.129.95:16686](http://194.163.129.95:16686) |
 | **Kibana (ELK)** | Log Management & Analysis | [http://194.163.129.95:5601](http://194.163.129.95:5601) |
 | **Document Swagger UI** | API Documentation & Testing | [http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
