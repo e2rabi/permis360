@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface SchoolRepository  extends JpaRepository<School, UUID> {
+public interface SchoolRepository  extends JpaRepository<School, Long> {
 
     @EntityGraph(attributePaths = {"students", "instructors","geoLocation"})
     Optional<School> findByEmail(String email);

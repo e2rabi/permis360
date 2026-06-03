@@ -39,6 +39,12 @@ public class Student extends BaseEntity{
     @Column(unique = true)
     private String cin;
 
+    @Column(unique = true)
+    private String userId;
+
+    @Column(unique = true)
+    private String email;
+
     @CreationTimestamp
     private LocalDate registrationDate;
 

@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.UUID;
-
 @Tag(name = "Schools", description = "APIs for managing schools")
 public interface SchoolOpenApi {
 
@@ -40,6 +38,6 @@ public interface SchoolOpenApi {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = StudentDto.class))),
             @ApiResponse(responseCode = "400", description = "Bad request")
     })
-    ResponseEntity<StudentDto> createStudent(@RequestBody @Valid StudentDto request, @PathVariable UUID schoolId);
+    ResponseEntity<StudentDto> createStudent(@RequestBody @Valid StudentDto request, @PathVariable Long schoolId);
 
 }

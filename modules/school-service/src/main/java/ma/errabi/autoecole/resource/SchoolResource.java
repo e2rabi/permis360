@@ -42,7 +42,7 @@ public class SchoolResource implements SchoolOpenApi {
     }
     @Override
     @PostMapping(value = "/{schoolId}/students",version = "v1.0")
-    public ResponseEntity<StudentDto> createStudent(@RequestBody @Valid StudentDto request, @PathVariable UUID schoolId) {
+    public ResponseEntity<StudentDto> createStudent(@RequestBody @Valid StudentDto request, @PathVariable Long schoolId) {
         log.info("Received request to create Student: {}", request);
         StudentDto savedStudent = studentService.saveStudent(request, schoolId);
         log.debug("Created Student with id={}", savedStudent.fullName());
