@@ -42,6 +42,7 @@ public class DocumentController implements DocumentOpenApi {
                 .body("File uploaded id : " + fileId);
     }
 
+    @Override
     @DeleteMapping(value = "/{objectId}")
     public ResponseEntity<Void> deleteDocument(@PathVariable("objectId") String objectId){
         log.info("Request to delete document: {}", objectId);
