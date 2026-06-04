@@ -133,7 +133,7 @@ services:
       OTEL_EXPORTER_OTLP_PROTOCOL: grpc
       OTEL_TRACES_EXPORTER: otlp
       OTEL_METRICS_EXPORTER: none
-      OTEL_LOGS_EXPORTER: otlp
+      OTEL_LOGS_EXPORTER: none
     ports:
       - "8761:8080"
     depends_on:
