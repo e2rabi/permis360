@@ -35,7 +35,38 @@ This project uses the following frameworks and libraries :
 - Testing using ArchUnit to verify the respect of architectural rules
 ### System components Structure
 Let's explain first the system structure to understand its components:
+```
+------------------------------------------------------------
+Root project 'autoecole-platform'
+------------------------------------------------------------
+Project hierarchy:
 
+Root project 'autoecole-platform'
++--- Project ':infrastructures'
+|    \--- Project ':infrastructures:eureka-server'
++--- Project ':modules'
+|    +--- Project ':modules:document-service'
+|    \--- Project ':modules:school-service'
++--- Project ':plugins'
+|    +--- Project ':plugins:custom-gradle-bom'
+|    \--- Project ':plugins:custom-gradle-plugin'
+\--- Project ':sdk'
+     \--- Project ':sdk:sdk-common'
+
+Project locations:
+
+project ':infrastructures' - /infrastructures
+project ':infrastructures:eureka-server' - /infrastructures/eureka-server
+project ':modules' - /modules
+project ':modules:document-service' - /modules/document-service
+project ':modules:school-service' - /modules/school-service
+project ':plugins' - /plugins
+project ':plugins:custom-gradle-bom' - /plugins/custom-gradle-bom
+project ':plugins:custom-gradle-plugin' - /plugins/custom-gradle-plugin
+project ':sdk' - /sdk
+project ':sdk:sdk-common' - /sdk/sdk-common
+```
+Now, as we have learned about different system components, then let's start.
 ### System Boundary - μServices Landscape
 #### Dev environment deployment using Docker compose :  
 <img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/b22002c7-4ddd-4336-94de-60b5a1188b0b" />
