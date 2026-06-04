@@ -37,11 +37,11 @@ This project uses the following frameworks and libraries :
 Let's explain first the system structure to understand its components:
 
 ### System Boundary - μServices Landscape
-<img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/104d3d2c-835c-4543-ace0-d78b844b1bd0" />
+#### Dev environment deployment using Docker compose :  
+<img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/b22002c7-4ddd-4336-94de-60b5a1188b0b" />
 
-## Staging Environment Access
 
-| Service | Description | Staging URL |
+| Service | Description | Dev URL |
 | :--- | :--- | :--- |
 | **Prometheus** | Metrics & Monitoring | [http://194.163.129.95:9090](http://194.163.129.95:9090/targets) |
 | **Jaeger** | Distributed Tracing | [http://194.163.129.95:16686](http://194.163.129.95:16686) |
@@ -51,4 +51,17 @@ Let's explain first the system structure to understand its components:
 | **Keycloak** | Identity & Access Management | [http://194.163.129.95:8080](http://194.163.129.95:8080) |
 | **Minio** | Object store | [http://194.163.129.95:9001](http://194.163.129.95:9001) |
 | **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
+
+#### Staging environment deployment using kubernetes :  
+<img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/e79523bd-e04a-487b-b0d0-b75213613873" />
+
+| Service | Description | Staging URL |
+| :--- | :--- | :--- |
+| **Prometheus** | Metrics & Monitoring | [](http://194.163.129.95:9090/targets) |
+| **Jaeger** | Distributed Tracing | [](http://194.163.129.95:16686) |
+| **Kibana (ELK)** | Log Management & Analysis | [](http://194.163.129.95:5601) |
+| **Document Swagger UI** | API Documentation & Testing | [](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
+| **School  Swagger UI** | API Documentation & Testing | [](http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html) |
+| **Keycloak** | Identity & Access Management | [](http://194.163.129.95:8080) |
+| **Minio** | Object store | [](http://194.163.129.95:9001) |
 
