@@ -147,7 +147,7 @@ services:
       OTEL_METRICS_EXPORTER: none
       OTEL_LOGS_EXPORTER: otlp
     ports:
-      - "8030:8080"
+      - "8761:8080"
     depends_on:
       keycloak-service:
         condition: service_healthy
