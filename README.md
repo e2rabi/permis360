@@ -50,3 +50,5 @@ Let's explain first the system structure to understand its components:
 | **School  Swagger UI** | API Documentation & Testing | [http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html) |
 | **Keycloak** | Identity & Access Management | [http://194.163.129.95:8080](http://194.163.129.95:8080) |
 | **Minio** | Object store | [http://194.163.129.95:9001](http://194.163.129.95:9001) |
+| **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
+
