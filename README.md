@@ -95,4 +95,6 @@ Now, as we have learned about different system components, then let's start.
 | **School  Swagger UI** | API Documentation & Testing | [](http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html) |
 | **Keycloak** | Identity & Access Management | [](http://194.163.129.95:8080) |
 | **Minio** | Object store | [](http://194.163.129.95:9001) |
+| **ArgoCD** | Gitops Operator | [](http://194.163.129.95:9001) |
+| **Falco** | A cloud-native runtime security tool | [](http://194.163.129.95:9001) |
 
