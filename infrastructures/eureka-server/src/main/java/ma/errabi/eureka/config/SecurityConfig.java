@@ -31,10 +31,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,@Value("${app.eureka.basic-auth.enabled:true}") boolean basicAuthEnabled) {
+        http.csrf(AbstractHttpConfigurer::disable);
+        if (basicAuthEnabled) {
+            http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
+        } else {
+            http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .httpBasic(AbstractHttpConfigurer::disable);
+        }
         return http.build();
     }
 }

@@ -3,16 +3,18 @@ spring:
     name : eureka-server
 
 server:
-  port: 8761
+  port: 8080
 
 app:
   eureka:
     username: admin
     password: "{noop}admin"
+    basic-auth:
+      enabled: false
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: eureka-service
   client:
     registerWithEureka: false
     fetchRegistry: false

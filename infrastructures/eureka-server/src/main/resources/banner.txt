@@ -1,0 +1,14 @@
+${AnsiColor.BLUE}
+
+8888888888                         888
+888                                888
+888                                888
+8888888   888  888 888d888 .d88b.  888  888  8888b.     .d8888b   .d88b.  888d888 888  888  .d88b.  888d888
+888       888  888 888P"  d8P  Y8b 888 .88P     "88b    88K      d8P  Y8b 888P"   888  888 d8P  Y8b 888P"
+888       888  888 888    88888888 888888K  .d888888    "Y8888b. 88888888 888     Y88  88P 88888888 888
+888       Y88b 888 888    Y8b.     888 "88b 888  888         X88 Y8b.     888      Y8bd8P  Y8b.     888
+8888888888 "Y88888 888     "Y8888  888  888 "Y888888     88888P'  "Y8888  888       Y88P    "Y8888  888
+
+${AnsiStyle.NORMAL}
+Spring Boot version: ${spring-boot.version}
+Spring Boot version formatted: ${spring-boot.formatted-version}
