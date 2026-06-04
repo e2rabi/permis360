@@ -68,7 +68,7 @@ project ':sdk:sdk-common' - /sdk/sdk-common
 ```
 Now, as we have learned about different system components, then let's start.
 ### System Boundary - μServices Landscape
-#### Dev environment deployment using Docker compose :  
+#### Dev environment (deployment using Docker compose) :  
 <img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/b22002c7-4ddd-4336-94de-60b5a1188b0b" />
 
 
@@ -83,7 +83,7 @@ Now, as we have learned about different system components, then let's start.
 | **Minio** | Object store | [http://194.163.129.95:9001](http://194.163.129.95:9001) |
 | **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
 
-#### Staging environment deployment using kubernetes :  
+#### Staging environment (deployment using kubernetes) :  
 <img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/e79523bd-e04a-487b-b0d0-b75213613873" />
 
 | Service | Description | Staging URL |
