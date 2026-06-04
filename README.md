@@ -33,6 +33,7 @@ This project uses the following frameworks and libraries :
 - Deployment docker and docker-compose and kubernetes with helm charts
 - ArgoCd for deployment as a Gitops operator
 - Testing using ArchUnit to verify the respect of architectural rules
+- Security using Spring security, OAuth2,mTls,Istio,PSS,RBAC,trivy,AppArmor,Seccomp,falco 
 ### System components Structure
 Let's explain first the system structure to understand its components:
 ```
@@ -84,7 +85,7 @@ Now, as we have learned about different system components, then let's start.
 | **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
 
 #### Staging environment (deployment using kubernetes) :  
-<img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/e79523bd-e04a-487b-b0d0-b75213613873" />
+<img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/ad31ce7e-bc9a-44ec-a25f-1d38e8062148" />
 
 | Service | Description | Staging URL |
 | :--- | :--- | :--- |
