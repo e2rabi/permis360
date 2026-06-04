@@ -97,6 +97,7 @@ services:
       MINIO-ACCESS-KEY: 62C1KWw7NXI7irZl50AN
       MINIO-SECRET-KEY: HOHVs2yqCqdikVOppeOfNK3UgWccSuQ99W4HTB1L
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8080/eureka/
+      EUREKA-SERVER-URL: http://eureka-service:8080
     ports:
       - "8009:8080"
     depends_on:
