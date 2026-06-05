@@ -51,7 +51,7 @@ spring:
     console:
       enabled: false
       path: /h2-console
-  eureka:
+eureka:
     client:
       serviceUrl:
         defaultZone: "http://127.0.0.1:8761/eureka"
