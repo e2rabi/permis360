@@ -29,6 +29,14 @@ spring:
               predicates:
                 # Catches /eureka/css, /eureka/js, /eureka/apps, etc.
                 - Path=/eureka/**
+            - id: document-service
+              uri: lb://document-service:8099
+              predicates:
+                - Path=/documents/**
+            - id: school-service
+              uri: lb://school-service:8081
+              predicates:
+                - Path=/schools/**
           enabled: true
 
 management:

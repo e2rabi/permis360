@@ -121,6 +121,23 @@ services:
     depends_on:
       keycloak-service:
         condition: service_healthy
+  api-gateway-service:
+    image: e2rabi11/api-gateway-service:latest
+    container_name: api-gateway-service
+    environment:
+      SPRING_PROFILES_ACTIVE: staging
+      OTEL_SDK_DISABLED: false
+      OTEL_SERVICE_NAME: api-gateway-service
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: otlp
+    ports:
+      - "8443:8443"
+    depends_on:
+      keycloak-service:
+        condition: service_healthy
   eureka-service:
     #build: ./infrastructures/eureka-server
     image: e2rabi11/eureka-service:latest
