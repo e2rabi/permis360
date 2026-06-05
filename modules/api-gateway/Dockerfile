@@ -1,17 +1,29 @@
+# Use OpenJDK 25 JRE Alpine
+FROM eclipse-temurin:25-jre-alpine
 
-# Use the official OpenJDK 17 image as the base image
-FROM openjdk:17-jdk-slim
-
-USER 1000
-
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy the built jar file from the host to the container
-COPY build/libs/api-gateway-1.0.8-SNAPSHOT.jar app.jar
+# Create non-root user
+RUN addgroup -g 1001 app && adduser -u 1001 -G app -D app
 
-# Expose the port the application will run on
+# Download OpenTelemetry Java agent
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar /app/opentelemetry-javaagent.jar
+
+# Copy application jar
+COPY build/libs/app.jar app.jar
+
+# Set ownership
+RUN chown -R app:app /app
+
+# Switch to non-root user
+USER app
+
+# Expose app port
 EXPOSE 8080
 
-# Command to run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run app with OpenTelemetry agent
+ENTRYPOINT ["java", \
+"-javaagent:/app/opentelemetry-javaagent.jar", \
+"-jar", \
+"/app/app.jar"]
