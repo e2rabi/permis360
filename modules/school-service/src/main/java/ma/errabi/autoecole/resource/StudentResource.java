@@ -1,9 +1,11 @@
 package ma.errabi.autoecole.resource;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.autoecole.resource.openapi.StudentOpenApi;
+import ma.errabi.autoecole.service.StudentService;
+import ma.errabi.sdk.dto.StudentDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -11,6 +13,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/students")
-@Tag(name = "Students", description = "APIs for managing students")
 public class StudentResource implements StudentOpenApi {
+
+    private final StudentService studentService ;
+
+
+    @Override
+    @GetMapping("/{userId}")
+
+    public ResponseEntity<StudentDto> getStudentDetails(@PathVariable String userId){
+        log.info("Received request to get Student details by userId: {}", userId);
+        return ResponseEntity.ok(studentService.getStudentByUserId(userId));
+    }
 }

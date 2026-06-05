@@ -17,7 +17,9 @@ include "plugins:custom-gradle-bom"
 include "plugins:custom-gradle-plugin"
 include "modules:school-service"
 include "modules:document-service"
+include "modules:api-gateway"
 include "sdk:sdk-common"
+include "infrastructures:eureka-server"
 //includeBuild('plugins/custom-gradle-plugin')
 
 

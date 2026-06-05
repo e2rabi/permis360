@@ -20,10 +20,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-docker-compose'
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.springframework.boot:spring-boot-starter-flyway'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	runtimeOnly  'org.flywaydb:flyway-database-postgresql'
 
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'com.tngtech.archunit:archunit-junit5'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
@@ -38,6 +40,12 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 
 }
+
+test {
+	useJUnitPlatform()
+	jvmArgs("-XX:+EnableDynamicAgentLoading")
+}
+
 bootJar {
 	archiveFileName = 'app.jar'
 }

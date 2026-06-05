@@ -32,20 +32,70 @@ This project uses the following frameworks and libraries :
 - Database migration with flyway and Postgres and Redis for cache management
 - Deployment docker and docker-compose and kubernetes with helm charts
 - ArgoCd for deployment as a Gitops operator
+- Testing using ArchUnit to verify the respect of architectural rules
+- Security using Spring security, OAuth2,mTls,Istio,PSS,RBAC,trivy,AppArmor,Seccomp,falco 
 ### System components Structure
 Let's explain first the system structure to understand its components:
+```
+------------------------------------------------------------
+Root project 'autoecole-platform'
+------------------------------------------------------------
+Project hierarchy:
 
+Root project 'autoecole-platform'
++--- Project ':infrastructures'
+|    \--- Project ':infrastructures:eureka-server'
++--- Project ':modules'
+|    +--- Project ':modules:document-service'
+|    \--- Project ':modules:school-service'
++--- Project ':plugins'
+|    +--- Project ':plugins:custom-gradle-bom'
+|    \--- Project ':plugins:custom-gradle-plugin'
+\--- Project ':sdk'
+     \--- Project ':sdk:sdk-common'
+
+Project locations:
+
+project ':infrastructures' - /infrastructures
+project ':infrastructures:eureka-server' - /infrastructures/eureka-server
+project ':modules' - /modules
+project ':modules:document-service' - /modules/document-service
+project ':modules:school-service' - /modules/school-service
+project ':plugins' - /plugins
+project ':plugins:custom-gradle-bom' - /plugins/custom-gradle-bom
+project ':plugins:custom-gradle-plugin' - /plugins/custom-gradle-plugin
+project ':sdk' - /sdk
+project ':sdk:sdk-common' - /sdk/sdk-common
+```
+Now, as we have learned about different system components, then let's start.
 ### System Boundary - μServices Landscape
-<img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/104d3d2c-835c-4543-ace0-d78b844b1bd0" />
+#### Dev environment (deployment using Docker compose) :  
+<img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/b22002c7-4ddd-4336-94de-60b5a1188b0b" />
 
-## Staging Environment Access
 
-| Service | Description | Staging URL |
+| Service | Description | Dev URL |
 | :--- | :--- | :--- |
-| **Prometheus** | Metrics & Monitoring | [http://194.163.129.95:9090](http://194.163.129.95:9090) |
+| **Prometheus** | Metrics & Monitoring | [http://194.163.129.95:9090](http://194.163.129.95:9090/targets) |
 | **Jaeger** | Distributed Tracing | [http://194.163.129.95:16686](http://194.163.129.95:16686) |
 | **Kibana (ELK)** | Log Management & Analysis | [http://194.163.129.95:5601](http://194.163.129.95:5601) |
 | **Document Swagger UI** | API Documentation & Testing | [http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
-| **School  Swagger UI** | API Documentation & Testing | [http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
+| **School  Swagger UI** | API Documentation & Testing | [http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html) |
 | **Keycloak** | Identity & Access Management | [http://194.163.129.95:8080](http://194.163.129.95:8080) |
 | **Minio** | Object store | [http://194.163.129.95:9001](http://194.163.129.95:9001) |
+| **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
+
+#### Staging environment (deployment using kubernetes) :  
+<img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/ad31ce7e-bc9a-44ec-a25f-1d38e8062148" />
+
+| Service | Description | Staging URL |
+| :--- | :--- | :--- |
+| **Prometheus** | Metrics & Monitoring | [](http://194.163.129.95:9090/targets) |
+| **Jaeger** | Distributed Tracing | [](http://194.163.129.95:16686) |
+| **Kibana (ELK)** | Log Management & Analysis | [](http://194.163.129.95:5601) |
+| **Document Swagger UI** | API Documentation & Testing | [](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
+| **School  Swagger UI** | API Documentation & Testing | [](http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html) |
+| **Keycloak** | Identity & Access Management | [](http://194.163.129.95:8080) |
+| **Minio** | Object store | [](http://194.163.129.95:9001) |
+| **ArgoCD** | Gitops Operator | [](http://194.163.129.95:9001) |
+| **Falco** | A cloud-native runtime security tool | [](http://194.163.129.95:9001) |
+

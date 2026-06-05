@@ -31,4 +31,9 @@ public interface DocumentOpenApi {
                             schema = @Schema(type = "string", format = "binary")))
     })
     ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file,@RequestParam String objectId) ;
+
+    @Operation(summary = "Delete a document", description = "Delete a document by objectId")
+    @ApiResponse(responseCode = "204", description = "File deleted successfully")
+    @ApiResponse(responseCode = "404", description = "File not found")
+    ResponseEntity<Void> deleteDocument(@PathVariable("objectId") String objectId);
 }

@@ -3,7 +3,7 @@ package ma.errabi.document.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.document.controller.openapi.DocumentOpenApi;
-import ma.errabi.document.service.DocumentService;
+import ma.errabi.document.service.impl.DocumentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +42,7 @@ public class DocumentController implements DocumentOpenApi {
                 .body("File uploaded id : " + fileId);
     }
 
+    @Override
     @DeleteMapping(value = "/{objectId}")
     public ResponseEntity<Void> deleteDocument(@PathVariable("objectId") String objectId){
         log.info("Request to delete document: {}", objectId);

@@ -12,6 +12,11 @@ scrape_configs:
     static_configs:
       - targets: ["school-service:8080"]
 
+  - job_name: "eureka-service"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["eureka-service:8080"]
+
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
