@@ -62,6 +62,7 @@ project ':infrastructures:eureka-server' - /infrastructures/eureka-server
 project ':modules' - /modules
 project ':modules:document-service' - /modules/document-service
 project ':modules:school-service' - /modules/school-service
+project ':modules:api-gateway' - /modules/api-gateway
 project ':plugins' - /plugins
 project ':plugins:custom-gradle-bom' - /plugins/custom-gradle-bom
 project ':plugins:custom-gradle-plugin' - /plugins/custom-gradle-plugin
