@@ -37,6 +37,10 @@ spring:
               uri: lb://school-service:8080
               predicates:
                 - Path=/schools/**
+            - id: school-swagger
+              uri: lb://school-service:8080
+              predicates:
+                - Path=/swagger-ui/**
           enabled: true
 
 management:
