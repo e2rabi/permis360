@@ -80,8 +80,9 @@ Now, as we have learned about different system components, then let's start.
 | **Prometheus** | Metrics & Monitoring | [http://194.163.129.95:9090](http://194.163.129.95:9090/targets) |
 | **Jaeger** | Distributed Tracing | [http://194.163.129.95:16686](http://194.163.129.95:16686) |
 | **Kibana (ELK)** | Log Management & Analysis | [http://194.163.129.95:5601](http://194.163.129.95:5601) |
-| **Document Swagger UI** | API Documentation & Testing | [http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
-| **School  Swagger UI** | API Documentation & Testing | [http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html) |
+| **Document Swagger UI** | OpenAPI Documentation & Testing | [http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
+| **School  Swagger UI** | OpenAPI Documentation & Testing | [http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html](http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html) |
+| **API Gateway Swagger UI** | OpenAPI Documentation & Testing | [http://194.163.129.95:8443/swagger-ui/index.html](http://194.163.129.95:8443/swagger-ui/index.html) |
 | **Keycloak** | Identity & Access Management | [http://194.163.129.95:8080](http://194.163.129.95:8080) |
 | **Minio** | Object store | [http://194.163.129.95:9001](http://194.163.129.95:9001) |
 | **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
