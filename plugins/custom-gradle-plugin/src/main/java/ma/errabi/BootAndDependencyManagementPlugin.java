@@ -33,7 +33,7 @@ public class BootAndDependencyManagementPlugin implements Plugin<Project> {
                 Method getFrom = jibExt.getClass().getMethod("getFrom");
                 Object from = getFrom.invoke(jibExt);
                 Method setFromImage = from.getClass().getMethod("setImage", String.class);
-                setFromImage.invoke(from, "eclipse-temurin:21-jre-alpine");
+                setFromImage.invoke(from, "eclipse-temurin:25-jre-alpine");
 
                 // set to.image (use project name + version by default)
                 Method getTo = jibExt.getClass().getMethod("getTo");
