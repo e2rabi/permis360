@@ -2,8 +2,8 @@ name: Auto Ecole Build
 env:
     AUTO_ECOLE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     AUTO_ECOLE_USERNAME: ${{ github.actor }}
-    DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-    DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+    DOCKERHUB_TOKEN: ${{ vars.DOCKERHUB_TOKEN }}
 on:
   push:
     branches: [ "dev"]
