@@ -1,5 +1,5 @@
 plugins {
-	id 'custom-gradle-plugin' version '2.4.0'
+	id 'custom-gradle-plugin' version '2.4.1'
 }
 dependencies {
 	annotationProcessor platform(project(':plugins:custom-gradle-bom'))

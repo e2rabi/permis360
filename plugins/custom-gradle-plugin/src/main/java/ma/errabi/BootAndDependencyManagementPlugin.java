@@ -42,6 +42,18 @@ public class BootAndDependencyManagementPlugin implements Plugin<Project> {
                 String image = "index.docker.io/e2rabi11/" + p.getName() + ":" + p.getVersion();
                 setToImage.invoke(to, image);
 
+                String username = System.getenv("DOCKERHUB_USERNAME");
+                String password = System.getenv("DOCKERHUB_TOKEN");
+
+                if (username != null && password != null) {
+                    Method setAuth = to.getClass().getMethod("auth", Object.class);
+
+                    Class<?> authClass = Class.forName("com.google.cloud.tools.jib.api.buildplan.Auth");
+                    Method fromCredentials = authClass.getMethod("fromCredentials", String.class, String.class);
+
+                    Object auth = fromCredentials.invoke(null, username, password);
+                    setAuth.invoke(to, auth);
+                }
             } catch (Exception e) {
                 // non-fatal: log and continue so consumer builds aren't broken if Jib internals differ
                 logger.log(Level.WARNING,"Warning: could not configure jib defaults in ma.errabi.build-plugin: {}" , e.getMessage());
