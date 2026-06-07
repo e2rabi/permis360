@@ -1,12 +1,19 @@
 server:
   port: 8443
   shutdown: graceful
-
-
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    urls:
+      - name: School Service
+        url: /school/v3/api-docs
+      - name: Document Service
+        url: /document/v3/api-docs
 spring:
   lifecycle:
     timeout-per-shutdown-phase: 30s
-
   main:
     web-application-type: reactive
   application:
@@ -17,48 +24,63 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes:
-        - id: product-composite
-          uri: lb://product-composite
-          predicates:
-            - Path=/v1/product-composite/**
-        - id: product-composite-swagger
-          uri: lb://product-composite
-          predicates:
-            - Path=/openapi/**
-        - id: eureka-web-start
-          uri: http://localhost:8761
-          predicates:
-            - Path=/eureka/web
-          filters:
-            - SetPath=/
-        - id: eureka-web-others
-          uri: http://localhost:8761
-          predicates:
-            - Path=/eureka/**
-        - id: config-server
-          uri: http://localhost:8888
-          predicates:
-            - Path=/config/**
-          filters:
-            - RewritePath=/config/(?<segment>.*),/$\{segment}
+      server:
+        webflux:
+          routes:
+            - id: eureka-dashboard
+              uri: http://localhost:8761
+              predicates:
+                - Path=/eureka
+              filters:
+                - RewritePath=/eureka, /
+            - id: eureka-assets
+              uri: http://localhost:8761
+              predicates:
+                # Catches /eureka/css, /eureka/js, /eureka/apps, etc.
+                - Path=/eureka/**
+            - id: document-service
+              uri: lb://document-service:8099
+              predicates:
+                - Path=/documents/**
+            - id: school-service
+              uri: lb://school-service:8081
+              predicates:
+                - Path=/schools/**
+            - id: school-service-swagger
+              uri: lb://school-service
+              predicates:
+                - Path=/school/**
+              filters:
+                - StripPrefix=1
+            - id: document-service-swagger
+              uri: lb://document-service
+              predicates:
+                - Path=/document/**
+              filters:
+                - StripPrefix=1
+          enabled: true
 
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: gateway, health, info
+  endpoint:
+    gateway:
+      enabled: true
+
   metrics:
     tags:
       application: api-gateway-service
-      environment: development
+      environment: dev
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: "http://127.0.0.1:8761/eureka"
+      defaultZone: "http://localhost:8761/eureka"
     initial-instance-info-replication-interval-seconds: 0
     registry-fetch-interval-seconds: 5
+
   instance:
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 5

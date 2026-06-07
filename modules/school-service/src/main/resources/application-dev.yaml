@@ -84,6 +84,7 @@ management:
       enabled: true
 server:
   port: 8081
+  forward-headers-strategy: framework
 
 api-core:
   document-service:
