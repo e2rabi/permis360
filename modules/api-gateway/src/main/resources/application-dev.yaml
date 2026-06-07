@@ -2,10 +2,15 @@ server:
   port: 8443
   shutdown: graceful
 springdoc:
-  swagger-ui:
-    enabled: false
   api-docs:
-    enabled: false
+    enabled: true
+  swagger-ui:
+    enabled: true
+    urls:
+      - name: School Service
+        url: /school/v3/api-docs
+      - name: Document Service
+        url: /document/v3/api-docs
 spring:
   lifecycle:
     timeout-per-shutdown-phase: 30s
@@ -41,11 +46,18 @@ spring:
               uri: lb://school-service:8081
               predicates:
                 - Path=/schools/**
-            - id: school-swagger
+            - id: school-service-swagger
               uri: lb://school-service
               predicates:
-                  # Added /swagger-ui.html to catch the initial redirect
-                  - Path=/swagger-ui/**, /swagger-ui.html, /v3/api-docs/**
+                - Path=/school/**
+              filters:
+                - StripPrefix=1
+            - id: document-service-swagger
+              uri: lb://document-service
+              predicates:
+                - Path=/document/**
+              filters:
+                - StripPrefix=1
           enabled: true
 
 management:

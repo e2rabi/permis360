@@ -8,7 +8,7 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'io.micrometer:micrometer-registry-prometheus'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation("org.springdoc:springdoc-openapi-starter-webflux-api:3.0.3")
+	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
