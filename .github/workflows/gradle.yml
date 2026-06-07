@@ -2,6 +2,8 @@ name: Auto Ecole Build
 env:
     AUTO_ECOLE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     AUTO_ECOLE_USERNAME: ${{ github.actor }}
+    DOCKERHUB_USERNAME: ${{vars.DOCKER_USERNAME}}
+    DOCKERHUB_TOKEN: ${{vars.DOCKER_USERNAME}}
 on:
   push:
     branches: [ "dev"]
@@ -27,7 +29,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build jib
 
       - name: Run tests
         run: ./gradlew test
