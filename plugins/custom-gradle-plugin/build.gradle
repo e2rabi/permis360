@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'ma.errabi'
-version = '2.4.1'
+version = '2.4.4'
 repositories {
     gradlePluginPortal()
     mavenCentral()
@@ -26,7 +26,15 @@ gradlePlugin {
         }
     }
 }
-
+jib {
+    to {
+        image = "index.docker.io/e2rabi11/${project.name}:${project.version}"
+        auth {
+            username = System.getenv("DOCKERHUB_USERNAME")
+            password = System.getenv("DOCKERHUB_TOKEN")
+        }
+    }
+}
 publishing {
     publications {
         mavenJava(MavenPublication) {

@@ -1,5 +1,6 @@
 package ma.errabi;
 
+import com.google.cloud.tools.jib.gradle.JibExtension;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
@@ -36,24 +37,23 @@ public class BootAndDependencyManagementPlugin implements Plugin<Project> {
                 setFromImage.invoke(from, "eclipse-temurin:25-jre-alpine");
 
                 // set to.image (use project name + version by default)
-                Method getTo = jibExt.getClass().getMethod("getTo");
-                Object to = getTo.invoke(jibExt);
-                Method setToImage = to.getClass().getMethod("setImage", String.class);
-                String image = "index.docker.io/e2rabi11/" + p.getName() + ":" + p.getVersion();
-                setToImage.invoke(to, image);
+                JibExtension jib = p.getExtensions().getByType(JibExtension.class);
+
+                jib.getTo().setImage(
+                        "index.docker.io/e2rabi11/" +
+                                p.getName() +
+                                ":" +
+                                p.getVersion()
+                );
 
                 String username = System.getenv("DOCKERHUB_USERNAME");
                 String password = System.getenv("DOCKERHUB_TOKEN");
 
                 if (username != null && password != null) {
-                    Method setAuth = to.getClass().getMethod("auth", Object.class);
-
-                    Class<?> authClass = Class.forName("com.google.cloud.tools.jib.api.buildplan.Auth");
-                    Method fromCredentials = authClass.getMethod("fromCredentials", String.class, String.class);
-
-                    Object auth = fromCredentials.invoke(null, username, password);
-                    setAuth.invoke(to, auth);
+                    jib.getTo().getAuth().setUsername(username);
+                    jib.getTo().getAuth().setPassword(password);
                 }
+
             } catch (Exception e) {
                 // non-fatal: log and continue so consumer builds aren't broken if Jib internals differ
                 logger.log(Level.WARNING,"Warning: could not configure jib defaults in ma.errabi.build-plugin: {}" , e.getMessage());

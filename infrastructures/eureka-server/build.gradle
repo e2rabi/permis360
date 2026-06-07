@@ -1,5 +1,5 @@
 plugins {
-	id 'custom-gradle-plugin' version '2.4.1'
+	id 'custom-gradle-plugin' version '2.4.4'
 }
 dependencies {
 	annotationProcessor platform(project(':plugins:custom-gradle-bom'))
@@ -16,7 +16,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
-
 bootJar {
 	archiveFileName = 'app.jar'
 }
