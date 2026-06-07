@@ -13,7 +13,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: staging  
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,7 +28,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build jib
+        run: ./gradlew clean build
 
       - name: Run tests
         run: ./gradlew test
