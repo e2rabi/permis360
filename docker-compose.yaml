@@ -198,7 +198,7 @@ services:
     depends_on:
       - elasticsearch
   postgres-service:
-    image: postgres:17
+    image: postgres:14.23
     container_name: postgres
     environment:
       POSTGRES_DB: autoecole_db
