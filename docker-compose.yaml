@@ -82,8 +82,7 @@ services:
         condition: service_started
     restart: unless-stopped
   document-service:
-    #build: ./modules/document-service
-    image: e2rabi11/document-service:latest
+    image: e2rabi11/document-service:1.3.0
     container_name: document-service
     environment:
       SPRING_PROFILES_ACTIVE: staging
@@ -104,8 +103,7 @@ services:
       eureka-service:
         condition: service_started
   school-service:
-    #build: ./modules/school-service
-    image: e2rabi11/school-service:latest
+    image: e2rabi11/school-service:1.3.0
     container_name: school-service
     environment:
       SPRING_PROFILES_ACTIVE: staging
@@ -139,8 +137,7 @@ services:
       keycloak-service:
         condition: service_healthy
   eureka-service:
-    #build: ./infrastructures/eureka-server
-    image: e2rabi11/eureka-service:latest
+    image: e2rabi11/eureka-server:1.3.0
     container_name: eureka-service
     environment:
       SPRING_PROFILES_ACTIVE: staging
