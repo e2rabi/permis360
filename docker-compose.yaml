@@ -137,7 +137,7 @@ services:
       keycloak-service:
         condition: service_healthy
   eureka-service:
-    image: e2rabi11/eureka-server:latest
+    image: e2rabi11/eureka-service:latest
     container_name: eureka-service
     environment:
       SPRING_PROFILES_ACTIVE: staging
