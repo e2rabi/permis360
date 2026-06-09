@@ -72,6 +72,11 @@ project ':sdk:sdk-common' - /sdk/sdk-common
 Now, as we have learned about different system components, then let's start.
 ### System Boundary - μServices Landscape
 #### Dev environment (deployment using Docker compose) :  
+To run the microservices using the dev profile use following command:
+```
+docker compose up -d
+```
+
 <img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/b22002c7-4ddd-4336-94de-60b5a1188b0b" />
 
 
