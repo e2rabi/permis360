@@ -120,7 +120,7 @@ services:
       keycloak-service:
         condition: service_healthy
   api-gateway-service:
-    image: e2rabi11/api-gateway-service:latest
+    image: e2rabi11/api-gateway:1.3.0
     container_name: api-gateway-service
     environment:
       SPRING_PROFILES_ACTIVE: staging
