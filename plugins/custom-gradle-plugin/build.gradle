@@ -2,11 +2,11 @@ plugins {
     id 'java'
     id 'java-gradle-plugin'
     id 'maven-publish'
-    id 'com.google.cloud.tools.jib' version '3.4.0'
+    id 'com.google.cloud.tools.jib' version '3.5.3'
 }
 
 group = 'ma.errabi'
-version = '2.3.4'
+version = '2.4.8'
 repositories {
     gradlePluginPortal()
     mavenCentral()
@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-gradle-plugin:4.0.0")
-    implementation("com.google.cloud.tools:jib-gradle-plugin:3.4.0")
+    implementation("com.google.cloud.tools:jib-gradle-plugin:3.5.3")
 }
 gradlePlugin {
     plugins {
@@ -26,7 +26,15 @@ gradlePlugin {
         }
     }
 }
-
+jib {
+    to {
+        image = "index.docker.io/e2rabi11/${project.name}:${project.version}"
+        auth {
+            username = System.getenv("DOCKERHUB_USERNAME")
+            password = System.getenv("DOCKERHUB_TOKEN")
+        }
+    }
+}
 publishing {
     publications {
         mavenJava(MavenPublication) {
