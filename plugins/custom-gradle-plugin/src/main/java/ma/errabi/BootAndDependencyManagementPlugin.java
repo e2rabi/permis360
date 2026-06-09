@@ -77,20 +77,12 @@ public class BootAndDependencyManagementPlugin implements Plugin<Project> {
                         Collections.singletonList(otelDir)
                 );
 
-                // JVM agent flag (file will be at root of extra directory)
                 jib.getContainer().setJvmFlags(
-                        List.of(
-                                "-javaagent:/opentelemetry-javaagent.jar",
-                                "-Dotel.service.name=" + p.getName()
-                        )
+                        List.of("-javaagent:/opentelemetry-javaagent.jar")
                 );
 
             } catch (Exception e) {
-                logger.log(
-                        Level.WARNING,
-                        "Warning: could not configure jib + otel setup",
-                        e
-                );
+                logger.log(Level.WARNING, "Warning: could not configure jib + otel setup", e);
             }
         });
     }
