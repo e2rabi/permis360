@@ -105,6 +105,6 @@ docker compose up -d
 | **API Gateway Swagger UI** | OpenAPI Documentation & Testing | [](http://194.163.129.95:8443/swagger-ui/index.html) |
 | **Keycloak** | Identity & Access Management | [](http://194.163.129.95:8080) |
 | **Minio** | Object store | [](http://194.163.129.95:9001) |
-| **ArgoCD** | Gitops Operator | [http://13.140.173.47:8080/](http://13.140.173.47:8080) |
+| **ArgoCD** | Gitops Operator | [http://13.140.173.47:8080](http://13.140.173.47:8080) |
 | **Falco** | A cloud-native runtime security tool | [](http://194.163.129.95:9001) |
 
