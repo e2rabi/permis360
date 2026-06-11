@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: db-pv-volume
-  namespace: staging
+  namespace: dev
 spec:
   storageClassName: manual
   capacity:
