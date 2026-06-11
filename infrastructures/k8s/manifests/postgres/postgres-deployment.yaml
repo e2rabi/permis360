@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: postgres
   namespace: staging
-  annotations:
-    pod-security.kubernetes.io/enforce: baseline
 spec:
   replicas: 1
   selector:
@@ -21,7 +19,7 @@ spec:
         - name: postgres
           image: bitnami/postgresql:latest
           securityContext:
-            runAsNonRoot: true
+            runAsUser: 1001
             allowPrivilegeEscalation: false
           env:
             - name: POSTGRESQL_USERNAME
@@ -30,11 +28,13 @@ spec:
               value: keycloak
             - name: POSTGRESQL_DATABASE
               value: keycloak
+            - name: POSTGRESQL_POSTGRES_PASSWORD
+              value: rootpassword
           ports:
             - containerPort: 5432
           volumeMounts:
             - name: postgres-data
-              mountPath: /bitnami/postgresql
+              mountPath: /bitnami/postgresql/data
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
