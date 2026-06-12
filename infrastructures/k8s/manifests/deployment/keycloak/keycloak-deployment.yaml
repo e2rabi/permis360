@@ -43,21 +43,12 @@ spec:
               value: "true"
             - name: KC_METRICS_ENABLED
               value: "true"
-
-            # --- INGRESS ROUTING FIXES ---
-
-            # 1. Trust the headers passed by the NGINX Ingress
             - name: KC_PROXY_HEADERS
               value: "xforwarded"
-
-            # 2. Match the /auth path defined in your Ingress rules
             - name: KC_HTTP_RELATIVE_PATH
               value: "/auth"
-
-            # 3. Disable strict hostname checks so it accepts the raw IP from the Ingress
             - name: KC_HOSTNAME_STRICT
               value: "false"
-
           ports:
             - containerPort: 8080
               name: http
