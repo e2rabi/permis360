@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: postgres
   namespace: staging
-  annotations:
-    pod-security.kubernetes.io/enforce: baseline
 spec:
   replicas: 1
   selector:
@@ -16,23 +14,21 @@ spec:
         app: postgres
     spec:
       securityContext:
-        fsGroup: 1001
+        fsGroup: 999
       containers:
         - name: postgres
           image: postgres:14.23
           securityContext:
-            runAsUser: 1001
+            runAsUser: 999
             runAsNonRoot: true
             allowPrivilegeEscalation: false
           env:
-            - name: POSTGRESQL_USERNAME
+            - name: POSTGRES_USER
               value: admin
-            - name: POSTGRESQL_PASSWORD
+            - name: POSTGRES_PASSWORD
               value: admin
-            - name: POSTGRESQL_DATABASE
+            - name: POSTGRES_DB
               value: autoecole_db
-            - name: POSTGRESQL_POSTGRES_PASSWORD
-              value: admin
           ports:
             - containerPort: 5432
           volumeMounts:
