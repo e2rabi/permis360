@@ -15,6 +15,13 @@ spec:
       labels:
         app: keycloak
     spec:
+      initContainers:
+        - name: fix-permissions
+          image: busybox
+          command: [ "sh", "-c", "chown -R 1000:1000 /opt/keycloak/data" ]
+          volumeMounts:
+            - name: keycloak-data
+              mountPath: /opt/keycloak/data
       containers:
         - name: keycloak
           image: keycloak/keycloak:25.0.1
