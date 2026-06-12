@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: argocd-ingress
   namespace: argocd
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
 spec:
   rules:
     - http:
@@ -15,4 +13,4 @@ spec:
               service:
                 name: argocd-server
                 port:
-                  number: 32176
+                  number: 80
