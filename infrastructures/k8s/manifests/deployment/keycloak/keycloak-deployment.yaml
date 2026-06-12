@@ -25,13 +25,13 @@ spec:
       containers:
         - name: keycloak
           image: keycloak/keycloak:25.0.1
-          args: ["start-dev", "--metrics-enabled=true", "--http-enabled=true"]
+          args: ["start-dev", "--metrics-enabled=true"]
           env:
             - name: KEYCLOAK_ADMIN
               valueFrom:
-                  secretKeyRef:
-                    name: keycloak-credentials
-                    key: admin-user
+                secretKeyRef:
+                  name: keycloak-credentials
+                  key: admin-user
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -41,16 +41,23 @@ spec:
               value: "true"
             - name: KC_HEALTH_ENABLED
               value: "true"
-            - name: KC_HOSTNAME_STRICT
-              value: "false"
-            - name: KC_HOSTNAME_STRICT_HTTPS
-              value: "false"
             - name: KC_METRICS_ENABLED
               value: "true"
-            - name: KC_PROXY
-              value: "edge"
+
+            # --- INGRESS ROUTING FIXES ---
+
+            # 1. Trust the headers passed by the NGINX Ingress
+            - name: KC_PROXY_HEADERS
+              value: "xforwarded"
+
+            # 2. Match the /auth path defined in your Ingress rules
             - name: KC_HTTP_RELATIVE_PATH
               value: "/auth"
+
+            # 3. Disable strict hostname checks so it accepts the raw IP from the Ingress
+            - name: KC_HOSTNAME_STRICT
+              value: "false"
+
           ports:
             - containerPort: 8080
               name: http
