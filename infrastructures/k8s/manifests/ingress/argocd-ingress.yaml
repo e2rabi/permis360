@@ -3,7 +3,11 @@ kind: Ingress
 metadata:
   name: argocd-ingress
   namespace: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
+  ingressClassName: nginx
   rules:
     - http:
         paths:
@@ -13,4 +17,4 @@ spec:
               service:
                 name: argocd-server
                 port:
-                  number: 80
+                  number: 80 # Now perfectly matched with --insecure
