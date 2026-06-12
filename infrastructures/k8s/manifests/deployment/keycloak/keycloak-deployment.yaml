@@ -47,10 +47,10 @@ spec:
               value: "false"
             - name: KC_METRICS_ENABLED
               value: "true"
-#            - name: KC_PROXY
-#              value: "edge"
-#            - name: KC_PROXY_HEADERS
-#              value: "xforwarded"
+            - name: KC_HOSTNAME_URL
+              value: "http://13.140.173.47:8080"
+            - name: KC_HOSTNAME_ADMIN_URL
+              value: "ttp://13.140.173.47:8080"
           ports:
             - containerPort: 8080
               name: http
