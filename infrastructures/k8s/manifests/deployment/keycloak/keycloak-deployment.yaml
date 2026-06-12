@@ -49,8 +49,6 @@ spec:
               value: "true"
 #            - name: KC_PROXY
 #              value: "edge"
-            - name: KC_HOSTNAME
-              value: "13.140.173.47"
 #            - name: KC_PROXY_HEADERS
 #              value: "xforwarded"
           ports:
