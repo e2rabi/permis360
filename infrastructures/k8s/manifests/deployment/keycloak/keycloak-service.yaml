@@ -7,7 +7,9 @@ spec:
   selector:
     app: keycloak
   ports:
-    - protocol: TCP
-      port: 8080
+    - name: http
+      nodePort: 32177
+      port: 80
+      protocol: TCP
       targetPort: 8080
   type: NodePort
