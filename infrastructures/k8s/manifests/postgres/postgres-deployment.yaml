@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: staging
+  annotations:
+    pod-security.kubernetes.io/enforce: baseline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      securityContext:
+        fsGroup: 1001
+      containers:
+        - name: postgres
+          image: postgres:14.23
+          securityContext:
+            runAsUser: 1001
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+          env:
+            - name: POSTGRESQL_USERNAME
+              value: admin
+            - name: POSTGRESQL_PASSWORD
+              value: admin
+            - name: POSTGRESQL_DATABASE
+              value: autoecole_db
+            - name: POSTGRESQL_POSTGRES_PASSWORD
+              value: admin
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: db-pvc-volume
