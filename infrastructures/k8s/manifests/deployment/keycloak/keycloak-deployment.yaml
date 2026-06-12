@@ -43,12 +43,8 @@ spec:
               value: "true"
             - name: KC_HOSTNAME_STRICT
               value: "false"
-            - name: KC_HOSTNAME_STRICT_HTTPS
-              value: "false"
             - name: KC_METRICS_ENABLED
               value: "true"
-            - name: KC_PROXY
-              value: "edge"
             - name: KC_PROXY_HEADERS
               value: "xforwarded"
             - name: KC_HTTP_RELATIVE_PATH
