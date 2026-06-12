@@ -1,4 +1,4 @@
-[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v1.3.0-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v1.3.0) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
+[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v1.3.1-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v1.3.1) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
 
 # Auto Ecole Platform μServices
 
@@ -72,6 +72,11 @@ project ':sdk:sdk-common' - /sdk/sdk-common
 Now, as we have learned about different system components, then let's start.
 ### System Boundary - μServices Landscape
 #### Dev environment (deployment using Docker compose) :  
+To run the microservices using the dev profile use following command:
+```
+docker compose up -d
+```
+
 <img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/b22002c7-4ddd-4336-94de-60b5a1188b0b" />
 
 
@@ -98,8 +103,8 @@ Now, as we have learned about different system components, then let's start.
 | **Document Swagger UI** | OpenAPI Documentation & Testing | [](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
 | **School  Swagger UI** | OpenAPI Documentation & Testing | [](http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html) |
 | **API Gateway Swagger UI** | OpenAPI Documentation & Testing | [](http://194.163.129.95:8443/swagger-ui/index.html) |
-| **Keycloak** | Identity & Access Management | [](http://194.163.129.95:8080) |
+| **Keycloak** | Identity & Access Management | [http://13.140.173.47/auth](http://13.140.173.47/auth) |
 | **Minio** | Object store | [](http://194.163.129.95:9001) |
-| **ArgoCD** | Gitops Operator | [](http://194.163.129.95:9001) |
+| **ArgoCD** | Gitops Operator | [http://13.140.173.47/argocd](http://13.140.173.47/argocd) |
 | **Falco** | A cloud-native runtime security tool | [](http://194.163.129.95:9001) |
 

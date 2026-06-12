@@ -4,7 +4,7 @@ metadata:
   labels:
     app: postgres
   name: postgres
-  namespace: dev
+  namespace: staging
 spec:
   selector:
     app: postgres

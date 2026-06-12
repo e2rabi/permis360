@@ -65,7 +65,7 @@ public class BootAndDependencyManagementPlugin implements Plugin<Project> {
                 // OPENTELEMETRY FROM MODULE PATH
                 // =========================
 
-                File otelDir = p.getRootProject().file("otel");
+                File otelDir = p.getRootProject().file("infrastructures/otel");
                 logger.info("OTEL dir: " + otelDir.getAbsolutePath());
 
                 if (!otelDir.exists()) {
