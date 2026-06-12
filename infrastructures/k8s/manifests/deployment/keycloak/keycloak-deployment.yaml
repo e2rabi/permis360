@@ -25,13 +25,13 @@ spec:
       containers:
         - name: keycloak
           image: keycloak/keycloak:25.0.1
-          args: ["start-dev", "--metrics-enabled=true"]
+          args: ["start-dev", "--metrics-enabled=true", "--http-enabled=true"]
           env:
             - name: KEYCLOAK_ADMIN
               valueFrom:
-                secretKeyRef:
-                  name: keycloak-credentials
-                  key: admin-user
+                  secretKeyRef:
+                    name: keycloak-credentials
+                    key: admin-user
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -41,14 +41,16 @@ spec:
               value: "true"
             - name: KC_HEALTH_ENABLED
               value: "true"
-            - name: KC_METRICS_ENABLED
-              value: "true"
-            - name: KC_PROXY_HEADERS
-              value: "xforwarded"
-            - name: KC_HTTP_RELATIVE_PATH
-              value: "/auth"
             - name: KC_HOSTNAME_STRICT
               value: "false"
+            - name: KC_HOSTNAME_STRICT_HTTPS
+              value: "false"
+            - name: KC_METRICS_ENABLED
+              value: "true"
+            - name: KC_PROXY
+              value: "edge"
+            - name: KC_HTTP_RELATIVE_PATH
+              value: "/auth"
           ports:
             - containerPort: 8080
               name: http
