@@ -25,13 +25,14 @@ spec:
       containers:
         - name: keycloak
           image: keycloak/keycloak:25.0.1
-          args: ["start-dev", "--metrics-enabled=true", "--http-enabled=true"]
+          # Cleaned up args: start-dev automatically handles http-enabled
+          args: ["start-dev", "--metrics-enabled=true"]
           env:
             - name: KEYCLOAK_ADMIN
               valueFrom:
-                  secretKeyRef:
-                    name: keycloak-credentials
-                    key: admin-user
+                secretKeyRef:
+                  name: keycloak-credentials
+                  key: admin-user
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -48,10 +49,10 @@ spec:
             - name: KC_HTTP_RELATIVE_PATH
               value: "/auth"
             - name: KC_HOSTNAME
-              value: "13.140.173.47"
+              value: "http://13.140.173.47"
+            - name: KC_HOSTNAME_ADMIN
+              value: "http://13.140.173.47"
             - name: KC_HOSTNAME_STRICT
-              value: "false"
-            - name: KC_HOSTNAME_STRICT_HTTPS
               value: "false"
           ports:
             - containerPort: 8080
