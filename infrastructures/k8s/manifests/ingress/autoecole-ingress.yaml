@@ -23,17 +23,3 @@ spec:
                 name: school-service
                 port:
                   number: 8080
-          - path: /minio
-            pathType: Prefix
-            backend:
-                service:
-                  name: minio-service
-                  port:
-                    number: 9000
-          - path: /minio-console
-            pathType: Prefix
-            backend:
-                service:
-                  name: minio-service
-                  port:
-                    number: 9001
