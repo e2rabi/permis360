@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: postgres
-  name: postgres
+  name: postgres-service
   namespace: staging
 spec:
   selector:
