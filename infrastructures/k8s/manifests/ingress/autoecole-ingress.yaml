@@ -16,3 +16,10 @@ spec:
                 name: keycloak-service
                 port:
                   number: 8080
+          - path: /school
+            pathType: Prefix
+            backend:
+              service:
+                name: school-service
+                port:
+                  number: 8080
