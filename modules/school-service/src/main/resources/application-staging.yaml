@@ -88,6 +88,9 @@ management:
     circuitbreakers:
       enabled: true
 server:
+  servlet:
+    context-path: /school-service
+  forward-headers-strategy: framework
   port: 8080
 
 api-core:
