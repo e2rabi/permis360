@@ -24,7 +24,7 @@ spec:
               mountPath: /opt/keycloak/data
       automountServiceAccountToken: false
       containers:
-        - name: keycloak_service
+        - name: keycloak
           image: keycloak/keycloak:25.0.1
           args: ["start-dev", "--metrics-enabled=true"]
           resources:
