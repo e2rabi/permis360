@@ -104,7 +104,7 @@ docker compose up -d
 | **School  Swagger UI** | OpenAPI Documentation & Testing | [http://13.140.173.47/school-service/swagger-ui/swagger-ui/index.html](http://13.140.173.47/school-service/swagger-ui/swagger-ui/index.html) |
 | **API Gateway Swagger UI** | OpenAPI Documentation & Testing | [](http://194.163.129.95:8443/swagger-ui/index.html) |
 | **Keycloak** | Identity & Access Management | [http://13.140.173.47/auth](http://13.140.173.47/auth) |
-| **Minio** | Object store | [](http://194.163.129.95:9001) |
+| **Minio** | Object store | [http://13.140.173.47/minio-console](http://13.140.173.47/minio-console) |
 | **ArgoCD** | Gitops Operator | [http://13.140.173.47/argocd](http://13.140.173.47/argocd) |
 | **Falco** | A cloud-native runtime security tool | [](http://194.163.129.95:9001) |
 
