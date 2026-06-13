@@ -1,7 +1,6 @@
 server:
   port: 8443
   shutdown: graceful
-
 springdoc:
   api-docs:
     enabled: true
@@ -29,22 +28,22 @@ spring:
         webflux:
           routes:
             - id: eureka-dashboard
-              uri: lb://eureka-service:8080
+              uri: http://localhost:8761
               predicates:
                 - Path=/eureka
               filters:
                 - RewritePath=/eureka, /
             - id: eureka-assets
-              uri: lb://eureka-service:8080
+              uri: http://localhost:8761
               predicates:
                 # Catches /eureka/css, /eureka/js, /eureka/apps, etc.
                 - Path=/eureka/**
             - id: document-service
-              uri: lb://document-service:8080
+              uri: lb://document-service:8099
               predicates:
                 - Path=/documents/**
             - id: school-service
-              uri: lb://school-service:8080
+              uri: lb://school-service:8081
               predicates:
                 - Path=/schools/**
             - id: school-service-swagger
@@ -65,22 +64,23 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,prometheus,gateway,info
+        include: gateway, health, info
   endpoint:
-    health:
-      show-details: always
     gateway:
       enabled: true
+
   metrics:
     tags:
       application: api-gateway-service
-      environment: staging
+      environment: dev
+
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${eureka-server-url}
+      defaultZone: "http://localhost:8761/eureka"
     initial-instance-info-replication-interval-seconds: 0
     registry-fetch-interval-seconds: 5
+
   instance:
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 5

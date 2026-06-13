@@ -10,9 +10,7 @@ spring:
         - v2.0
   docker:
     compose:
-      enabled: true
-      lifecycle-management: start_and_stop
-      file: ./docker-compose-dev.yaml
+      enabled: false
   application:
     name: school-service
   cloud:
@@ -24,22 +22,22 @@ spring:
     oauth2:
       resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
         jwt:
-          issuer-uri: http://localhost:8080/realms/api-core
+          issuer-uri: ${keycloak-issuer-uri}
       client: # OAuth2 Client Configuration used for outgoing requests
         registration:
           keycloak:
-            client-id: siyaka-client
-            scope: openid,profile,email
-            client-secret: isCfVzXZDfsNiyo5HiKpfkFlg7bV3cGS
+            client-id: ${keycloak-client-id}
+            scope: openid,profile,email,roles
+            client-secret: ${keycloak-client-secret}
             authorization-grant-type: client_credentials
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/api-core
+            issuer-uri: ${keycloak-issuer-uri}
   # H2 Database Configuration
   datasource:
-    url: jdbc:postgresql://localhost:5432/autoecole_db?currentSchema=school
-    username: admin
-    password: admin
+    url: ${postgres-url}
+    username: ${postgres-username}
+    password: ${postgres-password}
     driver-class-name: org.postgresql.Driver
   jpa:
     generate-ddl: true
@@ -48,13 +46,13 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        default_schema: school
+        default_schema: ${postgres-schema-name}
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
     enabled: true
-    default-schema: school
-    schemas: school
+    default-schema: ${postgres-schema-name}
+    schemas: ${postgres-schema-name}
     locations: classpath:db/migration
   h2:
     console:
@@ -62,7 +60,7 @@ spring:
       path: /h2-console
   data:
     redis:
-      host: localhost
+      host: ${redis-host}
       port: 6379
 
 springdoc:
@@ -71,37 +69,54 @@ springdoc:
   swagger-ui:
     path: /swagger-ui/index.html
     oauth:
-      client-id: siyaka-client
-      client-secret: RgxUa9qvjDXXbs5MsnH7vUqnszoye0bI
+      client-id: ${keycloak-client-id}
+      client-secret: ${keycloak-client-secret}
 
 management:
   endpoints:
     web:
       exposure:
-        include: health,metrics
+        include: health,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: school-service
+      environment: staging
   health:
     circuitbreakers:
       enabled: true
 server:
-  port: 8081
-  forward-headers-strategy: framework
+  port: 8080
 
 api-core:
   document-service:
-    url : http://localhost:8009
+    url : ${document-service-url}
 
 keycloak:
-  server-url: http://localhost:8080
+  server-url: ${keycloak-url}
   realm: master
   client-id: admin-cli
-  target-realm: api-core
-  target-client: siyaka-client
-  client-secret: "Gvl0g8mXguprYFegYONxLaIvvWnGdEaL"
+  client-secret: ${keycloak-admin-cli-secret}
+  target-realm: ${keycloak-realm}
+  target-client: ${keycloak-client-id}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${eureka-server-url}
+    initial-instance-info-replication-interval-seconds: 0
+    registry-fetch-interval-seconds: 5
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 5
+    prefer-ip-address: true
 
 app :
   cache:
-    enabled: false
-    expiration-time : 10 # 10 Minutes
+    enabled: ${redis-cache-enabled:true}
+    expiration-time : ${redis-cache-ttl:10} # 10 Minutes
 
 resilience4j:
   circuitbreaker:
