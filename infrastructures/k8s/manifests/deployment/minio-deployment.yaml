@@ -26,9 +26,15 @@ spec:
             - ":9001"
           env:
             - name: MINIO_ROOT_USER
-              value: "minioadmin"
+              valueFrom:
+                  secretKeyRef:
+                    name: minio-auth-secret
+                    key: root-user
             - name: MINIO_ROOT_PASSWORD
-              value: "minioadmin"
+              valueFrom:
+                  secretKeyRef:
+                    name: minio-auth-secret
+                    key: root-password
             - name: MINIO_PROMETHEUS_AUTH_TYPE
               value: "public"
             - name: MINIO_PROMETHEUS_URL
