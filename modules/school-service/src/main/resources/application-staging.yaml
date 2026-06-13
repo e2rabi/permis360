@@ -1,0 +1,131 @@
+
+spring:
+  mvc:
+    apiversion:
+      use:
+        header: api-version
+      default: v1.0
+      supported:
+        - v1.0
+        - v2.0
+  docker:
+    compose:
+      enabled: false
+  application:
+    name: school-service
+  cloud:
+    openfeign:
+      oauth2:
+        enabled : true
+        clientRegistrationId: keycloak
+  security:
+    oauth2:
+      resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
+        jwt:
+          issuer-uri: ${keycloak-issuer-uri}
+      client: # OAuth2 Client Configuration used for outgoing requests
+        registration:
+          keycloak:
+            client-id: ${keycloak-client-id}
+            scope: openid,profile,email,roles
+            client-secret: ${keycloak-client-secret}
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak:
+            issuer-uri: ${keycloak-issuer-uri}
+  # H2 Database Configuration
+  datasource:
+    url: ${postgres-url}
+    username: ${postgres-username}
+    password: ${postgres-password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: ${postgres-schema-name}
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    default-schema: ${postgres-schema-name}
+    schemas: ${postgres-schema-name}
+    locations: classpath:db/migration
+  h2:
+    console:
+      enabled: false
+      path: /h2-console
+  data:
+    redis:
+      host: ${redis-host}
+      port: 6379
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+    oauth:
+      client-id: ${keycloak-client-id}
+      client-secret: ${keycloak-client-secret}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: school-service
+      environment: staging
+  health:
+    circuitbreakers:
+      enabled: true
+server:
+  port: 8080
+
+api-core:
+  document-service:
+    url : ${document-service-url}
+
+keycloak:
+  server-url: ${keycloak-url}
+  realm: master
+  client-id: admin-cli
+  client-secret: ${keycloak-admin-cli-secret}
+  target-realm: ${keycloak-realm}
+  target-client: ${keycloak-client-id}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${eureka-server-url}
+    initial-instance-info-replication-interval-seconds: 0
+    registry-fetch-interval-seconds: 5
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 5
+    prefer-ip-address: true
+
+app :
+  cache:
+    enabled: ${redis-cache-enabled:true}
+    expiration-time : ${redis-cache-ttl:10} # 10 Minutes
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      documentService:
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10              # Tracks the outcome of the last 10 calls
+        minimumNumberOfCalls: 5            # Minimum calls needed before calculating the failure rate
+        failureRateThreshold: 50           # Opens the circuit if 50% or more of calls fail
+        waitDurationInOpenState: 10s       # Time to wait before testing recovery (Half-Open state)
+        permittedNumberOfCallsInHalfOpenState: 3 # Number of test calls allowed in Half-Open state
