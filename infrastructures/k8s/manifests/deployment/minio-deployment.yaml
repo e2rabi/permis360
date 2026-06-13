@@ -33,6 +33,8 @@ spec:
               value: "public"
             - name: MINIO_PROMETHEUS_URL
               value: "http://minio-service:9000"
+            - name: MINIO_BROWSER_REDIRECT_URL
+              value: "http://13.140.173.47/minio-console/"
           ports:
             - containerPort: 9000
               name: api
