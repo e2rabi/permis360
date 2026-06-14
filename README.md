@@ -93,6 +93,12 @@ docker compose up -d
 | **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
 
 #### Staging environment (deployment using kubernetes) :  
+To run the microservices using the staging profile use following command:
+```
+kubectl create ns staging
+kubectl apply -f infrastructures/k8s/manifests
+```
+
 <img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/ad31ce7e-bc9a-44ec-a25f-1d38e8062148" />
 
 | Service | Description | Staging URL |
