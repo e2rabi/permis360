@@ -1,0 +1,57 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    urls:
+      - name: School Service
+        url: /school-service/v3/api-docs
+      - name: Document Service
+        url: /document-service/v3/api-docs
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  main:
+    web-application-type: reactive
+  application:
+    name: api-gateway-services
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      server:
+        webflux:
+          routes:
+            - id: document-service
+              uri: lb://document-service:8080
+              predicates:
+                - Path=/document-service/**
+            - id: school-service
+              uri: lb://school-service:8080
+              predicates:
+                - Path=/school-service/**
+          enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,gateway,info
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+  metrics:
+    tags:
+      application: api-gateway-service
+      environment: staging
+eureka:
+  client:
+    enabled: false
