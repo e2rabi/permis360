@@ -104,7 +104,7 @@ kubectl apply -f infrastructures/k8s/manifests
 | Service | Description | Staging URL |
 | :--- | :--- | :--- |
 | **Prometheus** | Metrics & Monitoring | [](http://194.163.129.95:9090/targets) |
-| **Jaeger** | Distributed Tracing | [](http://194.163.129.95:16686) |
+| **Jaeger** | Distributed Tracing | [http://13.140.173.47/jaeger](http://13.140.173.47/jaeger) |
 | **Kibana (ELK)** | Log Management & Analysis | [](http://194.163.129.95:5601) |
 | **Document Swagger UI** | OpenAPI Documentation & Testing | [http://13.140.173.47/document-service/swagger-ui/swagger-ui/index.html](http://13.140.173.47/document-service/swagger-ui/swagger-ui/index.html) |
 | **School  Swagger UI** | OpenAPI Documentation & Testing | [http://13.140.173.47/school-service/swagger-ui/swagger-ui/index.html](http://13.140.173.47/school-service/swagger-ui/swagger-ui/index.html) |
