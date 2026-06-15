@@ -56,3 +56,5 @@ spec:
                 secretKeyRef:
                   name: postgres-credentials
                   key: POSTGRES_PASSWORD
+            - name: LOGGING_LEVEL_ROOT
+              value: "DEBUG"
