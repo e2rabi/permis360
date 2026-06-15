@@ -37,3 +37,10 @@ spec:
                 name: api-gateway-service
                 port:
                   number: 8080
+          - path: /jaeger
+            pathType: Prefix
+            backend:
+              service:
+                name: jaeger-service
+                port:
+                  number: 16686
