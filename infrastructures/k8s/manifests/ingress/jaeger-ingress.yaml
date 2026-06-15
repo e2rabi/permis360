@@ -8,11 +8,13 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /jaeger
-            pathType: Prefix
+          # $1 is the optional trailing slash, $2 is everything after
+          - path: /jaeger(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: jaeger-service
