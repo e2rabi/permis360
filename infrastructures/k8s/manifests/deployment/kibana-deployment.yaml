@@ -24,6 +24,10 @@ spec:
           env:
             - name: ELASTICSEARCH_HOSTS
               value: "http://elasticsearch-service:9200"
+            - name: SERVER_BASEPATH
+              value: "/kibana"
+            - name: SERVER_REWRITEBASEPATH
+              value: "true"
           volumeMounts:
             - name: kibana-data
               mountPath: /usr/share/kibana/data
