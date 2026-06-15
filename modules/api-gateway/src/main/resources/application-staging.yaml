@@ -9,10 +9,12 @@ springdoc:
     enabled: true
     urls:
       - name: School Service
-        url: /school-service/v3/api-docs
+        url: http://13.140.173.47/api/api/school-service/v3/api-docs
       - name: Document Service
-        url: /document-service/v3/api-docs
+        url: http://13.140.173.47/api/api/document-service/v3/api-docs
 spring:
+  webflux:
+    base-path: /api
   lifecycle:
     timeout-per-shutdown-phase: 30s
   main:
@@ -28,14 +30,19 @@ spring:
       server:
         webflux:
           routes:
-            - id: document-service
-              uri: lb://document-service:8080
-              predicates:
-                - Path=/document-service/**
-            - id: school-service
-              uri: lb://school-service:8080
-              predicates:
-                - Path=/school-service/**
+          - id: document-service
+            uri: http://document-service:8080
+            predicates:
+              - Path=/api/document-service/**
+            filters:
+              - StripPrefix=2
+
+          - id: school-service
+            uri: http://school-service:8080
+            predicates:
+              - Path=/api/school-service/**
+            filters:
+              - StripPrefix=2
           enabled: true
 
 management:
