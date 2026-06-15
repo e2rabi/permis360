@@ -1,18 +1,16 @@
-package ma.errabi.autoecole.resource;
+package ma.errabi.autoecole.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.sdk.dto.SchoolDto;
 import ma.errabi.sdk.dto.StudentDto;
-import ma.errabi.autoecole.resource.openapi.SchoolOpenApi;
+import ma.errabi.autoecole.controller.openapi.SchoolOpenApi;
 import ma.errabi.autoecole.service.SchoolService;
 import ma.errabi.autoecole.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @Slf4j
 @RestController
