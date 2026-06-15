@@ -25,3 +25,5 @@ spec:
               name: ui
             - containerPort: 14250
               name: grpc
+            - containerPort: 4317
+              name: otlp-grpc

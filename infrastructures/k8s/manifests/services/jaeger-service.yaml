@@ -16,3 +16,6 @@ spec:
     - name: grpc
       port: 14250
       targetPort: 14250
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
