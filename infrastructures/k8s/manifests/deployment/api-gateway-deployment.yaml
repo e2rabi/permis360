@@ -33,7 +33,7 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: "staging"
             - name: OTEL_SDK_DISABLED
-              value: "true"
+              value: "false"
             - name: OTEL_SERVICE_NAME
               value: "api-gateway-service"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
