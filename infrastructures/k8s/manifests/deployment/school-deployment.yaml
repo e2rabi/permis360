@@ -33,11 +33,11 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: "staging"
             - name: OTEL_SDK_DISABLED
-              value: "true"
+              value: "false"
             - name: OTEL_SERVICE_NAME
               value: "school-service"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "http://otel-collector:4317"
+              value: "http://otel-collector-service:4317"
             - name: OTEL_EXPORTER_OTLP_PROTOCOL
               value: "grpc"
             - name: OTEL_TRACES_EXPORTER
