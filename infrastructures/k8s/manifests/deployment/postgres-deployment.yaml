@@ -15,6 +15,7 @@ spec:
     spec:
       securityContext:
         fsGroup: 999
+      automountServiceAccountToken: false
       containers:
         - name: postgres
           image: postgres:14.23
@@ -22,10 +23,19 @@ spec:
             runAsUser: 999
             runAsNonRoot: true
             allowPrivilegeEscalation: false
-          envFrom:
-            - secretRef:
-                name: postgres-credentials
           env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              value: autoecole_db
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
           ports:

@@ -31,6 +31,7 @@ public class SecurityConfig {
                                 "/webjars/**",
                                 "/favicon.ico",
                                 "/actuator/**",
+                                "/school-service/**",
                                 "/users"
 
                         ).permitAll()

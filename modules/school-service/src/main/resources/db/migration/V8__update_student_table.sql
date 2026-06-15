@@ -1,4 +1,7 @@
 
+ALTER TABLE school.students
+DROP CONSTRAINT IF EXISTS students_status_check;
+
 ALTER TABLE IF EXISTS school.students
     ADD COLUMN user_id VARCHAR(255) NOT NULL UNIQUE;
 alter table if exists school.students

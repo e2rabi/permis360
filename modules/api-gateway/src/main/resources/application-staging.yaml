@@ -1,5 +1,5 @@
 server:
-  port: 8443
+  port: 8080
   shutdown: graceful
 
 springdoc:
@@ -9,10 +9,12 @@ springdoc:
     enabled: true
     urls:
       - name: School Service
-        url: /school/v3/api-docs
+        url: http://13.140.173.47/api/api/school-service/v3/api-docs
       - name: Document Service
-        url: /document/v3/api-docs
+        url: http://13.140.173.47/api/api/document-service/v3/api-docs
 spring:
+  webflux:
+    base-path: /api
   lifecycle:
     timeout-per-shutdown-phase: 30s
   main:
@@ -28,37 +30,19 @@ spring:
       server:
         webflux:
           routes:
-            - id: eureka-dashboard
-              uri: lb://eureka-service:8080
-              predicates:
-                - Path=/eureka
-              filters:
-                - RewritePath=/eureka, /
-            - id: eureka-assets
-              uri: lb://eureka-service:8080
-              predicates:
-                # Catches /eureka/css, /eureka/js, /eureka/apps, etc.
-                - Path=/eureka/**
-            - id: document-service
-              uri: lb://document-service:8080
-              predicates:
-                - Path=/documents/**
-            - id: school-service
-              uri: lb://school-service:8080
-              predicates:
-                - Path=/schools/**
-            - id: school-service-swagger
-              uri: lb://school-service
-              predicates:
-                - Path=/school/**
-              filters:
-                - StripPrefix=1
-            - id: document-service-swagger
-              uri: lb://document-service
-              predicates:
-                - Path=/document/**
-              filters:
-                - StripPrefix=1
+          - id: document-service
+            uri: http://document-service:8080
+            predicates:
+              - Path=/api/document-service/**
+            filters:
+              - StripPrefix=2
+
+          - id: school-service
+            uri: http://school-service:8080
+            predicates:
+              - Path=/api/school-service/**
+            filters:
+              - StripPrefix=2
           enabled: true
 
 management:
@@ -77,11 +61,4 @@ management:
       environment: staging
 eureka:
   client:
-    serviceUrl:
-      defaultZone: ${eureka-server-url}
-    initial-instance-info-replication-interval-seconds: 0
-    registry-fetch-interval-seconds: 5
-  instance:
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 5
-    prefer-ip-address: true
+    enabled: false

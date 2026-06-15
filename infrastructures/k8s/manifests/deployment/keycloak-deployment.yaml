@@ -22,11 +22,23 @@ spec:
           volumeMounts:
             - name: keycloak-data
               mountPath: /opt/keycloak/data
+      automountServiceAccountToken: false
       containers:
         - name: keycloak
           image: keycloak/keycloak:25.0.1
           args: ["start-dev", "--metrics-enabled=true"]
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+              ephemeral-storage: "2Gi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+              ephemeral-storage: "3Gi"
           env:
+            - name: JAVA_OPTS_APPEND
+              value: "-XX:MaxRAMPercentage=75.0 -XX:+UseG1GC"
             - name: KEYCLOAK_ADMIN
               valueFrom:
                 secretKeyRef:

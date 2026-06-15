@@ -5,8 +5,8 @@ spring:
       max-file-size: 5MB
       max-request-size: 5MB
   docker:
-      compose:
-        enabled: false
+    compose:
+      enabled: false
   application:
     name: document-service
   security:
@@ -50,15 +50,8 @@ spring:
       enabled: false
       path: /h2-console
 eureka:
-    client:
-      serviceUrl:
-        defaultZone: ${eureka-server-url}
-      initial-instance-info-replication-interval-seconds: 0
-      registry-fetch-interval-seconds: 5
-    instance:
-      lease-renewal-interval-in-seconds: 5
-      lease-expiration-duration-in-seconds: 5
-      prefer-ip-address: true
+  client:
+    enabled: false
 springdoc:
   api-docs:
     path: /v3/api-docs
@@ -83,8 +76,12 @@ minio :
   accessKey: ${minio-access-key}
   secretKey: ${minio-secret-key}
   endpoint: ${minio-url}
+
 server:
   port: 8080
+  servlet:
+    context-path: /document-service
+  forward-headers-strategy: framework
 
 app:
   upload:

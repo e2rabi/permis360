@@ -1,4 +1,4 @@
-[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v1.3.1-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v1.3.1) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
+[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v1.3.2-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v1.3.2) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
 
 # Auto Ecole Platform μServices
 
@@ -93,18 +93,24 @@ docker compose up -d
 | **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
 
 #### Staging environment (deployment using kubernetes) :  
+To run the microservices using the staging profile use following command:
+```
+kubectl create ns staging
+kubectl apply -f infrastructures/k8s/manifests
+```
+
 <img width="5340" height="2596" alt="image" src="https://github.com/user-attachments/assets/ad31ce7e-bc9a-44ec-a25f-1d38e8062148" />
 
 | Service | Description | Staging URL |
 | :--- | :--- | :--- |
 | **Prometheus** | Metrics & Monitoring | [](http://194.163.129.95:9090/targets) |
-| **Jaeger** | Distributed Tracing | [](http://194.163.129.95:16686) |
+| **Jaeger** | Distributed Tracing | [http://13.140.173.47/jaeger](http://13.140.173.47/jaeger) |
 | **Kibana (ELK)** | Log Management & Analysis | [](http://194.163.129.95:5601) |
-| **Document Swagger UI** | OpenAPI Documentation & Testing | [](http://194.163.129.95:8009/swagger-ui/swagger-ui/index.html) |
-| **School  Swagger UI** | OpenAPI Documentation & Testing | [](http://194.163.129.95:8010/swagger-ui/swagger-ui/index.html) |
-| **API Gateway Swagger UI** | OpenAPI Documentation & Testing | [](http://194.163.129.95:8443/swagger-ui/index.html) |
+| **Document Swagger UI** | OpenAPI Documentation & Testing | [http://13.140.173.47/document-service/swagger-ui/swagger-ui/index.html](http://13.140.173.47/document-service/swagger-ui/swagger-ui/index.html) |
+| **School  Swagger UI** | OpenAPI Documentation & Testing | [http://13.140.173.47/school-service/swagger-ui/swagger-ui/index.html](http://13.140.173.47/school-service/swagger-ui/swagger-ui/index.html) |
+| **API Gateway Swagger UI** | OpenAPI Documentation & Testing | [http://13.140.173.47/api/swagger-ui/index.html](http://13.140.173.47/api/swagger-ui/index.html) |
 | **Keycloak** | Identity & Access Management | [http://13.140.173.47/auth](http://13.140.173.47/auth) |
-| **Minio** | Object store | [](http://194.163.129.95:9001) |
+| **Minio** | Object store | [http://13.140.173.47/minio-console](http://13.140.173.47/minio-console/) |
 | **ArgoCD** | Gitops Operator | [http://13.140.173.47/argocd](http://13.140.173.47/argocd) |
 | **Falco** | A cloud-native runtime security tool | [](http://194.163.129.95:9001) |
 
