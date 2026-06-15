@@ -15,7 +15,7 @@ spec:
               service:
                 name: keycloak-service
                 port:
-                  number: 8080
+                  number: 80
           - path: /school-service
             pathType: Prefix
             backend:
