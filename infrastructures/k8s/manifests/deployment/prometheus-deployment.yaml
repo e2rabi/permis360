@@ -25,6 +25,7 @@ spec:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus"
             - "--storage.tsdb.retention.time=15d"
+            - "--web.external-url=http://13.140.173.47/prometheus"
           ports:
             - containerPort: 9090
           volumeMounts:
