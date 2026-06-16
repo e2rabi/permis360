@@ -69,6 +69,20 @@ project ':plugins:custom-gradle-plugin' - /plugins/custom-gradle-plugin
 project ':sdk' - /sdk
 project ':sdk:sdk-common' - /sdk/sdk-common
 ```
+### The custom-gradle-plugin : 
+The custom-gradle-plugin is a centralized convention plugin designed specifically for the Auto Ecole Platform μServices. It standardizes build configurations, dependency management, and deployment settings across all internal microservices (School Service, Document Service, API Gateway, etc.).
+
+By applying this plugin, we adhere to the DRY (Don't Repeat Yourself) principle, ensuring that all modules share consistent versions and build logic without duplicating configuration code across multiple build.gradle files.
+### The custom-gradle-bom : 
+The custom-gradle-bom module is a centralized dependency version management system for the Auto Ecole Platform.
+
+In a multi-module microservice architecture, managing dependency versions across various services (like school-service, document-service, api-gateway, etc.) can quickly lead to version conflicts and maintenance nightmares. This BOM solves that problem by providing a single source of truth for all external libraries and SDK versions used across the platform.
+### The sdk-common : 
+
+The sdk-common module is a shared library within the Auto Ecole Platform microservices ecosystem.
+
+In a distributed microservice architecture, there is often a need to share code between services (e.g., when the API Gateway or school-service needs to communicate with the document-service). Instead of duplicating DTOs, error handling logic, and utilities across multiple repositories or modules, we centralize them here.
+
 Now, as we have learned about different system components, then let's start.
 ### System Boundary - μServices Landscape
 #### Dev environment (deployment using Docker compose) :  
@@ -103,9 +117,9 @@ kubectl apply -f infrastructures/k8s/manifests
 
 | Service | Description | Staging URL |
 | :--- | :--- | :--- |
-| **Prometheus** | Metrics & Monitoring | [](http://194.163.129.95:9090/targets) |
+| **Prometheus** | Metrics & Monitoring | [http://13.140.173.47/prometheus/targets](http://13.140.173.47/prometheus/targets) |
 | **Jaeger** | Distributed Tracing | [http://13.140.173.47/jaeger](http://13.140.173.47/jaeger) |
-| **Kibana (ELK)** | Log Management & Analysis | [](http://194.163.129.95:5601) |
+| **Kibana (ELK)** | Log Management & Analysis | [http://13.140.173.47/kibana](http://13.140.173.47/kibana) |
 | **Document Swagger UI** | OpenAPI Documentation & Testing | [http://13.140.173.47/document-service/swagger-ui/swagger-ui/index.html](http://13.140.173.47/document-service/swagger-ui/swagger-ui/index.html) |
 | **School  Swagger UI** | OpenAPI Documentation & Testing | [http://13.140.173.47/school-service/swagger-ui/swagger-ui/index.html](http://13.140.173.47/school-service/swagger-ui/swagger-ui/index.html) |
 | **API Gateway Swagger UI** | OpenAPI Documentation & Testing | [http://13.140.173.47/api/swagger-ui/index.html](http://13.140.173.47/api/swagger-ui/index.html) |

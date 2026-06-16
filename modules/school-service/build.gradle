@@ -28,6 +28,7 @@ dependencies {
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'com.tngtech.archunit:archunit-junit5'
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -40,6 +41,10 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	implementation 'org.springframework.boot:spring-boot-starter-flyway'
 	runtimeOnly  'org.flywaydb:flyway-database-postgresql'
+}
+test {
+	useJUnitPlatform()
+	jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
 bootJar {
 	archiveFileName = 'app.jar'

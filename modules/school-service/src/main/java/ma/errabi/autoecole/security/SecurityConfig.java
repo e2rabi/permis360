@@ -37,7 +37,6 @@ public class SecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                // validate incoming Bearer tokens as JWTs issued by Keycloak
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter.jwtAuthenticationConverter()))
                 );

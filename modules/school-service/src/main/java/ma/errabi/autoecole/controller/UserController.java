@@ -1,9 +1,9 @@
-package ma.errabi.autoecole.resource;
+package ma.errabi.autoecole.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.errabi.autoecole.resource.openapi.UserOpenApi;
+import ma.errabi.autoecole.controller.openapi.UserOpenApi;
 import ma.errabi.autoecole.service.KeycloakService;
 import ma.errabi.sdk.dto.UserDto;
 import org.springframework.http.ResponseEntity;

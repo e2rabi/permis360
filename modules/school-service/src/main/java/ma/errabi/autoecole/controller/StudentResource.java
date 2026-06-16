@@ -1,8 +1,8 @@
-package ma.errabi.autoecole.resource;
+package ma.errabi.autoecole.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.errabi.autoecole.resource.openapi.StudentOpenApi;
+import ma.errabi.autoecole.controller.openapi.StudentOpenApi;
 import ma.errabi.autoecole.service.StudentService;
 import ma.errabi.sdk.dto.StudentDto;
 import org.springframework.http.ResponseEntity;

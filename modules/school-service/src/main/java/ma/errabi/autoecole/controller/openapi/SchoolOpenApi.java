@@ -1,4 +1,4 @@
-package ma.errabi.autoecole.resource.openapi;
+package ma.errabi.autoecole.controller.openapi;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
