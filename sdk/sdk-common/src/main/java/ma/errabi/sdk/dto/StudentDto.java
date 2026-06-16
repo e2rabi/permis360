@@ -33,6 +33,9 @@ public record StudentDto(
     @Schema(description = "Email of the student", example = "email@errabi.com")
     String email
 ) {
+    public StudentDto() {
+        this(null, null, null, null, null, null, null, null, null, null, null);
+    }
     public String fullName(){
         return firstName + " " + lastName;
     }

@@ -7,6 +7,7 @@ import ma.errabi.autoecole.service.feign.DocumentFeignClient;
 import ma.errabi.sdk.dto.SchoolDto;
 import ma.errabi.sdk.exception.BusinessException;
 import ma.errabi.sdk.exception.ResourceNotFoundException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,6 +39,7 @@ class SchoolServiceTest {
     private SchoolService schoolService;
 
     @Test
+    @DisplayName("Should create new school")
     void createNewSchool_shouldCreateNewSchool() {
         // Given
         SchoolDto schoolDto = getSchoolDto();
@@ -55,6 +57,7 @@ class SchoolServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw BusinessException when school already exists")
     void createNewSchool_shouldThrowBusinessException_whenSchoolExists() {
         // Given
         SchoolDto schoolDto = getSchoolDto();
@@ -65,6 +68,7 @@ class SchoolServiceTest {
     }
 
     @Test
+    @DisplayName("Should return school when school is found by email")
     void getSchoolByEmail_shouldReturnSchool() {
         // Given
         String email = "test@test.com";
@@ -81,6 +85,7 @@ class SchoolServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw ResourceNotFoundException when school is not found by email")
     void getSchoolByEmail_shouldThrowResourceNotFoundException_whenSchoolNotFound() {
         // Given
         String email = "test@test.com";
@@ -91,6 +96,7 @@ class SchoolServiceTest {
     }
 
     @Test
+    @DisplayName("Should set school logo")
     void setSchoolLogo_shouldSetLogo() {
         // Given
         SchoolDto schoolDto = getSchoolDto();
@@ -106,6 +112,7 @@ class SchoolServiceTest {
     }
 
     @Test
+    @DisplayName("Should return school without logo when feign client fails")
     void setSchoolLogo_shouldReturnDtoWithoutLogo_whenFeignClientFails() {
         // Given
         SchoolDto schoolDto = getSchoolWithoutLogo();
