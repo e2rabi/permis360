@@ -126,5 +126,5 @@ kubectl apply -f infrastructures/k8s/manifests
 | **Keycloak** | Identity & Access Management | [http://13.140.173.47/auth](http://13.140.173.47/auth) |
 | **Minio** | Object store | [http://13.140.173.47/minio-console](http://13.140.173.47/minio-console/) |
 | **ArgoCD** | Gitops Operator | [http://13.140.173.47/argocd](http://13.140.173.47/argocd) |
-| **Falco** | A cloud-native runtime security tool | [](http://194.163.129.95:9001) |
+| **Falco** | A cloud-native runtime security tool | [http://falco.13.140.173.47.nip.io](http://falco.13.140.173.47.nip.io) |
 
