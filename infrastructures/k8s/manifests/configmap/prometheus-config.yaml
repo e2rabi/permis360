@@ -32,7 +32,7 @@ data:
           - targets: ['prometheus-service:9090']
 
       - job_name: 'keycloak'
-        metrics_path: /metrics
+        metrics_path: /auth/metrics
         static_configs:
           - targets: ['keycloak-service:9000']
 
