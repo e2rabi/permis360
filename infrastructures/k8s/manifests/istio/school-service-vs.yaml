@@ -7,7 +7,12 @@ spec:
   hosts:
     - school-service
   http:
-    - route:
+    - fault:
+        delay:
+          percentage:
+            value: 0.1
+          fixedDelay: 5s
+      route:
         - destination:
             host: school-service
             subset: v1
