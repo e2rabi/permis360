@@ -12,6 +12,8 @@ spec:
       app: api-gateway-service
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
       labels:
         app: api-gateway-service
     spec:
