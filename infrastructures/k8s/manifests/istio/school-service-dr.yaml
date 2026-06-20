@@ -11,5 +11,13 @@ spec:
         app: school-service
       trafficPolicy:
         connectionPool:
+          http:
+            http1MaxPendingRequests: 10
+            maxRequestsPerConnection: 10
           tcp:
             maxConnections: 2
+        outlierDetection:
+          consecutive5xxErrors: 5
+          interval: 5s
+          baseEjectionTime: 30s
+          maxEjectionPercent: 50
