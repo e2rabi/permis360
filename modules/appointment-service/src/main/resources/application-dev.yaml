@@ -1,9 +1,5 @@
 
 spring:
-  servlet:
-    multipart:
-      max-file-size: 5MB
-      max-request-size: 5MB
   docker:
       compose:
         enabled: false
@@ -75,17 +71,8 @@ management:
       show-details: always
   metrics:
     tags:
-      application: document-service
-      environment: staging
+      application: appointment-service
+      environment: dev
 
-minio :
-  bucket: ${minio-bucket}
-  accessKey: ${minio-access-key}
-  secretKey: ${minio-secret-key}
-  endpoint: ${minio-url}
 server:
   port: 8080
-
-app:
-  upload:
-    max-file-size: 2MB

@@ -1,9 +1,4 @@
-
 spring:
-  servlet:
-    multipart:
-      max-file-size: 5MB
-      max-request-size: 5MB
   docker:
     compose:
       enabled: true
@@ -28,14 +23,14 @@ spring:
             issuer-uri: http://localhost:8080/realms/api-core
   # H2 Database Configuration
   datasource:
-    url: jdbc:postgresql://localhost:5432/autoecole_db?currentSchema=document
+    url: jdbc:postgresql://localhost:5432/autoecole_db?currentSchema=appointment
     username: admin
     password: admin
     driver-class-name: org.postgresql.Driver
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
@@ -43,8 +38,8 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
-    enabled: true
-    default-schema: document
+    enabled: false
+    default-schema: appointment
     schemas: document
     locations: classpath:db/migration
   h2:
@@ -77,18 +72,5 @@ management:
       application: appointment-service
       environment: development
 
-minio :
-  bucket: my-bucket
-  accessKey: ezPgpUTY5QuchUxYojG4
-  secretKey: G2vduEiNB4gdpYQYYjdQwnaZmKWz1BSKO8pcgX08
-  endpoint: http://localhost:9000
 server:
   port: 8099
-logging:
-  level:
-    root: info
-
-app:
-  upload:
-    max-file-size: 2MB
-

@@ -35,4 +35,4 @@ management:
   metrics:
     tags:
       application: eureka-service
-      environment: staging
+      environment: dev

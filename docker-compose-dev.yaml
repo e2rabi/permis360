@@ -138,7 +138,7 @@ services:
     build: ./infrastructures/eureka-server
     container_name: eureka-service
     environment:
-      SPRING_PROFILES_ACTIVE: dev
+      SPRING_PROFILES_ACTIVE: local
       OTEL_SDK_DISABLED: false
       OTEL_SERVICE_NAME: document-service
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
