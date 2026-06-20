@@ -7,12 +7,8 @@ spec:
   hosts:
     - school-service
   http:
-    - fault:
-        delay:
-          percentage:
-            value: 90.0
-          fixedDelay: 5s
-      route:
+    - route:
         - destination:
             host: school-service
             subset: v1
+      timeout: 20s
