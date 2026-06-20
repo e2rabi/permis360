@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: school-service-vs
+  namespace: staging
+spec:
+  hosts:
+    - school-service
+  http:
+    - route:
+        - destination:
+            host: school-service
+            subset: v1
+      timeout: 20s

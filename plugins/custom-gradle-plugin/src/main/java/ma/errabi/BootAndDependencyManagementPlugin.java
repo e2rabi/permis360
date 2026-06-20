@@ -3,6 +3,8 @@ package ma.errabi;
 import com.google.cloud.tools.jib.gradle.JibExtension;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.tasks.testing.Test;
+import org.gradle.testing.jacoco.tasks.JacocoReport;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -22,8 +24,22 @@ public class BootAndDependencyManagementPlugin implements Plugin<Project> {
         project.getPluginManager().apply("java");
         project.getPluginManager().apply("org.springframework.boot");
         project.getPluginManager().apply("com.google.cloud.tools.jib");
+        project.getPluginManager().apply("jacoco");
 
         logger.info("✅ Auto ecole custom Boot plugin applied!");
+
+        // =========================
+        // JACOCO CONFIGURATION
+        // =========================
+        project.getTasks().withType(Test.class).configureEach(testTask -> {
+            testTask.finalizedBy("jacocoTestReport");
+        });
+
+        project.getTasks().withType(JacocoReport.class).configureEach(reportTask -> {
+            reportTask.dependsOn("test");
+            reportTask.getReports().getXml().getRequired().set(true);
+            reportTask.getReports().getHtml().getRequired().set(true);
+        });
 
         Object v = project.getVersion();
         if ("unspecified".equals(v.toString())) {

@@ -82,7 +82,7 @@ services:
         condition: service_started
     restart: unless-stopped
   document-service:
-    image: e2rabi11/document-service:latest
+    image: e2rabi11/document-service:1.3.3
     container_name: document-service
     environment:
       SPRING_PROFILES_ACTIVE: dev
@@ -103,7 +103,7 @@ services:
       eureka-service:
         condition: service_started
   school-service:
-    image: e2rabi11/school-service:latest
+    image: e2rabi11/school-service:1.3.3
     container_name: school-service
     environment:
       SPRING_PROFILES_ACTIVE: dev
@@ -120,7 +120,7 @@ services:
       keycloak-service:
         condition: service_healthy
   api-gateway-service:
-    image: e2rabi11/api-gateway:1.3.0
+    image: e2rabi11/api-gateway:1.3.3
     container_name: api-gateway-service
     environment:
       SPRING_PROFILES_ACTIVE: dev
@@ -137,7 +137,7 @@ services:
       keycloak-service:
         condition: service_healthy
   eureka-service:
-    image: e2rabi11/eureka-server:1.3.0
+    image: e2rabi11/eureka-server:1.3.3
     container_name: eureka-service
     environment:
       SPRING_PROFILES_ACTIVE: dev
@@ -150,6 +150,23 @@ services:
       OTEL_LOGS_EXPORTER: none
     ports:
       - "8761:8080"
+    depends_on:
+      keycloak-service:
+        condition: service_healthy
+  appointment-service:
+    image: e2rabi11/appointment-service:1.3.3
+    container_name: appointment-service
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      OTEL_SDK_DISABLED: false
+      OTEL_SERVICE_NAME: appointment-service
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: otlp
+    ports:
+      - "8012:8080"
     depends_on:
       keycloak-service:
         condition: service_healthy

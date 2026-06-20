@@ -23,3 +23,16 @@ eureka:
   server:
        waitTimeInMsWhenSyncEmpty: 0
        responseCacheUpdateIntervalMs:  5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: eureka-service
+      environment: local

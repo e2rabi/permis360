@@ -83,7 +83,7 @@ management:
   metrics:
     tags:
       application: school-service
-      environment: staging
+      environment: dev
   health:
     circuitbreakers:
       enabled: true

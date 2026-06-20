@@ -12,6 +12,8 @@ spec:
       app: jaeger
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
       labels:
         app: jaeger
     spec:

@@ -12,6 +12,8 @@ spec:
       app: kibana
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
       labels:
         app: kibana
     spec:

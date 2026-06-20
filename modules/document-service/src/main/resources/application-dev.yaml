@@ -76,7 +76,7 @@ management:
   metrics:
     tags:
       application: document-service
-      environment: staging
+      environment: dev
 
 minio :
   bucket: ${minio-bucket}
