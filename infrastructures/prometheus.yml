@@ -12,6 +12,11 @@ scrape_configs:
     static_configs:
       - targets: ["school-service:8080"]
 
+  - job_name: "appointment-service"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["appointment-service:8080"]
+
   - job_name: "eureka-service"
     metrics_path: "/actuator/prometheus"
     static_configs:
