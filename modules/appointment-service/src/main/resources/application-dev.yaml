@@ -1,0 +1,91 @@
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  docker:
+      compose:
+        enabled: false
+  application:
+    name: appointment-service
+  security:
+    oauth2:
+      resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
+        jwt:
+          issuer-uri: ${keycloak-issuer-uri}
+      client: # OAuth2 Client Configuration used for outgoing requests
+        registration:
+          keycloak:
+            client-id: ${keycloak-client-id}
+            scope: openid,profile,email,roles
+            client-secret: ${keycloak-client-secret}
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak:
+            issuer-uri: ${keycloak-issuer-uri}
+  # Database Configuration
+  datasource:
+    url: ${postgres-url}
+    username: ${postgres-username}
+    password: ${postgres-password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: ${postgres-schema-name}
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    default-schema: ${postgres-schema-name}
+    schemas: ${postgres-schema-name}
+    locations: classpath:db/migration
+  h2:
+    console:
+      enabled: false
+      path: /h2-console
+eureka:
+    client:
+      serviceUrl:
+        defaultZone: ${eureka-server-url}
+      initial-instance-info-replication-interval-seconds: 0
+      registry-fetch-interval-seconds: 5
+    instance:
+      lease-renewal-interval-in-seconds: 5
+      lease-expiration-duration-in-seconds: 5
+      prefer-ip-address: true
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: document-service
+      environment: staging
+
+minio :
+  bucket: ${minio-bucket}
+  accessKey: ${minio-access-key}
+  secretKey: ${minio-secret-key}
+  endpoint: ${minio-url}
+server:
+  port: 8080
+
+app:
+  upload:
+    max-file-size: 2MB

@@ -1,0 +1,94 @@
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  docker:
+    compose:
+      enabled: true
+      lifecycle-management: start_and_stop
+      file: ./docker-compose-dev.yaml
+  application:
+    name: appointment-service
+  security:
+    oauth2:
+      resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
+        jwt:
+          issuer-uri: http://localhost:8080/realms/api-core
+      client: # OAuth2 Client Configuration used for outgoing requests
+        registration:
+          keycloak:
+            client-id: siyaka-client
+            scope: openid,profile,email
+            client-secret: isCfVzXZDfsNiyo5HiKpfkFlg7bV3cGS
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/api-core
+  # H2 Database Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/autoecole_db?currentSchema=document
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: appointment
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    default-schema: document
+    schemas: document
+    locations: classpath:db/migration
+  h2:
+    console:
+      enabled: false
+      path: /h2-console
+eureka:
+    client:
+      serviceUrl:
+        defaultZone: "http://127.0.0.1:8761/eureka"
+      initial-instance-info-replication-interval-seconds: 0
+      registry-fetch-interval-seconds: 5
+    instance:
+      lease-renewal-interval-in-seconds: 5
+      lease-expiration-duration-in-seconds: 5
+      prefer-ip-address: true
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: appointment-service
+      environment: development
+
+minio :
+  bucket: my-bucket
+  accessKey: ezPgpUTY5QuchUxYojG4
+  secretKey: G2vduEiNB4gdpYQYYjdQwnaZmKWz1BSKO8pcgX08
+  endpoint: http://localhost:9000
+server:
+  port: 8099
+logging:
+  level:
+    root: info
+
+app:
+  upload:
+    max-file-size: 2MB
+
