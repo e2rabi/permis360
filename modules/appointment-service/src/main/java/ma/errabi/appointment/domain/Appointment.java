@@ -1,9 +1,13 @@
 package ma.errabi.appointment.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import ma.errabi.sdk.types.AppointmentStatus;
 
 
+@Setter
+@Getter
 @Entity
 @Table(name = "appointments")
 public class Appointment extends BaseEntity {
