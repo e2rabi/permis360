@@ -127,4 +127,5 @@ kubectl apply -f infrastructures/k8s/manifests
 | **Minio** | Object store | [http://13.140.173.47/minio-console](http://13.140.173.47/minio-console/) |
 | **ArgoCD** | Gitops Operator | [http://13.140.173.47/argocd](http://13.140.173.47/argocd) |
 | **Falco** | A cloud-native runtime security tool | [http://falco.13.140.173.47.nip.io](http://falco.13.140.173.47.nip.io) |
+| **Kiali** | Console for Istio service mesh | [http://kiali.13.140.173.47.nip.io](http://kiali.13.140.173.47.nip.io) |
 
