@@ -1,28 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: school-service
+  name: school-service-v2
   namespace: staging
   labels:
-    app: school-service
+    app: school-service-v2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: school-service
-      version: v1
+      version: v2
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: "true"
       labels:
         app: school-service
-        version: v1
+        version: v2
     spec:
       automountServiceAccountToken: false
       containers:
         - name: school-service
-          image: e2rabi11/school-service:1.3.4
+          image: e2rabi11/school-service:1.3.5
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
