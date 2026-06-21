@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: document-service-vs
+  namespace: staging
+spec:
+  hosts:
+    - document-service
+  http:
+    - route:
+        - destination:
+            host: document-service
+            port:
+              number: 8080
+      timeout: 10s
