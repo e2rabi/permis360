@@ -1,23 +1,14 @@
-apiVersion: networking.istio.io/v1
+apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: school-service-dr
+  name: school-service-destination
   namespace: staging
 spec:
   host: school-service.staging.svc.cluster.local
   subsets:
     - name: v1
       labels:
-        app: school-service
-      trafficPolicy:
-        connectionPool:
-          http:
-            http1MaxPendingRequests: 1
-            maxRequestsPerConnection: 1
-          tcp:
-            maxConnections: 1
-        outlierDetection:
-          consecutive5xxErrors: 3
-          interval: 5s
-          baseEjectionTime: 30s
-          maxEjectionPercent: 50
+        version: v1
+    - name: v2
+      labels:
+        version: v2
