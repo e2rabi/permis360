@@ -1,0 +1,46 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: autoecole-routing-vs
+  namespace: staging
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - autoecole-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /auth
+      route:
+        - destination:
+            host: keycloak-service
+            port:
+              number: 80
+
+    - match:
+        - uri:
+            prefix: /school-service
+      route:
+        - destination:
+            host: school-service
+            port:
+              number: 8080
+
+    - match:
+        - uri:
+            prefix: /document-service
+      route:
+        - destination:
+            host: document-service
+            port:
+              number: 8080
+
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: api-gateway-service
+            port:
+              number: 8080

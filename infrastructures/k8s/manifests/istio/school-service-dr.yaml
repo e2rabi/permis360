@@ -12,10 +12,10 @@ spec:
       trafficPolicy:
         connectionPool:
           http:
-            http1MaxPendingRequests: 1
-            maxRequestsPerConnection: 1
+            http1MaxPendingRequests: 10
+            maxRequestsPerConnection: 10
           tcp:
-            maxConnections: 1
+            maxConnections: 10
         outlierDetection:
           consecutive5xxErrors: 3
           interval: 5s
