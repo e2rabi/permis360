@@ -46,7 +46,7 @@ public class SchoolService {
     }
 
     @Transactional(readOnly = true)
-   // @Cacheable(value = "school", key = "#email")
+    @Cacheable(value = "school", key = "#email")
     public SchoolDto getSchoolByEmail(String email) {
         log.info("Get School details by email: {}", email);
 
