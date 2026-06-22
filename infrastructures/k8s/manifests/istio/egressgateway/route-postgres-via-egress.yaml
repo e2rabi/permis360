@@ -1,0 +1,30 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: route-postgres-via-egress
+  namespace: staging
+spec:
+  hosts:
+    - postgres.external.db
+  gateways:
+    - mesh
+    - postgres-egress-gw
+  tcp:
+    - match:
+        - gateways:
+            - mesh
+          port: 5432
+      route:
+        - destination:
+            host: istio-egressgateway.istio-system.svc.cluster.local
+            port:
+              number: 5432
+    - match:
+        - gateways:
+            - postgres-egress-gw
+          port: 5432
+      route:
+        - destination:
+            host: postgres.external.db
+            port:
+              number: 5432

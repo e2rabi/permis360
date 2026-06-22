@@ -13,4 +13,6 @@ spec:
       name: tcp-postgres
       protocol: TCP
   location: MESH_EXTERNAL
-  resolution: NONE
+  resolution: STATIC
+  endpoints:
+    - address: 194.163.129.95
