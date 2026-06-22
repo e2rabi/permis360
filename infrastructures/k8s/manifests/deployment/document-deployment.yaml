@@ -20,7 +20,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: document-service
-          image: e2rabi11/document-service:1.3.4
+          image: e2rabi11/document-service:1.3.6
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
