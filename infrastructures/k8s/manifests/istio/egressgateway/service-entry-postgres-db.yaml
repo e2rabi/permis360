@@ -6,18 +6,11 @@ metadata:
 spec:
   hosts:
     - postgres.external.db
-
   addresses:
     - 194.163.129.95/32
-
   ports:
     - number: 5432
       name: tcp-postgres
       protocol: TCP
-
   location: MESH_EXTERNAL
-
-  resolution: STATIC
-
-  endpoints:
-    - address: 194.163.129.95
+  resolution: NONE
