@@ -8,7 +8,7 @@ spec:
     - postgres.external.db
   gateways:
     - mesh
-    - istio-egressgateway
+    - istio-system/istio-egressgateway
   tcp:
     # workload -> egress gateway
     - match:
