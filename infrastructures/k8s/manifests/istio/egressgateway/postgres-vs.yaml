@@ -6,13 +6,11 @@ metadata:
 spec:
   hosts:
     - postgres.external.db
-
   gateways:
     - mesh
     - istio-system/istio-egressgateway
-
   tcp:
-    # 1. App → Egress Gateway
+    # App → Egress Gateway
     - match:
         - gateways:
             - mesh
@@ -23,13 +21,13 @@ spec:
             subset: postgres
             port:
               number: 5432
-    # 2. Egress Gateway → External PostgreSQL
+    # Egress Gateway → External IP
     - match:
         - gateways:
             - istio-system/istio-egressgateway
           port: 5432
       route:
         - destination:
-            host: postgres.external.db
+            host: 194.163.129.95
             port:
               number: 5432
