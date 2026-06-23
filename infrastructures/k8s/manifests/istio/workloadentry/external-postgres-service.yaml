@@ -1,18 +1,18 @@
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  name: external-postgres-db
+  name: external-postgres-service
   namespace: staging
 spec:
   hosts:
-    - postgres.external.db
+    - postgres-db.internal
   addresses:
     - 194.163.129.95/32
   ports:
     - number: 5432
       name: tcp-postgres
       protocol: TCP
-  location: MESH_EXTERNAL
   resolution: STATIC
-  endpoints:
-    - address: 194.163.129.95
+  workloadSelector:
+    labels:
+      app: postgres-backend

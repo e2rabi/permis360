@@ -5,7 +5,7 @@ metadata:
   namespace: staging
 spec:
   hosts:
-    - postgres.external.db
+    - postgres-db.internal
   gateways:
     - mesh
     - postgres-egress-gw
@@ -25,6 +25,6 @@ spec:
           port: 5432
       route:
         - destination:
-            host: postgres.external.db
+            host: postgres-db.internal
             port:
               number: 5432
