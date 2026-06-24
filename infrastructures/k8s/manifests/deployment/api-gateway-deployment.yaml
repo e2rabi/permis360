@@ -16,6 +16,7 @@ spec:
         sidecar.istio.io/inject: "true"
       labels:
         app: api-gateway-service
+        app-type: backend
     spec:
       automountServiceAccountToken: false
       containers:

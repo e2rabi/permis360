@@ -14,13 +14,18 @@ spec:
     metadata:
       annotations:
         sidecar.istio.io/inject: "true"
+        proxy.istio.io/config: |
+          proxyMetadata:
+            ISTIO_META_DNS_CAPTURE: "true"
+            ISTIO_META_DNS_AUTO_ALLOCATE: "true"
       labels:
         app: document-service
+        app-type: backend
     spec:
       automountServiceAccountToken: false
       containers:
         - name: document-service
-          image: e2rabi11/document-service:1.3.4
+          image: e2rabi11/document-service:1.3.6
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

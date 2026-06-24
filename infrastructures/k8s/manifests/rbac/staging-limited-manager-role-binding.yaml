@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: staging-dashboard-user-binding
+subjects:
+  - kind: ServiceAccount
+    name: staging-dashboard-user
+    namespace: staging
+roleRef:
+  kind: ClusterRole
+  name: staging-dashboard-user
+  apiGroup: rbac.authorization.k8s.io
