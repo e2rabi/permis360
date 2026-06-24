@@ -18,6 +18,7 @@ spec:
       labels:
         app: school-service
         version: v1
+        app-type: backend
     spec:
       automountServiceAccountToken: false
       containers:

@@ -20,6 +20,7 @@ spec:
             ISTIO_META_DNS_AUTO_ALLOCATE: "true"
       labels:
         app: document-service
+        app-type: backend
     spec:
       automountServiceAccountToken: false
       containers:
