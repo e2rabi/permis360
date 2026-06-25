@@ -1,0 +1,19 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: keycloak-admin-client-lockdown
+  namespace: staging
+spec:
+  selector:
+    matchLabels:
+      app: keycloak
+  action: DENY
+  rules:
+    - to:
+        - operation:
+            methods: ["DELETE"]
+            paths:
+              - "/admin/realms/api-core/users"
+              - "/admin/realms/api-core/users/*"
+              - "/auth/admin/realms/api-core/users"
+              - "/auth/admin/realms/api-core/users/*"
