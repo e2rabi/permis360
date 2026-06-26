@@ -12,9 +12,8 @@ spec:
       app: otel-collector
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
       labels:
+        sidecar.istio.io/inject: "false"
         app: otel-collector
     spec:
       containers:

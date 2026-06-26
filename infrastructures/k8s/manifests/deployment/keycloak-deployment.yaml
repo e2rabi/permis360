@@ -12,9 +12,8 @@ spec:
       app: keycloak
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
+        sidecar.istio.io/inject: "true"
         app: keycloak
     spec:
       initContainers:

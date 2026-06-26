@@ -13,12 +13,12 @@ spec:
   template:
     metadata:
       annotations:
-        sidecar.istio.io/inject: "true"
         proxy.istio.io/config: |
           proxyMetadata:
             ISTIO_META_DNS_CAPTURE: "true"
             ISTIO_META_DNS_AUTO_ALLOCATE: "true"
       labels:
+        sidecar.istio.io/inject: "true"
         app: document-service
         app-type: backend
     spec:

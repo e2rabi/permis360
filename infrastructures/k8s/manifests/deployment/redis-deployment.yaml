@@ -12,9 +12,8 @@ spec:
       app: redis
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
       labels:
+        sidecar.istio.io/inject: "false"
         app: redis
     spec:
       automountServiceAccountToken: false
