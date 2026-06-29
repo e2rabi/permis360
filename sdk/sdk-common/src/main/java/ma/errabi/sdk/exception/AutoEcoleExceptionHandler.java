@@ -1,5 +1,6 @@
 package ma.errabi.sdk.exception;
 
+import feign.FeignException;
 import ma.errabi.sdk.dto.ResponseInfo;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -41,5 +42,16 @@ public class AutoEcoleExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST.value())
                 .body(new ResponseInfo("Invalid Request : "+ex.getMostSpecificCause(), "00001"));
     }
-
+    @ExceptionHandler(DuplicateBookingException.class)
+    public ResponseEntity<ResponseInfo> handleDuplicateBookingException (DuplicateBookingException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST.value())
+                .body(new ResponseInfo("Invalid Request : "+ex.getMessage(), "00022"));
+    }
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<ResponseInfo> handleFeignException (FeignException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST.value())
+                .body(new ResponseInfo("Bad request : "+ex.getMessage(), "00024"));
+    }
 }

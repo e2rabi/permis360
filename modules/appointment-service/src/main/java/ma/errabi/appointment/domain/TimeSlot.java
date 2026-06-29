@@ -24,7 +24,7 @@ public class TimeSlot extends BaseEntity{
     @Column(name = "school_id", nullable = false, updatable = false)
     private Long schoolId;
 
-    @Column(name = "instructor_id", nullable = false, updatable = false)
+    @Column(name = "instructor_id", updatable = false)
     private Long instructorId;
 
     @Column(name = "start_time", nullable = false)

@@ -35,7 +35,7 @@ public class BookingService {
         TimeSlot timeSlot = timeSlotRepository.findByIdAndSchoolId(request.timeSlotId(), schoolId)
                 .orElseThrow(() -> new ResourceNotFoundException("TimeSlot not found."));
 
-        // 3. Prevent duplicate bookings by the same candidate
+        //  Prevent duplicate bookings by the same candidate
         if (appointmentRepository.existsByTimeSlotIdAndStudentId(timeSlot.getId(), request.studentId())) {
             throw new DuplicateBookingException("Candidate is already booked for this timeslot.");
         }
