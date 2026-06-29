@@ -22,7 +22,7 @@ public class Appointment extends BaseEntity {
     private Long id;
 
     @Column(name = "student_id", nullable = false, updatable = false)
-    private Long studentId;
+    private String studentId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

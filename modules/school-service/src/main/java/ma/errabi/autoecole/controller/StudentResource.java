@@ -20,7 +20,6 @@ public class StudentResource implements StudentOpenApi {
 
     @Override
     @GetMapping("/{userId}")
-
     public ResponseEntity<StudentDto> getStudentDetails(@PathVariable String userId){
         log.info("Received request to get Student details by userId: {}", userId);
         return ResponseEntity.ok(studentService.getStudentByUserId(userId));

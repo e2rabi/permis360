@@ -5,6 +5,11 @@ spring:
         enabled: false
   application:
     name: appointment-service
+  cloud:
+    openfeign:
+      oauth2:
+        enabled: true
+        clientRegistrationId: keycloak
   security:
     oauth2:
       resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
@@ -73,6 +78,8 @@ management:
     tags:
       application: appointment-service
       environment: dev
-
+api-core:
+  school-service:
+    url:
 server:
   port: 8080

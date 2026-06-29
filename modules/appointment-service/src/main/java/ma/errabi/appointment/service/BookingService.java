@@ -5,6 +5,7 @@ import ma.errabi.appointment.domain.Appointment;
 import ma.errabi.appointment.domain.TimeSlot;
 import ma.errabi.appointment.repository.AppointmentRepository;
 import ma.errabi.appointment.repository.TimeSlotRepository;
+import ma.errabi.appointment.service.feign.StudentServiceClient;
 import ma.errabi.sdk.dto.BookingRequest;
 import ma.errabi.sdk.dto.BookingResponse;
 import ma.errabi.sdk.exception.CapacityExceededException;
@@ -26,7 +27,7 @@ public class BookingService {
     public BookingResponse bookTimeSlot(Long schoolId, BookingRequest request) {
 
         //  Verify remote Candidate exists
-        if (!studentServiceClient.verifyCandidateExists(request.candidateId())) {
+        if (!studentServiceClient.getStudentDetails(request.studentId()).hasBody()) {
             throw new ResourceNotFoundException("Invalid candidate ID.");
         }
 
@@ -35,7 +36,7 @@ public class BookingService {
                 .orElseThrow(() -> new ResourceNotFoundException("TimeSlot not found."));
 
         // 3. Prevent duplicate bookings by the same candidate
-        if (appointmentRepository.existsByTimeSlotIdAndStudentId(timeSlot.getId(), request.candidateId())) {
+        if (appointmentRepository.existsByTimeSlotIdAndStudentId(timeSlot.getId(), request.studentId())) {
             throw new DuplicateBookingException("Candidate is already booked for this timeslot.");
         }
 
@@ -48,7 +49,7 @@ public class BookingService {
         //  Create and Save the Appointment
         Appointment appointment = new Appointment();
         appointment.setTimeSlot(timeSlot);
-        appointment.setStudentId(request.candidateId());
+        appointment.setStudentId(request.studentId());
         appointment.setStatus(AppointmentStatus.SCHEDULED);
         appointment.setNotes(request.notes());
 

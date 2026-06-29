@@ -11,5 +11,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Query("SELECT COUNT(a) FROM Appointment a WHERE a.timeSlot.id = :timeSlotId AND a.status != 'CANCELED'")
     long countActiveBookingsForTimeSlot(Long timeSlotId);
 
-    boolean existsByTimeSlotIdAndStudentId(Long timeSlotId, Long studentId);
+    boolean existsByTimeSlotIdAndStudentId(Long timeSlotId, String studentId);
 }
