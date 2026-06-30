@@ -24,6 +24,9 @@ public class Appointment extends BaseEntity {
     @Column(name = "student_id", nullable = false, updatable = false)
     private String studentId;
 
+    @Column(name = "provider_id", nullable = false, updatable = false)
+    private String providerId;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AppointmentStatus status;

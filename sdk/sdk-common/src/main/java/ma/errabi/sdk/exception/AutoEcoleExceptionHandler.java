@@ -54,4 +54,10 @@ public class AutoEcoleExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST.value())
                 .body(new ResponseInfo("Bad request : "+ex.getMessage(), "00024"));
     }
+    @ExceptionHandler(CapacityExceededException.class)
+    public ResponseEntity<ResponseInfo> handleCapacityExceededException(CapacityExceededException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST.value())
+                .body(new ResponseInfo("Bad request : "+ex.getMessage(), "00025"));
+    }
 }
