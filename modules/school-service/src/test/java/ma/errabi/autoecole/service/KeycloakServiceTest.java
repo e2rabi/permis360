@@ -135,7 +135,7 @@ class KeycloakServiceTest {
 
     @Test
     @DisplayName("Should throw ResourceNotFoundException if the configured Keycloak Client is missing")
-    void assignClientRole_WhenClientDoesNotExist_ShouldThrowResourceNotFoundException() {
+    void assignClientRole_WhenDoesNotExist_ShouldThrowResourceNotFoundException() {
         // Arrange
         String userId = "user-uuid-123";
         String roleName = "SOME_ROLE";
@@ -147,7 +147,7 @@ class KeycloakServiceTest {
 
         // Act & Assert
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, 
-                () -> keycloakService.assignClientRole(userId, roleName));
+                () -> keycloakService.assignRole(userId, roleName));
                 
         assertEquals("Client not found: " + clientId, exception.getMessage());
         

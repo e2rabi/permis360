@@ -3,6 +3,8 @@ package ma.errabi.autoecole.service;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ma.errabi.autoecole.util.CredentialRepresentationBuilder;
+import ma.errabi.autoecole.util.UserRepresentationBuilder;
 import ma.errabi.sdk.dto.UserDto;
 import ma.errabi.sdk.exception.ResourceNotFoundException;
 import ma.errabi.sdk.exception.TechnicalException;
@@ -44,36 +46,38 @@ public class KeycloakService {
         }
 
         String userId = extractUserIdFromLocation(response);
-        assignClientRole(userId, ROLE_API_CORE);
+        assignRole(userId, ROLE_API_CORE);
 
         return userId;
     }
 
     private CredentialRepresentation createCredential(String password) {
-        CredentialRepresentation credential = new CredentialRepresentation();
-        credential.setType(CredentialRepresentation.PASSWORD);
-        credential.setValue(password);
-        credential.setTemporary(false);
-        return credential;
+        CredentialRepresentationBuilder credentialBuilder = CredentialRepresentationBuilder.create()
+                .type(CredentialRepresentation.PASSWORD)
+                .value(password)
+                .temporary(false);
+        return credentialBuilder.build();
     }
 
     private UserRepresentation createUserRepresentation(UserDto userDto, CredentialRepresentation credential) {
-        UserRepresentation user = new UserRepresentation();
-        user.setUsername(userDto.username());
-        user.setEmail(userDto.email());
-        user.setFirstName(userDto.firstName());
-        user.setLastName(userDto.lastName());
-        user.setEmailVerified(true);
-        user.setEnabled(true);
-        user.setCredentials(List.of(credential));
-        return user;
+       return UserRepresentationBuilder.create()
+                .username(userDto.username())
+                .email(userDto.email())
+                .firstName(userDto.firstName())
+                .lastName(userDto.lastName())
+                .emailVerified(true)
+                .credentials(List.of(credential))
+                .enabled(true)
+                .build();
     }
 
     private String extractUserIdFromLocation(Response response) {
-        return response.getHeaderString("Location").substring(response.getHeaderString("Location").lastIndexOf("/") + 1);
+        return response.getHeaderString("Location")
+                .substring(response.getHeaderString("Location")
+                .lastIndexOf("/") + 1);
     }
 
-    public void assignClientRole(String userId, String roleName) {
+    public void assignRole(String userId, String roleName) {
         var realmResource = keycloak.realm(targetRealm);
 
         String clientUuid = realmResource.clients()
