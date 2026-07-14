@@ -103,7 +103,7 @@ services:
       eureka-service:
         condition: service_started
   school-service:
-    image: e2rabi11/school-service:1.3.3
+    image: e2rabi11/school-service:1.3.6
     container_name: school-service
     environment:
       SPRING_PROFILES_ACTIVE: dev
