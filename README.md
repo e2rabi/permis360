@@ -105,6 +105,7 @@ docker compose up -d
 | **Keycloak** | Identity & Access Management | [http://194.163.129.95:8080](http://194.163.129.95:8080) |
 | **Minio** | Object store | [http://194.163.129.95:9001](http://194.163.129.95:9001) |
 | **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
+| **Jenkins** | CI/CD Pipeline | [http://194.163.129.95:7083/ci](http://194.163.129.95:7083/ci) |
 
 #### Staging environment (deployment using kubernetes) :  
 To run the microservices using the staging profile use following command:
