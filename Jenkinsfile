@@ -1,20 +1,42 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            // Use an official Java 25 image
+            image 'eclipse-temurin:25-jdk'
 
-    environment {
-        GITHUB_USER = credentials('github-packages')
+            // Optional but recommended: Mount a volume to cache Gradle dependencies
+            // between pipeline runs, significantly speeding up build times.
+            args '-v gradle-cache:/root/.gradle'
+        }
     }
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh '''
-                export GITHUB_USERNAME=$GITHUB_USER_USR
-                export GITHUB_TOKEN=$GITHUB_USER_PSW
-
-                ./gradlew build
-                '''
+                // Pulls code from your configured SCM (e.g., GitHub, GitLab)
+                checkout scm
             }
+        }
+
+        stage('Build and Test') {
+            steps {
+                // Ensure the Gradle wrapper has execution permissions
+                sh 'chmod +x gradlew'
+
+                // Execute the build using Java 25
+                 sh '''
+                    export GITHUB_USERNAME=$GITHUB_USER_USR
+                    export GITHUB_TOKEN=$GITHUB_USER_PSW
+                    ./gradlew build
+                 '''
+            }
+        }
+    }
+
+    post {
+        always {
+            // Archive test results if your build produces them
+            junit 'build/test-results/**/*.xml'
         }
     }
 }
