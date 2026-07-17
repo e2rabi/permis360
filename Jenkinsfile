@@ -25,8 +25,6 @@ pipeline {
 
                 // Execute the build using Java 25
                  sh '''
-                    export GITHUB_USERNAME=$GITHUB_USER_USR
-                    export GITHUB_TOKEN=$GITHUB_USER_PSW
                     ./gradlew build
                  '''
             }
