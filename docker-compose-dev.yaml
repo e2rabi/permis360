@@ -134,20 +134,20 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
-  eureka-service:
-    build: ./infrastructures/eureka-server
-    container_name: eureka-service
-    environment:
-      SPRING_PROFILES_ACTIVE: local
-      OTEL_SDK_DISABLED: false
-      OTEL_SERVICE_NAME: document-service
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
-      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
-      OTEL_TRACES_EXPORTER: otlp
-      OTEL_METRICS_EXPORTER: none
-      OTEL_LOGS_EXPORTER: otlp
-    ports:
-      - "8761:8080"
+#  eureka-service:
+#    build: ./infrastructures/eureka-server
+#    container_name: eureka-service
+#    environment:
+#      SPRING_PROFILES_ACTIVE: local
+#      OTEL_SDK_DISABLED: false
+#      OTEL_SERVICE_NAME: document-service
+#      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+#      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+#      OTEL_TRACES_EXPORTER: otlp
+#      OTEL_METRICS_EXPORTER: none
+#      OTEL_LOGS_EXPORTER: otlp
+#    ports:
+#      - "8761:8080"
     depends_on:
       keycloak-service:
         condition: service_healthy

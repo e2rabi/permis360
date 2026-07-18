@@ -3,6 +3,7 @@ package ma.errabi.autoecole.service;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ma.errabi.autoecole.domain.School;
 import ma.errabi.autoecole.service.feign.DocumentFeignClient;
 import ma.errabi.sdk.dto.SchoolDto;
 import ma.errabi.autoecole.mapper.SchoolMapper;
@@ -74,4 +75,15 @@ public class SchoolService {
         }
 
     }
+
+    /***
+     * Get School by Id
+     * @param schoolId the id of the school
+     * @return {@link School}
+     */
+    public School getSchoolById(Long schoolId) {
+        return schoolRepository.findById(schoolId)
+                .orElseThrow(() -> new ResourceNotFoundException("School not found with id: " + schoolId));
+    }
+
 }

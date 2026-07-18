@@ -3,6 +3,7 @@ package ma.errabi.autoecole.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import ma.errabi.sdk.types.InstructorAvailability;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
@@ -24,6 +25,9 @@ public class Instructor extends BaseEntity{
     private Long id;
 
     private String name;
+    private String specialty;
+    @Enumerated(EnumType.STRING)
+    private InstructorAvailability availability;
 
     @Column(unique = true)
     private String phone;
