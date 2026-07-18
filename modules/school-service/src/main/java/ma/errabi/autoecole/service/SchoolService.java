@@ -27,12 +27,7 @@ public class SchoolService {
     private final SchoolMapper mapper;
     private final DocumentFeignClient documentFeignClient;
 
-    /**
-     * Creates a new School entity
-     * @param request request the {@link SchoolDto} containing the School data to create
-     * @return the created {@link SchoolDto} object
-     * @throws BusinessException if a School with the same email already exists
-     */
+
     @Transactional
     public SchoolDto createNewSchool(SchoolDto request) {
         log.info("Creating new School: {}", request);
@@ -76,11 +71,6 @@ public class SchoolService {
 
     }
 
-    /***
-     * Get School by Id
-     * @param schoolId the id of the school
-     * @return {@link School}
-     */
     public School getSchoolById(Long schoolId) {
         return schoolRepository.findById(schoolId)
                 .orElseThrow(() -> new ResourceNotFoundException("School not found with id: " + schoolId));
