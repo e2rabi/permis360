@@ -12,7 +12,7 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'autoecole-platform'
+rootProject.name = 'permis360-platform'
 include "plugins:custom-gradle-bom"
 include "plugins:custom-gradle-plugin"
 include "modules:school-service"
