@@ -1,6 +1,6 @@
 [![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v1.3.5-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v1.3.5) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
 
-# Auto Ecole Platform μServices
+# 🚦 Permis360 Platform μServices
 
 ## Introduction
 A driving school management (Software as a Service) is a web-based platform designed to digitize and streamline all administrative, educational, and financial operations of a driving school.
@@ -43,11 +43,11 @@ It's important to distinguish the two concepts:
 Let's explain first the system structure to understand its components:
 ```
 ------------------------------------------------------------
-Root project 'autoecole-platform'
+Root project 'permis360-platform'
 ------------------------------------------------------------
 Project hierarchy:
 
-Root project 'autoecole-platform'
+Root project 'permis360-platform'
 +--- Project ':infrastructures'
 |    \--- Project ':infrastructures:eureka-server'
 +--- Project ':modules'
