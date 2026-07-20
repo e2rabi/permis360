@@ -86,7 +86,7 @@ The custom-gradle-bom module is a centralized dependency version management syst
 In a multi-module microservice architecture, managing dependency versions across various services (like school-service, document-service, api-gateway, etc.) can quickly lead to version conflicts and maintenance nightmares. This BOM solves that problem by providing a single source of truth for all external libraries and SDK versions used across the platform.
 ### The sdk-common : 
 
-The sdk-common module is a shared library within the Auto Ecole Platform microservices ecosystem.
+The sdk-common module is a shared library within the Permis360 Platform microservices ecosystem.
 
 In a distributed microservice architecture, there is often a need to share code between services (e.g., when the API Gateway or school-service needs to communicate with the document-service). Instead of duplicating DTOs, error handling logic, and utilities across multiple repositories or modules, we centralize them here.
 
