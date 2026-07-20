@@ -35,6 +35,11 @@ This project uses the following frameworks and libraries :
 - Testing using ArchUnit to verify the respect of architectural rules
 - Security using Spring security, OAuth2,mTls,Istio,PSS,RBAC,trivy,AppArmor,Seccomp,falco 
 ### System components Structure
+It's important to distinguish the two concepts:
+- Microservices define how the system is split (multiple independent services).
+- Hexagonal Architecture defines how each individual service is structured internally.
+
+
 Let's explain first the system structure to understand its components:
 ```
 ------------------------------------------------------------
@@ -46,8 +51,10 @@ Root project 'autoecole-platform'
 +--- Project ':infrastructures'
 |    \--- Project ':infrastructures:eureka-server'
 +--- Project ':modules'
-|    +--- Project ':modules:document-service'
-|    \--- Project ':modules:school-service'
+|    +--- Project ':modules:document-service'        (Hexagonal)
+|    \--- Project ':modules:school-service'          (Hexagonal)
+|    \--- Project ':modules:appointement-service'    (Hexagonal)
+|    \--- Project ':modules:notification-service'    (Hexagonal)
 |    \--- Project ':modules:api-gateway'
 +--- Project ':plugins'
 |    +--- Project ':plugins:custom-gradle-bom'
