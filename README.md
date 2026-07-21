@@ -103,6 +103,7 @@ docker compose up -d
 
 | Service | Description | Dev URL |
 | :--- | :--- | :--- |
+| **Frontend** | The permis360 UI | [http://194.163.129.95:3000/#/login](http://194.163.129.95:3000/#/login) |
 | **Prometheus** | Metrics & Monitoring | [http://194.163.129.95:9090](http://194.163.129.95:9090/targets) |
 | **Jaeger** | Distributed Tracing | [http://194.163.129.95:16686](http://194.163.129.95:16686) |
 | **Kibana (ELK)** | Log Management & Analysis | [http://194.163.129.95:5601](http://194.163.129.95:5601) |
