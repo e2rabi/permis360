@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Tajawal:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 222 22% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 22% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 22% 13%;
+
+    --primary: 169 44% 15%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 168 28% 93%;
+
+    --secondary: 220 18% 95%;
+    --secondary-foreground: 169 44% 15%;
+
+    --accent: 35 72% 42%;
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 38 58% 89%;
+
+    --muted: 220 16% 93%;
+    --muted-foreground: 220 9% 42%;
+
+    --destructive: 11 69% 39%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-soft: 15 57% 92%;
+
+    --success: 141 46% 28%;
+    --success-foreground: 0 0% 100%;
+    --success-soft: 129 28% 91%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 35 72% 42%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+  [dir='rtl'] body {
+    @apply font-arabic;
+  }
+  [dir='rtl'] h1, [dir='rtl'] h2, [dir='rtl'] h3, [dir='rtl'] h4 {
+    @apply font-arabic;
+  }
+}
+
+@layer components {
+  /* Dashed lane-line divider — the app's signature motif, direction-agnostic */
+  .lane-divider {
+    height: 1px;
+    background-image: repeating-linear-gradient(
+      to right,
+      hsl(var(--primary-foreground) / 0.3) 0,
+      hsl(var(--primary-foreground) / 0.3) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+  }
+
+  .mono {
+    @apply font-mono text-xs;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

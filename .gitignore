@@ -36,3 +36,4 @@ out/
 ### VS Code ###
 .vscode/
 /lib/
+/modules/permis360-ui/node_modules/
