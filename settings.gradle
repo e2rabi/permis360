@@ -21,7 +21,7 @@ include "modules:appointment-service"
 include "modules:api-gateway"
 include "sdk:sdk-common"
 include "infrastructures:eureka-server"
-include "frontend:permis360-ui"
+include "frontend"
 
 //includeBuild('plugins/custom-gradle-plugin')
 
