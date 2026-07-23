@@ -12,9 +12,8 @@ spec:
       app: jaeger
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
       labels:
+        sidecar.istio.io/inject: "false"
         app: jaeger
     spec:
       automountServiceAccountToken: false

@@ -12,7 +12,7 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'autoecole-platform'
+rootProject.name = 'permis360-platform'
 include "plugins:custom-gradle-bom"
 include "plugins:custom-gradle-plugin"
 include "modules:school-service"
@@ -21,6 +21,8 @@ include "modules:appointment-service"
 include "modules:api-gateway"
 include "sdk:sdk-common"
 include "infrastructures:eureka-server"
+include "frontend"
+
 //includeBuild('plugins/custom-gradle-plugin')
 
 

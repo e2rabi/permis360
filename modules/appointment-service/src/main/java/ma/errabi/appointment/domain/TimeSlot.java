@@ -3,8 +3,10 @@ package ma.errabi.appointment.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ma.errabi.sdk.types.SlotStatus;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Setter
@@ -21,19 +23,18 @@ public class TimeSlot extends BaseEntity{
     )
     private Long id;
 
-    @Column(name = "school_id", nullable = false, updatable = false)
-    private Long schoolId;
+    Long providerId;
 
-    @Column(name = "instructor_id", nullable = false, updatable = false)
-    private Long instructorId;
+    LocalDate date;
 
-    @Column(name = "start_time", nullable = false)
-    private LocalDateTime startTime;
+    LocalTime startTime;
 
-    @Column(name = "end_time", nullable = false)
-    private LocalDateTime endTime;
+    LocalTime endTime;
 
-    @Column(name = "max_capacity", nullable = false)
-    private Integer maxCapacity;
+    Integer capacity;
+
+    Integer reserved;
+
+    SlotStatus status;
 
 }

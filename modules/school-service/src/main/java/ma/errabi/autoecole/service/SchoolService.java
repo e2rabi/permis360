@@ -3,6 +3,7 @@ package ma.errabi.autoecole.service;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ma.errabi.autoecole.domain.School;
 import ma.errabi.autoecole.service.feign.DocumentFeignClient;
 import ma.errabi.sdk.dto.SchoolDto;
 import ma.errabi.autoecole.mapper.SchoolMapper;
@@ -26,12 +27,7 @@ public class SchoolService {
     private final SchoolMapper mapper;
     private final DocumentFeignClient documentFeignClient;
 
-    /**
-     * Creates a new School entity
-     * @param request request the {@link SchoolDto} containing the School data to create
-     * @return the created {@link SchoolDto} object
-     * @throws BusinessException if a School with the same email already exists
-     */
+
     @Transactional
     public SchoolDto createNewSchool(SchoolDto request) {
         log.info("Creating new School: {}", request);
@@ -74,4 +70,10 @@ public class SchoolService {
         }
 
     }
+
+    public School getSchoolById(Long schoolId) {
+        return schoolRepository.findById(schoolId)
+                .orElseThrow(() -> new ResourceNotFoundException("School not found with id: " + schoolId));
+    }
+
 }

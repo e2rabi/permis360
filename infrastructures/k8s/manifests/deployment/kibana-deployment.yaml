@@ -12,9 +12,8 @@ spec:
       app: kibana
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
       labels:
+        sidecar.istio.io/inject: "false"
         app: kibana
     spec:
       automountServiceAccountToken: false

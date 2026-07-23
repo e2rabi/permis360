@@ -1,6 +1,6 @@
-[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v1.3.4-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v1.3.4) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
+[![Dev Build](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml/badge.svg)](https://github.com/e2rabi/autoecole-platform/actions/workflows/gradle.yml) [![Release](https://img.shields.io/badge/release-v1.3.5-blue)](https://github.com/e2rabi/autoecole-platform/releases/tag/v1.3.5) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fe2rabi%2Fautoecole-platform?ref=badge_shield&issueType=security)
 
-# Auto Ecole Platform μServices
+# 🚦 Permis360 Platform μServices
 
 ## Introduction
 A driving school management (Software as a Service) is a web-based platform designed to digitize and streamline all administrative, educational, and financial operations of a driving school.
@@ -35,19 +35,26 @@ This project uses the following frameworks and libraries :
 - Testing using ArchUnit to verify the respect of architectural rules
 - Security using Spring security, OAuth2,mTls,Istio,PSS,RBAC,trivy,AppArmor,Seccomp,falco 
 ### System components Structure
+It's important to distinguish the two concepts:
+- Microservices define how the system is split (multiple independent services).
+- Hexagonal Architecture defines how each individual service is structured internally.
+
+
 Let's explain first the system structure to understand its components:
 ```
 ------------------------------------------------------------
-Root project 'autoecole-platform'
+Root project 'permis360-platform'
 ------------------------------------------------------------
 Project hierarchy:
 
-Root project 'autoecole-platform'
+Root project 'permis360-platform'
 +--- Project ':infrastructures'
 |    \--- Project ':infrastructures:eureka-server'
 +--- Project ':modules'
-|    +--- Project ':modules:document-service'
-|    \--- Project ':modules:school-service'
+|    +--- Project ':modules:document-service'        (Hexagonal)
+|    \--- Project ':modules:school-service'          (Hexagonal)
+|    \--- Project ':modules:appointement-service'    (Hexagonal)
+|    \--- Project ':modules:notification-service'    (Hexagonal)
 |    \--- Project ':modules:api-gateway'
 +--- Project ':plugins'
 |    +--- Project ':plugins:custom-gradle-bom'
@@ -79,7 +86,7 @@ The custom-gradle-bom module is a centralized dependency version management syst
 In a multi-module microservice architecture, managing dependency versions across various services (like school-service, document-service, api-gateway, etc.) can quickly lead to version conflicts and maintenance nightmares. This BOM solves that problem by providing a single source of truth for all external libraries and SDK versions used across the platform.
 ### The sdk-common : 
 
-The sdk-common module is a shared library within the Auto Ecole Platform microservices ecosystem.
+The sdk-common module is a shared library within the Permis360 Platform microservices ecosystem.
 
 In a distributed microservice architecture, there is often a need to share code between services (e.g., when the API Gateway or school-service needs to communicate with the document-service). Instead of duplicating DTOs, error handling logic, and utilities across multiple repositories or modules, we centralize them here.
 
@@ -96,6 +103,7 @@ docker compose up -d
 
 | Service | Description | Dev URL |
 | :--- | :--- | :--- |
+| **Frontend** | The permis360 UI | [http://194.163.129.95:3000/#/login](http://194.163.129.95:3000/#/login) |
 | **Prometheus** | Metrics & Monitoring | [http://194.163.129.95:9090](http://194.163.129.95:9090/targets) |
 | **Jaeger** | Distributed Tracing | [http://194.163.129.95:16686](http://194.163.129.95:16686) |
 | **Kibana (ELK)** | Log Management & Analysis | [http://194.163.129.95:5601](http://194.163.129.95:5601) |
@@ -105,6 +113,7 @@ docker compose up -d
 | **Keycloak** | Identity & Access Management | [http://194.163.129.95:8080](http://194.163.129.95:8080) |
 | **Minio** | Object store | [http://194.163.129.95:9001](http://194.163.129.95:9001) |
 | **Eureka Server** | Discovery Service | [http://194.163.129.95:8761](http://194.163.129.95:8761) |
+| **Jenkins** | CI/CD Pipeline | [http://194.163.129.95:7083/ci](http://194.163.129.95:7083/ci) |
 
 #### Staging environment (deployment using kubernetes) :  
 To run the microservices using the staging profile use following command:

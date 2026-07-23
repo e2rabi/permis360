@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Optional;
 
 @Repository
@@ -18,6 +20,11 @@ public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
     Optional<TimeSlot> findByIdWithLock(@Param("id") Long id);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT t FROM TimeSlot t WHERE t.id = :id AND t.schoolId = :schoolId")
-    Optional<TimeSlot> findByIdAndSchoolId(Long id, Long schoolId);
+    @Query("SELECT t FROM TimeSlot t WHERE t.id = :id AND t.providerId = :providerId")
+    Optional<TimeSlot> findByIdAndProviderId(Long id, Long providerId);
+
+    boolean existsByProviderIdAndDateAndStartTime(
+            Long providerId,
+            LocalDate date,
+            LocalTime startTime);
 }

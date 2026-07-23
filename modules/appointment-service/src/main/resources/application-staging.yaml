@@ -9,6 +9,11 @@ spring:
       enabled: false
   application:
     name: appointment-service
+  cloud:
+    openfeign:
+      oauth2:
+        enabled: true
+        clientRegistrationId: keycloak
   security:
     oauth2:
       resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
@@ -82,7 +87,9 @@ server:
   servlet:
     context-path: /appointment-service
   forward-headers-strategy: framework
-
+api-core:
+  school-service:
+    url:
 app:
   upload:
     max-file-size: 2MB

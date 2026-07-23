@@ -12,9 +12,8 @@ spec:
       app: elasticsearch
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
       labels:
+        sidecar.istio.io/inject: "false"
         app: elasticsearch
     spec:
       automountServiceAccountToken: false

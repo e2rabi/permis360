@@ -6,6 +6,11 @@ spring:
       file: ./docker-compose-dev.yaml
   application:
     name: appointment-service
+  cloud:
+    openfeign:
+      oauth2:
+        enabled: true
+        clientRegistrationId: keycloak
   security:
     oauth2:
       resourceserver: # Resource Server Configuration used to validate incoming JWT tokens
@@ -71,6 +76,13 @@ management:
     tags:
       application: appointment-service
       environment: development
-
+api-core:
+  school-service:
+    url: http://localhost:8081
 server:
   port: 8099
+
+logging:
+  level:
+    feign: DEBUG
+    ma.errabi.appointment.service.feign: DEBUG
