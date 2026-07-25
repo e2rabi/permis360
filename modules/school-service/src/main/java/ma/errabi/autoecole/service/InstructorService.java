@@ -7,6 +7,7 @@ import ma.errabi.autoecole.mapper.InstructorMapper;
 import ma.errabi.autoecole.repository.InstructorRepository;
 import ma.errabi.sdk.dto.InstructorDTO;
 import ma.errabi.sdk.exception.ResourceNotFoundException;
+import ma.errabi.sdk.types.InstructorAvailability;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,6 @@ public class InstructorService {
     private final InstructorRepository repository;
     private final InstructorMapper mapper;
     private final SchoolService schoolService;
-
 
     /**
      * Returns a paginated list of instructors.
@@ -55,4 +55,33 @@ public class InstructorService {
         return mapper.toDTO(repository.save(instructor));
     }
 
+    /**
+     * Updates the availability status of an instructor.
+     *
+     * @param id     the ID of the instructor
+     * @param status the new availability status
+     * @throws ResourceNotFoundException if the instructor does not exist
+     */
+    @Transactional
+    public void updateInstructorStatus(Long id, String status) {
+        log.info("Updating instructor status to {}", status);
+        Instructor instructor = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Instructor not found with id: " + id));
+        instructor.setAvailability(InstructorAvailability.valueOf(status));
+        repository.save(instructor);
+    }
+    /**
+     * Deletes an instructor.
+     *
+     * @param id the ID of the instructor to delete
+     * @throws ResourceNotFoundException if the instructor does not exist
+     */
+    @Transactional
+    public void deleteInstructor(Long id) {
+        log.info("Deleting instructor with id: {}", id);
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Instructor not found with id: " + id);
+        }
+        repository.deleteById(id);
+    }
 }

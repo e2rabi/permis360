@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import ma.errabi.sdk.types.InstructorAvailability;
+import ma.errabi.sdk.types.LicenseType;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
@@ -29,6 +30,12 @@ public class Instructor extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private InstructorAvailability availability;
 
+    private String authorizationNumber;
+
+    @Enumerated(EnumType.STRING)
+    private LicenseType licenseTypes;
+
+    private String cin ;
     @Column(unique = true)
     private String phone;
     @ManyToOne

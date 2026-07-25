@@ -1,5 +1,6 @@
 package ma.errabi.autoecole.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.errabi.autoecole.service.InstructorService;
@@ -22,8 +23,20 @@ public class InstructorController {
         return ResponseEntity.ok(instructorService.getAllInstructors(pageable));
     }
     @PostMapping
-    public ResponseEntity<InstructorDTO> createInstructor(@RequestBody InstructorDTO instructorDTO) {
+    public ResponseEntity<InstructorDTO> createInstructor(@RequestBody @Valid InstructorDTO instructorDTO) {
         log.info("Received request to create instructor: {}", instructorDTO);
         return ResponseEntity.ok(instructorService.createInstructor(instructorDTO));
+    }
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Void> updateInstructorStatus(@PathVariable Long id, @RequestParam String status) {
+        log.info("Received request to update instructor new status: {}", status);
+        instructorService.updateInstructorStatus(id, status);
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteInstructor(@PathVariable Long id) {
+        log.info("Received request to delete instructor with id: {}", id);
+        instructorService.deleteInstructor(id);
+        return ResponseEntity.noContent().build();
     }
 }

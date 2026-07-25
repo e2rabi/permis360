@@ -5,9 +5,12 @@ import ma.errabi.sdk.dto.ResponseInfo;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
+
+import java.util.Arrays;
 
 @RestControllerAdvice
 public class AutoEcoleExceptionHandler {
@@ -59,5 +62,12 @@ public class AutoEcoleExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST.value())
                 .body(new ResponseInfo("Bad request : "+ex.getMessage(), "00025"));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ResponseInfo> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST.value())
+                .body(new ResponseInfo("Invalid Request : "+ Arrays.toString(ex.getDetailMessageArguments()), "00001"));
     }
 }
