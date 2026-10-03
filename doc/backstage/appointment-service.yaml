@@ -4,9 +4,9 @@ metadata:
   name: appointment-service
 spec:
   type: service
-  lifecycle: production
+  lifecycle: dev
   owner: team-platform
-  system: permis360-platform
+  system: permis360-backend
   tags:
     - backend
     - java
