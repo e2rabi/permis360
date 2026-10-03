@@ -231,6 +231,23 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
+  camunda-service:
+    image: camunda/camunda-bpm-platform:run
+    container_name: camunda-service
+    environment:
+      TZ: UTC
+    ports:
+      - "8082:8080"
+    depends_on:
+      postgres-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
 volumes:
   postgres_data4:
   keycloak_data:
