@@ -7,3 +7,8 @@ spec:
   lifecycle: production
   owner: team-platform
   system: permis360-platform
+  tags:
+    - backend
+    - java
+    - spring-boot
+    - microservices

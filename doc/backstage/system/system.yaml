@@ -10,3 +10,5 @@ metadata:
     - microservices
 spec:
   owner: team-platform
+  lifecycle: production
+  domain: permis360-ma
