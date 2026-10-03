@@ -7,6 +7,9 @@ spec:
   lifecycle: dev
   owner: team-platform
   system: permis360-backend
+  dependsOn:
+    - name: document-service
+    - name: appointment-service
   tags:
     - backend
     - java
