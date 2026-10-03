@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: autoecole-platform
+  description: Auto-Ecole backend platform
+  tags:
+    - backend
+    - java
+    - spring-boot
+    - microservices
+spec:
+  owner: team-platform

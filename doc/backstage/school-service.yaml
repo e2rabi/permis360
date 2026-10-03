@@ -5,4 +5,5 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: team-school
+  owner: team-platform
+  system: autoecole-platform
