@@ -8,3 +8,4 @@ spec:
     - https://github.com/e2rabi/permis360/blob/dev/modules/appointment-service/catalog-info.yaml
     - https://github.com/e2rabi/permis360/blob/dev/modules/document-service/catalog-info.yaml
     - https://github.com/e2rabi/permis360/blob/dev/modules/school-service/catalog-info.yaml
+    - https://github.com/e2rabi/permis360/blob/dev/sdk/sdk-common/catalog-info.yaml
