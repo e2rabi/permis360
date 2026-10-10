@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: permis360-platform-components
+spec:
+  type: file
+  targets:
+    - ./modules/school-service/catalog-info.yaml
+    - ./modules/document-service/catalog-info.yaml
+    - ./modules/sdk-common/catalog-info.yaml

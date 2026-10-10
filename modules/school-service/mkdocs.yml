@@ -1,0 +1,7 @@
+site_name: School Service
+site_description: Technical documentation for school-service
+
+nav:
+  - Home: index.md
+plugins:
+  - techdocs-core
