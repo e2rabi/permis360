@@ -2,9 +2,12 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: sdk-common
+spec:
+  type: library
+  lifecycle: dev
+  owner: team-platform
+  system: permis360-backend
   description: Shared Java library providing common utilities and reusable components for platform microservices
-  annotations:
-    github.com/project-slug: e2rabi/permis360
   tags:
     - java
     - spring-boot
@@ -14,8 +17,3 @@ metadata:
     - url: https://github.com/e2rabi/permis360/tree/dev/sdk/sdk-common
       title: Source Repository
       icon: github
-spec:
-  type: library
-  lifecycle: dev
-  owner: team-platform
-  system: permis360-backend
