@@ -3,7 +3,7 @@ kind: Component
 metadata:
   name: school-service
   annotations:
-    backstage.io/techdocs-ref: url:https://github.com/e2rabi/permis360/blob/dev/README.md
+    backstage.io/techdocs-ref: url:https://github.com/e2rabi/permis360/blob/dev
 spec:
   type: service
   lifecycle: dev
