@@ -13,7 +13,3 @@ spec:
     - spring-boot
     - shared-library
     - gradle
-  links:
-    - url: https://github.com/e2rabi/permis360/tree/dev/sdk/sdk-common
-      title: Source Repository
-      icon: github
