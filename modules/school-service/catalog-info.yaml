@@ -11,6 +11,7 @@ spec:
   system: permis360-backend
   dependsOn:
     - component:document-service
+    - component:sdk-common
   tags:
     - backend
     - java

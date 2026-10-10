@@ -14,3 +14,5 @@ spec:
     - java
     - spring-boot
     - microservices
+  dependsOn:
+    - component:sdk-common
