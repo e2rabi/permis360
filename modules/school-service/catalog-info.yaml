@@ -4,7 +4,7 @@ metadata:
   name: school-service
   annotations:
     backstage.io/techdocs-ref: dir:.
-    github.com/project-slug: 'backstage/backstage'
+    github.com/project-slug: 'e2rabi/permis360'
 spec:
   type: service
   lifecycle: dev

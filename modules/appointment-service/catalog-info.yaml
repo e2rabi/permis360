@@ -4,6 +4,7 @@ metadata:
   name: appointment-service
   annotations:
     backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: 'e2rabi/permis360'
 spec:
   type: service
   lifecycle: dev
