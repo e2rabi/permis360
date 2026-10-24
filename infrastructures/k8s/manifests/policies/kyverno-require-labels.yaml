@@ -1,5 +1,5 @@
 apiVersion: policies.kyverno.io/v1
-kind: ValidatingPolicy
+kind: NamespacedValidatingPolicy
 metadata:
   name: require-labels
   namespace: staging
