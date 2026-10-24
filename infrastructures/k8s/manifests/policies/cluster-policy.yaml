@@ -5,6 +5,7 @@ metadata:
   name: cluster-policy-require-labels
 spec:
   background: false
+  validationFailureAction: Enforce
   rules:
     - name: check-for-labels
       match:
@@ -15,9 +16,8 @@ spec:
               operations:
                 - CREATE
       validate:
-        failureAction: Enforce
         message: "The label 'env' is required and must not be empty."
         pattern:
           metadata:
             labels:
-              env: "?*
+              env: "?*"
