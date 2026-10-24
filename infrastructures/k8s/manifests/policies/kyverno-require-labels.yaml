@@ -1,0 +1,17 @@
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: require-labels
+  namespace: staging
+spec:
+  validationActions:
+    - Deny
+  matchConstraints:
+    resourceRules:
+      - apiGroups: ['']
+        apiVersions: ['v1']
+        operations: ['CREATE', 'UPDATE']
+        resources: ['pods']
+  validations:
+    - message: "label 'app' is required"
+      expression: "has(object.metadata.labels) && has(object.metadata.labels.app) && object.metadata.labels.app != ''"
