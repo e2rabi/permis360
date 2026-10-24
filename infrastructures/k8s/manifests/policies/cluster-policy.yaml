@@ -1,3 +1,4 @@
+
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
@@ -10,13 +11,13 @@ spec:
         any:
           - resources:
               kinds:
-                - 'POD'
+                - Pod
               operations:
                 - CREATE
       validate:
         failureAction: Enforce
-        message: 'The label `env` is required.'
+        message: "The label 'env' is required and must not be empty."
         pattern:
           metadata:
             labels:
-              env : '?*'
+              env: "?*
