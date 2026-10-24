@@ -14,7 +14,7 @@ spec:
               operations:
                 - CREATE
       validate:
-        failureAction: Audit
+        failureAction: Enforce
         message: 'The label `env` is required.'
         pattern:
           metadata:
