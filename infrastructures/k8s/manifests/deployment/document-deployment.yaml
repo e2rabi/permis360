@@ -21,6 +21,7 @@ spec:
         sidecar.istio.io/inject: "true"
         app: document-service
         app-type: backend
+        env: staging
     spec:
       automountServiceAccountToken: false
       containers:

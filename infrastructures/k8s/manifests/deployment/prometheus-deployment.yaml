@@ -15,6 +15,7 @@ spec:
       labels:
         sidecar.istio.io/inject: "true"
         app: prometheus
+        env: staging
     spec:
       securityContext:
         fsGroup: 65534

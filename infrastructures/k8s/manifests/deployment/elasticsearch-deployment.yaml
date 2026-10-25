@@ -15,6 +15,7 @@ spec:
       labels:
         sidecar.istio.io/inject: "false"
         app: elasticsearch
+        env: staging
     spec:
       automountServiceAccountToken: false
       containers:

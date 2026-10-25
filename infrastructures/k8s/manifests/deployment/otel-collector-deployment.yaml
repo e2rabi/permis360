@@ -15,6 +15,7 @@ spec:
       labels:
         sidecar.istio.io/inject: "false"
         app: otel-collector
+        env: staging
     spec:
       containers:
         - name: otel-collector

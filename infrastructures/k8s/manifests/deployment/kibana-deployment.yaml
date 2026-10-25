@@ -15,6 +15,7 @@ spec:
       labels:
         sidecar.istio.io/inject: "false"
         app: kibana
+        env: staging
     spec:
       automountServiceAccountToken: false
       containers:

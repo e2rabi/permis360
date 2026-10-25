@@ -15,6 +15,7 @@ spec:
       labels:
         sidecar.istio.io/inject: "true"
         app: keycloak
+        env: staging
     spec:
       initContainers:
         - name: fix-permissions

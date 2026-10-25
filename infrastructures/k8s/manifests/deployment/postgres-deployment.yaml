@@ -15,6 +15,7 @@ spec:
       labels:
         sidecar.istio.io/inject: "false"
         app: postgres
+        env: staging
     spec:
       securityContext:
         fsGroup: 999

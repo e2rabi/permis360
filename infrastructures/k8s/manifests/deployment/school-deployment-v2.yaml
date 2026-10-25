@@ -17,6 +17,7 @@ spec:
         app: school-service
         version: v2
         app-type: backend
+        env: staging
     spec:
       automountServiceAccountToken: false
       containers:
