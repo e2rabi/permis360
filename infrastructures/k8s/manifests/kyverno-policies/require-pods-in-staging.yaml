@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-pods-in-staging
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: pods-only-in-staging
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Pods can only be created in the staging namespace."
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.namespace }}"
+                operator: NotEquals
+                value: staging
