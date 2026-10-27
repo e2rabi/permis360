@@ -10,16 +10,24 @@ permissions:
 jobs:
   sign:
     runs-on: ubuntu-latest
+    environment: staging
+
     permissions:
       contents: read
       id-token: write
-    environment: staging
+
     steps:
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ vars.DOCKER_HUB_TOKEN_COSIGN }}
 
       - name: Sign all repository tags
         env:
@@ -39,10 +47,13 @@ jobs:
             exit 1
           fi
 
-          while [ -n "${NEXT:-}" ] || [ "${FIRST:-true}" = "true" ]; do
+          NEXT=""
+          FIRST=true
+
+          while [ -n "$NEXT" ] || [ "$FIRST" = "true" ]; do
             FIRST=false
 
-            if [ -z "${NEXT:-}" ]; then
+            if [ -z "$NEXT" ]; then
               URL="https://hub.docker.com/v2/repositories/${DOCKERHUB_USERNAME}/?page_size=100"
             else
               URL="$NEXT"
@@ -51,28 +62,27 @@ jobs:
             RESPONSE=$(curl -fsSL \
               -H "Authorization: Bearer $TOKEN" "$URL")
 
-            echo "$RESPONSE" | jq -r '.results[].name' |
-            while read -r REPO; do
+            while IFS= read -r REPO; do
               [ -n "$REPO" ] || continue
 
               TAGS_URL="https://hub.docker.com/v2/repositories/${DOCKERHUB_USERNAME}/${REPO}/tags?page_size=100"
 
-              while [ -n "$TAGS_URL" ] && [ "$TAGS_URL" != "null" ]; do
+              while [ -n "$TAGS_URL" ]; do
                 TAGS=$(curl -fsSL \
                   -H "Authorization: Bearer $TOKEN" "$TAGS_URL")
 
-                echo "$TAGS" | jq -r '.results[].name' |
-                while read -r TAG; do
+                while IFS= read -r TAG; do
                   [ -n "$TAG" ] || continue
 
                   IMAGE="docker.io/${DOCKERHUB_USERNAME}/${REPO}:${TAG}"
+
                   echo "Signing $IMAGE"
                   cosign sign --yes "$IMAGE"
-                done
+                done < <(echo "$TAGS" | jq -r '.results[].name')
 
                 TAGS_URL=$(echo "$TAGS" | jq -r '.next // empty')
               done
-            done
+            done < <(echo "$RESPONSE" | jq -r '.results[].name')
 
             NEXT=$(echo "$RESPONSE" | jq -r '.next // empty')
           done
