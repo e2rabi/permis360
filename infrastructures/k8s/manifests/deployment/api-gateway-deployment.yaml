@@ -7,6 +7,9 @@ metadata:
     app: api-gateway-service
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: api-gateway-service

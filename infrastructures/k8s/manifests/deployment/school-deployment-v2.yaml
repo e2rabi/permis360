@@ -7,6 +7,9 @@ metadata:
     app: school-service-v2
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       version: v2
