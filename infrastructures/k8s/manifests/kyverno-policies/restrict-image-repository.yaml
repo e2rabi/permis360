@@ -1,10 +1,12 @@
+
 apiVersion: policies.kyverno.io/v1
 kind: ImageValidatingPolicy
 metadata:
-  name: restrict-image-repository
+  name: verify-dockerhub-signatures
 spec:
   validationActions:
     - Deny
+
   matchConstraints:
     resourceRules:
       - apiGroups: [""]
@@ -12,9 +14,20 @@ spec:
         operations: ["CREATE", "UPDATE"]
         resources: ["pods"]
 
+  matchImageReferences:
+    - glob: "docker.io/e2rabi11/*"
+
+  attestors:
+    - name: cosign
+      cosign:
+        keyless:
+          identities:
+            - issuer: "https://token.actions.githubusercontent.com"
+              subject: "https://github.com/e2rabi/permis360/.github/workflows/sign-all-images.yml@refs/heads/dev"
+
   validations:
     - expression: >-
-        images.containers.all(image,
-          image.registry == 'docker.io' &&
-          image.path.startsWith('library/e2rabi11/'))
-      message: "Images must come from docker.io/library/e2rabi11/."
+        images.containers.map(
+          image, verifyImageSignatures(image, [attestors.cosign])
+        ).all(result, result > 0)
+      message: "Images from docker.io/e2rabi11 must have a valid trusted Cosign signature."
