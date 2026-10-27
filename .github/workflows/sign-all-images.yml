@@ -1,0 +1,78 @@
+
+name: Sign All Docker Hub Images
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sign:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Sign all repository tags
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ vars.DOCKERHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TOKEN=$(curl -fsSL \
+            -H "Content-Type: application/json" \
+            -d "{\"username\":\"${DOCKERHUB_USERNAME}\",\"password\":\"${DOCKERHUB_TOKEN}\"}" \
+            https://hub.docker.com/v2/users/login/ | jq -r '.token')
+
+          if [ -z "$TOKEN" ] || [ "$TOKEN" = "null" ]; then
+            echo "Docker Hub authentication failed"
+            exit 1
+          fi
+
+          while [ -n "${NEXT:-}" ] || [ "${FIRST:-true}" = "true" ]; do
+            FIRST=false
+
+            if [ -z "${NEXT:-}" ]; then
+              URL="https://hub.docker.com/v2/repositories/${DOCKERHUB_USERNAME}/?page_size=100"
+            else
+              URL="$NEXT"
+            fi
+
+            RESPONSE=$(curl -fsSL \
+              -H "Authorization: Bearer $TOKEN" "$URL")
+
+            echo "$RESPONSE" | jq -r '.results[].name' |
+            while read -r REPO; do
+              [ -n "$REPO" ] || continue
+
+              TAGS_URL="https://hub.docker.com/v2/repositories/${DOCKERHUB_USERNAME}/${REPO}/tags?page_size=100"
+
+              while [ -n "$TAGS_URL" ] && [ "$TAGS_URL" != "null" ]; do
+                TAGS=$(curl -fsSL \
+                  -H "Authorization: Bearer $TOKEN" "$TAGS_URL")
+
+                echo "$TAGS" | jq -r '.results[].name' |
+                while read -r TAG; do
+                  [ -n "$TAG" ] || continue
+
+                  IMAGE="docker.io/${DOCKERHUB_USERNAME}/${REPO}:${TAG}"
+                  echo "Signing $IMAGE"
+                  cosign sign --yes "$IMAGE"
+                done
+
+                TAGS_URL=$(echo "$TAGS" | jq -r '.next // empty')
+              done
+            done
+
+            NEXT=$(echo "$RESPONSE" | jq -r '.next // empty')
+          done
