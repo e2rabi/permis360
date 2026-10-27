@@ -6,7 +6,6 @@ metadata:
 spec:
   validationActions:
     - Deny
-
   matchConstraints:
     resourceRules:
       - apiGroups: [""]
