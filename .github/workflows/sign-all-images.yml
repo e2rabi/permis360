@@ -24,7 +24,7 @@ jobs:
       - name: Sign all repository tags
         env:
           DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ vars.DOCKERHUB_TOKEN }}
+          DOCKERHUB_TOKEN: ${{ vars.DOCKER_HUB_TOKEN_COSIGN }}
         shell: bash
         run: |
           set -euo pipefail
