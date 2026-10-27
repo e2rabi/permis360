@@ -1,0 +1,20 @@
+apiVersion: policies.kyverno.io/v1
+kind: ImageValidatingPolicy
+metadata:
+  name: restrict-image-repository
+spec:
+  validationActions:
+    - Deny
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["pods"]
+
+  validations:
+    - expression: >-
+        images.containers.all(image,
+          image.registry == 'docker.io' &&
+          image.path.startsWith('library/e2rabi11/'))
+      message: "Images must come from docker.io/library/e2rabi11/."
