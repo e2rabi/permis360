@@ -33,7 +33,8 @@ This project uses the following frameworks and libraries :
 - Deployment docker and docker-compose and kubernetes with helm charts
 - ArgoCd for deployment as a Gitops operator
 - Testing using ArchUnit to verify the respect of architectural rules
-- Security using Spring security, OAuth2,mTls,Istio,PSS,RBAC,trivy,AppArmor,Seccomp,falco 
+- Security using Spring security, OAuth2,mTls,Istio,PSS,RBAC,trivy,AppArmor,Seccomp,falco,kyverno
+- TechDoc using Backstage IDP 
 ### System components Structure
 It's important to distinguish the two concepts:
 - Microservices define how the system is split (multiple independent services).
