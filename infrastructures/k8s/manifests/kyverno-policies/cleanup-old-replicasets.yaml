@@ -1,0 +1,23 @@
+
+apiVersion: policies.kyverno.io/v1alpha1
+kind: DeletingPolicy
+metadata:
+  name: cleanup-old-replicasets
+spec:
+  schedule: "*/5 * * * *"
+
+  matchConstraints:
+    resourceRules:
+      - apiGroups:
+          - apps
+        apiVersions:
+          - v1
+        operations:
+          - "*"
+        resources:
+          - replicasets
+        scope: Namespaced
+  conditions:
+    - name: is-older-than-24-hours
+      expression: >
+        now() - object.metadata.creationTimestamp > duration('24h')
