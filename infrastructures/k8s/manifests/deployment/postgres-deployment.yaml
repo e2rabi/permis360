@@ -20,6 +20,13 @@ spec:
         app: postgres
         env: staging
     spec:
+      initContainers:
+        - name: fix-permissions
+          image: busybox
+          command: [ "sh", "-c", "mkdir -p /var/lib/postgresql/data/pgdata && chown -R 999:999 /var/lib/postgresql/data && chmod 700 /var/lib/postgresql/data/pgdata" ]
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
       securityContext:
         fsGroup: 999
       automountServiceAccountToken: false
