@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: limit-deployment-replicas-staging
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: max-one-replica-in-staging
+      match:
+        any:
+          - resources:
+              kinds:
+                - Deployment
+              namespaces:
+                - staging
+              operations:
+                - CREATE
+                - UPDATE
+      validate:
+        message: "Deployments in staging namespace cannot use more than 1 replica."
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.object.spec.replicas || `1` }}"
+                operator: GreaterThan
+                value: 1
