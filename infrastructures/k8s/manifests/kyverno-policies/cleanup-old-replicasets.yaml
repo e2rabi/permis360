@@ -20,4 +20,4 @@ spec:
   conditions:
     - name: is-older-than-24-hours
       expression: >
-        now() - object.metadata.creationTimestamp > duration('24h')
+        time.now() - timestamp(object.metadata.creationTimestamp) > duration("24h")
